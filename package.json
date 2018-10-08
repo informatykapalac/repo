@@ -1,0 +1,22 @@
+{
+  "name": "projekt",
+  "version": "1.0.0",
+  "description": "Projekt gry w ReactJS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/informatykapalac/repo.git"
+  },
+  "author": "PM Katowice",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/informatykapalac/repo/issues"
+  },
+  "homepage": "https://github.com/informatykapalac/repo#readme",
+  "dependencies": {
+    "create-react-app": "^2.0.3"
+  }
+}
