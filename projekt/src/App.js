@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import Example from './Registration';
-import logo from './logo.svg';
+import Main from './MainComponent';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
-		<Example />
+	<BrowserRouter>
+		<Main />
+	</BrowserRouter>
     );
   }
 }

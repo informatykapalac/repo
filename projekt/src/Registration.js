@@ -1,7 +1,8 @@
 import React from 'react';
+import axios from 'axios';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
-class Example extends React.Component {
+class Register extends React.Component {
   constructor() {
 	super();
 	this.state = {
@@ -9,17 +10,33 @@ class Example extends React.Component {
 		email: "",
 		pass: ""
 	};
-	
+
+	this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  handleSubmit(event) {
+  	event.preventDefault();
+
+	const info = {
+		data: this.state
+	};
+
+
+	axios.post('/', { info }).then(res => {
+		console.log(res);
+		console.log(res.data);
+	})
+  }
+
   render() {
 	return (
 		<div className="rejestrTlo">
 			<div className="rejestrMain">
-				<Form>
+				<Form onSubmit={this.handleSubmit}>
 					<div className="rejestrContent">
 						<FormGroup>
 							<Label for="exampleNick">Nick</Label>
-							<Input type="textarea" name="nick" id="exampleNick" placeholder="Wpisz swój nick"  />
+							<Input type="text" name="nick" id="exampleNick" placeholder="Wpisz swój nick"  />
 						</FormGroup>
 						<FormGroup>
 							<Label for="exampleEmail">Email</Label>
@@ -29,6 +46,9 @@ class Example extends React.Component {
 							<Label for="examplePass">Hasło</Label>
 							<Input type="password" name="pass" id="examplePass" placeholder="Wpisz swoje hasło"  />
 						</FormGroup>
+						<FormGroup>
+							<Button type="submit">Zarejestruj się</Button>
+						</FormGroup>
 					</div>
 				</Form>
 			</div>
@@ -37,4 +57,4 @@ class Example extends React.Component {
   }
 }
 
-export default Example;
+export default Register;
