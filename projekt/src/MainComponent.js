@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Login from './Login';
 import Register from './Registration';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 
@@ -7,8 +8,8 @@ class Main extends Component {
     return (
       <div>
         <Switch>
-          <Route path='/register' component={() => <Register />} />
-          <Redirect to='/register' />
+          <Route path='/login' component={() => <Login/>} />
+          <Redirect to='/login' />
         </Switch>
       </div>
     );
