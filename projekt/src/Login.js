@@ -11,7 +11,16 @@ class Login extends React.Component {
 		};
 		this.sendData = this.sendData.bind(this);
 	}
+	setCookie(name, value, expireDays){
+		const d = new Date();
+		d.setDate(d.getDate + (expireDays * 24 * 60 * 60* 1000));
+		const expire = "expires" + d.toGMTString;
+		document.cookie = name + "=" + value + ";" + expire + ";path=/";
+	}
 	sendData(event){
+		if(){
+			console.log("tak");
+		}
 		const loginData = {
 			data: this.state
 		};
