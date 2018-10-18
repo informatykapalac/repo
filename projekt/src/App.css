@@ -62,6 +62,9 @@ textarea {
 	width: 100%;
 	position: fixed;
 }
+.LoginRememberGroup{
+  margin-left: 20px;
+}
 
 @keyframes App-logo-spin {
   from {
