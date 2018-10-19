@@ -1,0 +1,54 @@
+1.Postanowienia ogólne
+2.Definicje
+3.Rodzaj i zakres us³ug elektronicznych
+4.Warunki œwiadczenia i zawierania umów o œwiadczenie us³ug elektronicznych
+5.Warunki rozwi¹zania umów o œwiadczenie us³ug elektronicznych
+6.Tryb postêpowania reklamacyjnego
+7.W³asnoœæ intelektualna
+8.Postanowienia koñcowe
+
+1.POSTANOWIENIA OGÓLNE
+	1.Strona example.com dzia³a na zasadach okreœlonych w niniejszym Regulaminie.
+	2.Regulamin okreœla rodzaje i zakres us³ug œwiadczonych drog¹ elektroniczn¹ przez Stronê example.com, zasady œwiadczenia tych us³ug, warunki zawierania i rozwi¹zywania umów o œwiadczenie us³ug drog¹ elektroniczn¹, a tak¿e tryb postêpowania reklamacyjnego.
+	3.Regulamin okreœla rodzaje i zakres us³ug œwiadczonych drog¹ elektroniczn¹ przez Stronê example.com, zasady œwiadczenia tych us³ug, warunki zawierania i rozwi¹zywania umów o œwiadczenie us³ug drog¹ elektroniczn¹, a tak¿e tryb postêpowania reklamacyjnego.
+	4.Ka¿dy Us³ugobiorca z chwil¹ podjêcia czynnoœci zmierzaj¹cych do korzystania z Us³ug Elektronicznych Strony example.com, zobowi¹zany jest do przestrzegania postanowieñ niniejszego Regulaminu.
+	5.W sprawach nieuregulowanych w niniejszym Regulaminie maj¹ zastosowanie przepisy
+		1.Ustawy o œwiadczeniu us³ug drog¹ elektroniczn¹ z dnia 18 lipca 2002 r. (Dz. U. Nr 144, poz. 1204 ze zm.),	
+		2.Ustawy o prawach konsumenta z dnia 30 maja 2014 r. (Dz. U. 2014 poz. 827),
+		3.Ustawy Kodeks cywilny z dnia 23 kwietnia 1964 r. (Dz. U. nr 16, poz. 93 ze zm.) oraz inne w³aœciwe przepisy prawa polskiego.
+2.DEFINICJE
+	1.REGULAMIN - niniejszy regulamin Strony.
+	2.US£UGODAWCA – Pa³ac M³odzie¿y w Katowicach wykonuj¹cy/a dzia³alnoœæ gospodarcz¹ pod firm¹ Sine Nomine, adres siedziby: Pa³ac M³odzie¿y w Katowicach, adres do dorêczeñ: Miko³owska 26, 40-066 Katowice, NIP: -, REGON: -, wpisan¹ do Centralnej Ewidencji i Informacji o Dzia³alnoœci Gospodarczej, adres poczty elektronicznej: informatykapalac@gmail.com, tel. -.
+	3.US£UGOBIORCA – osoba fizyczna, osoba prawna albo jednostka organizacyjna nieposiadaj¹ca osobowoœci prawnej, której ustawa przyznaje zdolnoœæ prawn¹ korzystaj¹ca z Us³ugi Elektronicznej.
+	4.US£UGA ELEKTRONICZNA – us³uga œwiadczona drog¹ elektroniczn¹ przez Us³ugodawcê na rzecz Us³ugobiorcy za poœrednictwem Strony.
+
+3.RODZAJ I ZAKRES US£UG ELEKTRONICZNYCH
+	1.Us³ugodawca umo¿liwia za poœrednictwem Strony korzystanie z Us³ug Elektronicznych takich jak:
+	2.Œwiadczenie Us³ug Elektronicznych na rzecz Us³ugobiorców odbywa siê na warunkach okreœlonych w Regulaminie.
+
+4.WARUNKI ŒWIADCZENIA I ZAWIERANIA UMÓW O ŒWIADCZENIE US£UG ELEKTRONICZNYCH
+	1.Œwiadczenie Us³ug Elektronicznych okreœlonych w rozdziale III pkt. 1 Regulaminu przez Us³ugodawcê jest nieodp³atne.
+	2.Okres na jaki umowa zostaje zawarta:
+	3.Wymagania techniczne niezbêdne do wspó³pracy z systemem teleinformatycznym, którym pos³uguje siê Us³ugodawca:
+		1.komputer z dostêpem do Internetu,
+		2.dostêp do poczty elektronicznej,
+		3.przegl¹darka internetowa,
+		4.w³¹czenie w przegl¹darce internetowej Cookies oraz Javascript.
+	4.Us³ugobiorca zobowi¹zany jest do korzystania ze Strony w sposób zgodny z prawem i dobrymi obyczajami maj¹c na uwadze poszanowanie dóbr osobistych i praw w³asnoœci intelektualnej osób trzecich.
+	5.Us³ugobiorca zobowi¹zany jest do wprowadzania danych zgodnych ze stanem faktycznym.
+	6.Us³ugobiorcê obowi¹zuje zakaz dostarczania treœci o charakterze bezprawnym.
+
+5.TRYB POSTÊPOWANIA REKLAMACYJNEGO
+	1.Reklamacje zwi¹zane ze œwiadczeniem Us³ug Elektronicznych przez Us³ugodawcê:
+		1.Reklamacje zwi¹zane ze œwiadczeniem Us³ug Elektronicznych za poœrednictwem Strony Us³ugobiorca mo¿e sk³adaæ za poœrednictwem poczty elektronicznej na adres: informatykapalac@gmail.com
+		2.W powy¿szej wiadomoœci e-mail, nale¿y podaæ jak najwiêcej informacji i okolicznoœci dotycz¹cych przedmiotu reklamacji, w szczególnoœci rodzaj i datê wyst¹pienia nieprawid³owoœci oraz dane kontaktowe. Podane informacje znacznie u³atwi¹ i przyspiesz¹ rozpatrzenie reklamacji przez Us³ugodawcê.
+		3.Rozpatrzenie reklamacji przez Us³ugodawcê nastêpuje niezw³ocznie, nie póŸniej ni¿ w terminie 14 dni.
+		4.OdpowiedŸ Us³ugodawcy w sprawie reklamacji jest wysy³ana na adres e-mail Us³ugobiorcy podany w zg³oszeniu reklamacyjnym lub w inny podany przez Us³ugobiorcê sposób.
+
+6.W£ASNOŒÆ INTELEKTUALNA
+	1.Wszystkie treœci zamieszczone na stronie internetowej pod adresem example.com korzystaj¹ z ochrony prawno autorskiej i s¹ w³asnoœci¹ example.com Us³ugobiorca ponosi pe³n¹ odpowiedzialnoœæ za szkodê wyrz¹dzon¹ Us³ugodawcy, bêd¹c¹ nastêpstwem u¿ycia jakiejkolwiek zawartoœci strony example.com, bez zgody Us³ugodawcy.
+	2.Jakiekolwiek wykorzystanie przez kogokolwiek, bez wyraŸnej pisemnej zgody Us³ugodawcy, któregokolwiek z elementów sk³adaj¹cych siê na treœæ oraz zawartoœæ strony example.com stanowi naruszenie prawa autorskiego przys³uguj¹cego Us³ugodawcy i skutkuje odpowiedzialnoœci¹ cywilnoprawn¹ oraz karn¹.
+
+7.POSTANOWIENIA KOÑCOWE
+	1.Umowy zawierane za poœrednictwem Strony zawierane s¹ zgodnie z prawem polskim.
+	2.W przypadku niezgodnoœci jakiejkolwiek czêœci Regulaminu z obowi¹zuj¹cym prawem, w miejsce zakwestionowanego przepisu Regulaminu zastosowanie maj¹ w³aœciwe przepisy prawa polskiego.

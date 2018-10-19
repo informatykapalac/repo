@@ -1,3 +1,7 @@
+#root{
+	height: 100vh;
+	background-color: grey;
+}
 .App {
   text-align: center;
 }
@@ -62,9 +66,29 @@ textarea {
 	width: 100%;
 	position: fixed;
 }
+.Title{
+	text-align:center;
+	margin-bottom:35px;
+}
+.Login {
+	display: flex;
+	height: 100vh;
+}
+
 .LoginRememberGroup{
   margin-left: 20px;
 }
+
+.LoginContainer,
+.LoginJumbotron{
+	padding: 0px;
+	margin: 0px !important;
+	align-self: center;
+}
+.LoginJumbotron{
+	padding: 2rem !important;
+}
+
 
 @keyframes App-logo-spin {
   from {

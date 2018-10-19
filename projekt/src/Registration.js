@@ -1,60 +1,47 @@
 import React from 'react';
-import axios from 'axios';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
-class Register extends React.Component {
+class Example extends React.Component {
   constructor() {
 	super();
 	this.state = {
 		nick: "",
 		email: "",
-		pass: ""
+		pass: "",
 	};
-
-	this.handleSubmit = this.handleSubmit.bind(this);
+	
   }
-
-  handleSubmit(event) {
-  	event.preventDefault();
-
-	const info = {
-		data: this.state
-	};
-
-
-	axios.post('/', { info }).then(res => {
-		console.log(res);
-		console.log(res.data);
-	})
-  }
-
   render() {
 	return (
-		<div className="rejestrTlo">
-			<div className="rejestrMain">
-				<Form onSubmit={this.handleSubmit}>
-					<div className="rejestrContent">
-						<FormGroup>
-							<Label for="exampleNick">Nick</Label>
-							<Input type="text" name="nick" id="exampleNick" placeholder="Wpisz swój nick"  />
+		<div className="RejWeb">
+			<div className="RegiContent">
+				<div className="RegiTytul">
+					Zarejestruj się teraz!
+				</div>
+				<div className="RegiInputs">
+					<Form>
+						<FormGroup className="wpis" >
+							<Input type="email" name="email" id="exampleEmail" placeholder="Wpisz e-mail" value={this.state.email} onChange={(event) => this.setState({email : event.target.email})} />
 						</FormGroup>
-						<FormGroup>
-							<Label for="exampleEmail">Email</Label>
-							<Input type="email" name="email" id="exampleEmail" placeholder="Wpisz swój e-mail"  />
+						<FormGroup className="wpis" >
+							<Input type="text" name="nick" id="exampleNick" placeholder="Wpisz nick" value={this.state.nick} onChange={(event) => this.setState({nick : event.target.nick})} />
 						</FormGroup>
-						<FormGroup>
-							<Label for="examplePass">Hasło</Label>
-							<Input type="password" name="pass" id="examplePass" placeholder="Wpisz swoje hasło"  />
+						<FormGroup className="wpis" >
+							<Input type="password" name="pass" id="examplePass" placeholder="Wpisz hasło" value={this.state.pass} onChange={(event) => this.setState({pass : event.target.pass})} />
 						</FormGroup>
-						<FormGroup>
-							<Button type="submit">Zarejestruj się</Button>
+						<FormGroup className="wpis" >
+							<Input type="password" name="2pass" id="example2Pass" placeholder="Powtórz hasło" />
 						</FormGroup>
+					</Form>
+					<div className="przyciski">
+					<Button id="zarejestruj">Zarejestruj się!</Button>{' '}
+					<Button id="mamjuzkonto">Mam już konto</Button>{' '}
 					</div>
-				</Form>
+				</div>
 			</div>
 		</div>
 	);
   }
 }
 
-export default Register;
+export default Example;
