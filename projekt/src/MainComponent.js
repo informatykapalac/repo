@@ -9,6 +9,7 @@ class Main extends Component {
       <div>
         <Switch>
           <Route path='/login' component={() => <Login/>} />
+	  <Route path='/register' component={() => <Register/>} />
           <Redirect to='/login' />
         </Switch>
       </div>

@@ -5,6 +5,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'build')));
 
 app.post('/', function(req, res) {
+  console.log(req);
   console.log("HI");
 });
 

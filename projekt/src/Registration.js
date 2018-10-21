@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 class Example extends React.Component {
@@ -7,10 +8,25 @@ class Example extends React.Component {
 	this.state = {
 		nick: "",
 		email: "",
-		pass: "",
+		pass: ""
 	};
 	
+	this.handleReg = this.handleReg.bind(this);
   }
+
+  handleReg() {
+
+    const data = {
+      name: this.state.nick,
+      email: this.state.email,
+      pass: this.state.pass
+    }
+
+    axios.post('/', data).then(res => {
+      console.log("DONE");
+    })
+  }
+
   render() {
 	return (
 		<div className="RejWeb">
@@ -19,7 +35,7 @@ class Example extends React.Component {
 					Zarejestruj się teraz!
 				</div>
 				<div className="RegiInputs">
-					<Form>
+					<Form onSubmit={this.handleReg}>
 						<FormGroup className="wpis" >
 							<Input type="email" name="email" id="exampleEmail" placeholder="Wpisz e-mail" value={this.state.email} onChange={(event) => this.setState({email : event.target.email})} />
 						</FormGroup>
