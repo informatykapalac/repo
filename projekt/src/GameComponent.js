@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Konva from 'konva';
 import { Layer, Stage } from 'react-konva';
 
-class Game extends React {
+class Game extends Component {
 	constructor() {
 		super();
 	}
@@ -15,3 +15,5 @@ class Game extends React {
 		);
 	}
 }
+
+export default Game;

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button, Form, FormGroup, Input } from 'reactstrap';
 
 class Example extends React.Component {
   constructor() {
@@ -10,11 +10,14 @@ class Example extends React.Component {
 		email: "",
 		pass: ""
 	};
-	
+
 	this.handleReg = this.handleReg.bind(this);
+  this.handleChange = this.handleChange.bind(this);
   }
 
-  handleReg() {
+  handleReg(event) {
+
+    event.preventDefault();
 
     const data = {
       name: this.state.nick,
@@ -22,9 +25,13 @@ class Example extends React.Component {
       pass: this.state.pass
     }
 
-    axios.post('/', data).then(res => {
+    axios.post('/', { data }).then(res => {
       console.log("DONE");
     })
+  }
+
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   render() {
@@ -37,22 +44,22 @@ class Example extends React.Component {
 				<div className="RegiInputs">
 					<Form onSubmit={this.handleReg}>
 						<FormGroup className="wpis" >
-							<Input type="email" name="email" id="exampleEmail" placeholder="Wpisz e-mail" value={this.state.email} onChange={(event) => this.setState({email : event.target.email})} />
+							<Input type="email" name="email" id="exampleEmail" placeholder="Wpisz e-mail" value={this.state.email} onChange={this.handleChange} />
 						</FormGroup>
 						<FormGroup className="wpis" >
-							<Input type="text" name="nick" id="exampleNick" placeholder="Wpisz nick" value={this.state.nick} onChange={(event) => this.setState({nick : event.target.nick})} />
+							<Input type="text" name="nick" id="exampleNick" placeholder="Wpisz nick" value={this.state.nick} onChange={this.handleChange} />
 						</FormGroup>
 						<FormGroup className="wpis" >
-							<Input type="password" name="pass" id="examplePass" placeholder="Wpisz hasło" value={this.state.pass} onChange={(event) => this.setState({pass : event.target.pass})} />
+							<Input type="password" name="pass" id="examplePass" placeholder="Wpisz hasło" value={this.state.pass} onChange={this.handleChange} />
 						</FormGroup>
 						<FormGroup className="wpis" >
 							<Input type="password" name="2pass" id="example2Pass" placeholder="Powtórz hasło" />
 						</FormGroup>
+            <div className="przyciski">
+  					  <Button id="zarejestruj" type="submit">Zarejestruj się!</Button>{' '}
+  					  <Button id="mamjuzkonto">Mam już konto</Button>{' '}
+  					</div>
 					</Form>
-					<div className="przyciski">
-					<Button id="zarejestruj">Zarejestruj się!</Button>{' '}
-					<Button id="mamjuzkonto">Mam już konto</Button>{' '}
-					</div>
 				</div>
 			</div>
 		</div>
