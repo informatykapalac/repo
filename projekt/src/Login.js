@@ -9,7 +9,7 @@ class Login extends React.Component {
 		this.remUser = this.getCookie("userToRem");
 		this.state = {
 			username: this.remUser,
-			password:""
+			password: ""
 		};
 		console.log(this.getCookie("userToRem"));
 		this.sendData = this.sendData.bind(this);
@@ -35,16 +35,20 @@ class Login extends React.Component {
 		}
 		return "";
 	}
-	
-	
+
+
 	sendData(event){
+
+		event.preventDefault();
+
 		if(this.state.username != ""){
 			const remCheck = document.getElementById("rememberInput");
 			if(remCheck.checked){
 				this.setCookie("userToRem", this.state.username, 365);
 			}
 			const loginData = {
-				data: this.state
+				name: this.state.name,
+				pass: this.state.password
 			};
 			axios.post('/login',{loginData}).then(result =>{
 				console.log(result.data);

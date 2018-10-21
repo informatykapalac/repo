@@ -1,5 +1,7 @@
 export const initialState = {
-  temp: []
+  temp: [],
+  userID: 0,
+  token: 0
 };
 
 export const Reducer = (state = initialState, action) => {

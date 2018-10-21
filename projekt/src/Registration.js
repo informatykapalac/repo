@@ -25,7 +25,7 @@ class Example extends React.Component {
       pass: this.state.pass
     }
 
-    axios.post('/', { data }).then(res => {
+    axios.post('/register', { data }).then(res => {
       console.log("DONE");
     })
   }
