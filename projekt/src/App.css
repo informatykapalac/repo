@@ -88,6 +88,9 @@ textarea {
 .LoginJumbotron{
 	padding: 2rem !important;
 }
+.ErrorAlert{
+	display: none;
+}
 
 
 @keyframes App-logo-spin {
