@@ -6,6 +6,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 require_once("config.php");
 
-echo $_POST["data"];
+echo "0";
 
 ?>
