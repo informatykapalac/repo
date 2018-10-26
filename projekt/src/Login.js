@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {Container, Col, Row, Jumbotron, Form, FormGroup, Button, Input,Label} from 'reactstrap';
+import {Container, Col, Row, Jumbotron, Form, FormGroup, Button, Input,Label, Alert} from 'reactstrap';
 import { get } from 'https';
 
 class Login extends React.Component {
@@ -11,7 +11,6 @@ class Login extends React.Component {
 			username: this.remUser,
 			password: ""
 		};
-		console.log(this.getCookie("userToRem"));
 		this.sendData = this.sendData.bind(this);
 	}
 	setCookie(name, value, expireDays){
@@ -78,6 +77,8 @@ class Login extends React.Component {
 										- Zapamiętaj mnie
 									</Label>
 									</FormGroup>
+									<Alert color="danger" className="ErrorAlert">
+									</Alert>
 									<Button type="submit" className="LoginButton" color="warning" block>
 										Zaloguj się!
 									</Button>
