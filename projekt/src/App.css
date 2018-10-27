@@ -26,50 +26,18 @@
   color: #61dafb;
 }
 
-.rejestrMain {
-	position: absolute;
-	left: 35%;
-	top: 25%;
-	height: 50%;
-	width: 30%;
-	background: #333333;
-}
-
 textarea {
 	resize: none;
 	width: 200px;
 	height: 25px;
 }
 
-#exampleEmail {
-	margin-bottom: 20px;
-}
-
-#exampleNick{
-	margin-bottom: 20px;
-}
-
-#examplePass {
-	margin-bottom: 20px;
-}
-
-.rejestrContent {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.rejestrTlo {
-	background: #222222;
-	height: 100%;
-	width: 100%;
-	position: fixed;
-}
 .Title{
 	text-align:center;
 	margin-bottom:35px;
 }
+
+.Rejestracja,
 .Login {
 	display: flex;
 	height: 100vh;
@@ -79,14 +47,20 @@ textarea {
   margin-left: 20px;
 }
 
+.RejestrContainer,
 .LoginContainer,
 .LoginJumbotron{
 	padding: 0px;
 	margin: 0px !important;
 	align-self: center;
 }
+
+.RejestrJumbotron,
 .LoginJumbotron{
 	padding: 2rem !important;
+}
+.ErrorAlert{
+	display: none;
 }
 
 
