@@ -40,7 +40,7 @@ class Login extends React.Component {
 		return "";
 	}
 	checkData(user, pass){
-		const userRegex = new RegExp('[A-Za-z_]{8,20}');
+		const userRegex = new RegExp('[A-Za-z]{8,20}');
 		const passRegex = new RegExp('[A-Za-z]');
         if(userRegex.test(user)){
             if(passRegex.test(pass)){
