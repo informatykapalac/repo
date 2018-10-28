@@ -1,17 +1,22 @@
 import React from 'react';
 import axios from 'axios';
 import {Container, Col, Row, Jumbotron, Form, FormGroup, Button, Input,Label, Alert} from 'reactstrap';
+import ErrBox from "./ErrBox";
 import { get } from 'https';
 
 class Login extends React.Component {
 	constructor(){
 		super();
-		this.remUser = this.getCookie("userToRem");
 		this.state = {
-			username: this.remUser,
-			password: ""
+			remUser: this.getCookie("userToRem"),
+			error: "",
+			username: "",
+			password: "",
 		};
 		this.sendData = this.sendData.bind(this);
+		this.setCookie = this.setCookie.bind(this);
+		this.getCookie = this.getCookie.bind(this);
+		this.checkData = this.checkData.bind(this);
 	}
 	setCookie(name, value, expireDays){
 		const d = new Date();
@@ -34,15 +39,27 @@ class Login extends React.Component {
 		}
 		return "";
 	}
-
+	checkData(user, pass){
+		const userRegex = new RegExp('[A-Za-z_]{8,20}');
+		const passRegex = new RegExp('[A-Za-z]');
+        if(userRegex.test(user)){
+            if(passRegex.test(pass)){
+                return true;
+			}
+			else{
+				this.setState({error: "Hasło musi mieć od 8 do 20 znaków, dużą literę i cyfrę"});
+				return false;
+			}
+		}else{
+			this.setState({error: "Nazwa użytkownika musi mieć od 8 do 20 znaków"});
+			return false;
+		}
+	}
 
 	sendData(event){
-
 		event.preventDefault();
-
-		if(this.state.username != ""){
-			const remCheck = document.getElementById("rememberInput");
-			if(remCheck.checked){
+		if(this.checkData(this.state.username, this.state.password)){
+			if(event.target.remember.checked){
 				this.setCookie("userToRem", this.state.username, 365);
 			}
 			const loginData = {
@@ -52,6 +69,9 @@ class Login extends React.Component {
 			axios.post('/login',{loginData}).then(result =>{
 				console.log(result.data);
 			})
+		}
+		else{
+			console.log(this.state.error);
 		}
 	}
     render() {
@@ -71,14 +91,14 @@ class Login extends React.Component {
 										<Input className="LoginPasswordInput" placeholder="Hasło" name="password" id="passwordInput" type="password" value={this.state.password} onChange={(event)=>{this.setState({password: event.target.value})}}>
 										</Input>
 									</FormGroup>
+									<ErrBox error={this.state.error}/>
 									<FormGroup className="LoginRememberGroup">
 									<Label>
 										<Input className="LoginRememberInput" name="remember" id="rememberInput" type="checkbox"/>
 										- Zapamiętaj mnie
 									</Label>
 									</FormGroup>
-									<Alert color="danger" className="ErrorAlert">
-									</Alert>
+									
 									<Button type="submit" className="LoginButton" color="warning" block>
 										Zaloguj się!
 									</Button>

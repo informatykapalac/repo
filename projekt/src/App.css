@@ -88,8 +88,8 @@ textarea {
 .LoginJumbotron{
 	padding: 2rem !important;
 }
-.ErrorAlert{
-	display: none;
+#ErrorAlert{
+	visibility: hidden;
 }
 
 
