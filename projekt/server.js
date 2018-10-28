@@ -4,6 +4,7 @@ const path = require('path');
 const mysql = require('mysql');
 const uuidv4 = require('uuid/v4');
 const sha512 = require('js-sha512');
+const auth_token = require('./src/Algorithm');
 const app = express();
 app.use(express.static(path.join(__dirname, 'build')));
 //app.use('/php', express.static(path.join(__dirname, 'public/PHP')));
