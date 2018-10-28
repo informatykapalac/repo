@@ -48,11 +48,11 @@ class Login extends React.Component {
                 return true;
 			}
 			else{
-				this.setState({error: "Hasło musi mieć od 8 do 30 znaków i dużą literę"});
+				this.setState({error: "Hasło musi mieć od 8 do 30 znaków i dużą literę."});
 				return false;
 			}
 		}else{
-			this.setState({error: "Nazwa użytkownika musi mieć od 1 do 20 znaków"});
+			this.setState({error: "Nazwa użytkownika musi mieć od 1 do 20 znaków."});
 			return false;
 		}
 	}
