@@ -69,7 +69,8 @@ class Login extends React.Component {
 			};
 			axios.post('/login',{loginData}).then(result =>{
 				console.log(result.data);
-			})
+			});
+			
 		}
 		else{
 			console.log(this.state.error);
