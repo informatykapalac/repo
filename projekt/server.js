@@ -38,8 +38,43 @@ app.post('/register', function(req, res) {
     password: '1q2w3e4r',
     database: 'game_data'
   });
-
-  // ZAPYTANIA INSERT MAJĄ POZOSTAĆ W KOMENTARZACH !!!
+  function logowanie(){
+	const reg=/^[a-zA-Z0-9]{3,}$/;
+	const connection=mysql.createConnection(config);
+	connection.connect(err => {
+		if(err){
+			alert("test1");
+		}
+	});
+	if (reg.test(username)){
+		if (reg.test(username)){
+			app.all('/', (req, res)=>{
+				connection.query("SELECT * FROM users WHERE 'username'=name", (err, results, fields)=>{
+					const numrows=results.length;
+					if (numrows==1){
+						connection.query("SELECT * FROM users WHERE 'password'=password", (err, results, fields)=>{
+							const numrows=results.length;
+							if (numrows==1){
+								alert("test2");
+							}else{
+								alert("test3");
+							}
+						});
+					}else{
+						alert("test4");
+					}
+				});
+			});
+		}else{
+			alert("test5");
+		}
+	}else{
+		alert("test6");
+	}
+	connection.end();
+	alert("test7.1");
+  }
+// ZAPYTANIA INSERT MAJĄ POZOSTAĆ W KOMENTARZACH !!!
 
   db.connect();
 
