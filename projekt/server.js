@@ -4,7 +4,7 @@ const path = require('path');
 const mysql = require('mysql');
 const uuidv4 = require('uuid/v4');
 const sha512 = require('js-sha512');
-const auth_token = require('./src/Algorithm');
+const algo = require('./src/Algorithm');
 const app = express();
 app.use(express.static(path.join(__dirname, 'build')));
 //app.use('/php', express.static(path.join(__dirname, 'public/PHP')));
@@ -29,7 +29,9 @@ app.post('/register', function(req, res) {
 
   const hash = sha512(pass);
 
-  // Stworzyć funkcję ( w zewnętrznym pliku ) do stworzenia auth_token
+  // auth_token w wersji demo (nie do użytku oficjalnego !!!)
+
+  const auth_token = algo.auth(hash, token);
 
   const db = mysql.createConnection({
     host: '85.10.205.173',
