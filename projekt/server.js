@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.post('/register', function(req, res) {
   const data = req.body.data;
 
-  // Sprawdzić ponownie kompatybilność nazwy użytkownika oraz hasła
+  // Sprawdzić ponownie kompatybilność nazwy użytkownika oraz hasła.
 
   // Stworzyć token do rejestracji
 
