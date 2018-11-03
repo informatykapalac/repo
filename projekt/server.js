@@ -6,17 +6,18 @@ const uuidv4 = require('uuid/v4');
 const sha512 = require('js-sha512');
 const algo = require('./src/Algorithm');
 const app = express();
+import axios from 'axios';
 app.use(express.static(path.join(__dirname, 'build')));
 //app.use('/php', express.static(path.join(__dirname, 'public/PHP')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/register', function(req, res) {
-  const data = req.body.data;
-
   const user = data.name;
   const pass = data.pass;
   const email = data.email;
+
+app.post('/register', function(req, res) {
+  const data = req.body.data;
 
   // Sprawdzić ponownie kompatybilność nazwy użytkownika oraz hasła
 
@@ -40,42 +41,6 @@ app.post('/register', function(req, res) {
     password: '1q2w3e4r',
     database: 'game_data'
   });
-  function logowanie(){
-	const reg=/^[a-zA-Z0-9]{3,}$/;
-	const connection=mysql.createConnection(config);
-	connection.connect(err => {
-		if(err){
-			alert("test1");
-		}
-	});
-	if (reg.test(username)){
-		if (reg.test(username)){
-			app.all('/', (req, res)=>{
-				connection.query("SELECT * FROM users WHERE 'username'=name", (err, results, fields)=>{
-					const numrows=results.length;
-					if (numrows==1){
-						connection.query("SELECT * FROM users WHERE 'password'=password", (err, results, fields)=>{
-							const numrows=results.length;
-							if (numrows==1){
-								alert("test2");
-							}else{
-								alert("test3");
-							}
-						});
-					}else{
-						alert("test4");
-					}
-				});
-			});
-		}else{
-			alert("test5");
-		}
-	}else{
-		alert("test6");
-	}
-	connection.end();
-	alert("test7.1");
-  }
 // ZAPYTANIA INSERT MAJĄ POZOSTAĆ W KOMENTARZACH !!!
 
   db.connect();
@@ -111,13 +76,74 @@ app.post('/register', function(req, res) {
 });
 
 app.post('/login', function(req, res) {
-  const data = req.body.data;
-  console.log("LOGIN");
+	const send;
+	const data = req.body.data;
+	const user = data.name;
+	const pass = data.pass;
+	const reg=/^[a-zA-Z0-9]{1,}$/;
+	const db = mysql.createConnection({
+		host: '85.10.205.173',
+		port: 3306,
+		user: 'admin_41487',
+		password: '1q2w3e4r',
+		database: 'game_data'
+	});
+	window.sessionStorage.removeItem('error');
+	db.connect(err => {
+		if(err){
+			send={ info: "Problemy z połączeniem."};
+		}
+	});
+	if (reg.test(user)){
+		if (reg.test(pass)){
+			app.all('/', (req, res)=>{
+				db.query("SELECT * FROM users WHERE name='username'", (err, results, fields)=>{
+					const numrows=results.length;
+					if (numrows==1){
+						const hash = sha512(pass);
+						db.query("SELECT * FROM users WHERE password='password' OR hash='hash'", (err, results, fields)=>{
+							const numrows=results.length;
+							if (numrows==1){
+								window.sessionStorage.setItem ('nick', user);
+								window.sessionStorage.setItem ('credits', results.credits);
+								window.sessionStorage.setItem ('items', results.items);
+								window.sessionStorage.setItem ('position', results.position);
+								window.sessionStorage.setItem ('life', results.hp);
+								window.sessionStorage.setItem ('zadania', results.quests);
+								while(){
+									setTimeout(function() {
+										const credits=sessionStorage.getItem ('credits');
+										const items=sessionStorage.getItem ('items');
+										const position=sessionStorage.getItem ('position');
+										const hp=sessionStorage.getItem ('hp');
+										const quests=sessionStorage.getItem ('quests');
+										db.query("UPDATE users SET credits='credits', items='items', position='position', hp='hp', quests='quests' WHERE name='user'");
+									}, 300);
+								}	
+							}else{
+								send={ info: "Niepoprawne hasło.}";
+							}
+						});
+					}else{
+						send={ info: "Niepoprawny nick."};
+					}
+				});
+			});
+		}else{
+			send={ info: "Tylko znaki alfanumeryczne w nicku!!!"};
+		}
+	}else{
+		send={ info: "Tylko znaki alfanumeryczne w haśle!!!"};
+	}
+	if (send != ""){
+	window.sessionStorage.setItem ('error', send);
+	}
+	db.end();
 });
 
 app.post('/game-data', function(req, res) {
   const data = req.body.data;
   console.log("DATA");
-});
+});	
 
 app.listen(process.env.PORT || 8080);
