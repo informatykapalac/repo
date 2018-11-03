@@ -17,6 +17,11 @@ class Login extends React.Component {
 		this.setCookie = this.setCookie.bind(this);
 		this.getCookie = this.getCookie.bind(this);
 		this.checkData = this.checkData.bind(this);
+		if(window.sessionStorage.getItem('error') != ""){
+			const error1=window.sessionStorage.getItem('error');
+			this.setState({error: error1});
+			return false;
+		}
 	}
 	setCookie(name, value, expireDays){
 		const d = new Date();
@@ -56,7 +61,7 @@ class Login extends React.Component {
 			return false;
 		}
 	}
-
+	
 	sendData(event){
 		event.preventDefault();
 		if(this.checkData(this.state.username, this.state.password)){
@@ -67,10 +72,9 @@ class Login extends React.Component {
 				name: this.state.name,
 				pass: this.state.password
 			};
-			axios.post('/login',{loginData}).then(result =>{
+			axios.post('/server',{loginData}).then(result =>{
 				console.log(result.data);
 			});
-			
 		}
 		else{
 			console.log(this.state.error);
