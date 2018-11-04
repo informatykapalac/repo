@@ -7,6 +7,10 @@ import { get } from 'https';
 class Login extends React.Component {
 	constructor(){
 		super();
+		if (window.sessionStorage.getItem ('error') != ""){
+			const error1=window.sessionStorage.getItem ('error');
+			this.setState({error: error1});
+		}
 		this.state = {
 			remUser: this.getCookie("userToRem"),
 			error: "",
@@ -17,11 +21,6 @@ class Login extends React.Component {
 		this.setCookie = this.setCookie.bind(this);
 		this.getCookie = this.getCookie.bind(this);
 		this.checkData = this.checkData.bind(this);
-		if(window.sessionStorage.getItem('error') != ""){
-			const error1=window.sessionStorage.getItem('error');
-			this.setState({error: error1});
-			return false;
-		}
 	}
 	setCookie(name, value, expireDays){
 		const d = new Date();
