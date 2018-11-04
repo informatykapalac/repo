@@ -96,38 +96,26 @@ app.post('/login', function(req, res) {
 	});
 	if (reg.test(user)){
 		if (reg.test(pass)){
-			app.all('/', (req, res)=>{
-				db.query("SELECT * FROM users WHERE name='username'", (err, results, fields)=>{
-					const numrows=results.length;
-					if (numrows==1){
-						const hash = sha512(pass);
-						db.query("SELECT * FROM users WHERE password='password' OR hash='hash'", (err, results, fields)=>{
-							const numrows=results.length;
-							if (numrows==1){
-								window.sessionStorage.setItem ('nick', user);
-								window.sessionStorage.setItem ('credits', results.credits);
-								window.sessionStorage.setItem ('items', results.items);
-								window.sessionStorage.setItem ('position', results.position);
-								window.sessionStorage.setItem ('life', results.hp);
-								window.sessionStorage.setItem ('zadania', results.quests);
-								while(){
-									setTimeout(function() {
-										const credits=sessionStorage.getItem ('credits');
-										const items=sessionStorage.getItem ('items');
-										const position=sessionStorage.getItem ('position');
-										const hp=sessionStorage.getItem ('hp');
-										const quests=sessionStorage.getItem ('quests');
-										db.query("UPDATE users SET credits='credits', items='items', position='position', hp='hp', quests='quests' WHERE name='user'");
-									}, 300);
-								}	
-							}else{
-								send={ info: "Niepoprawne hasło.}";
-							}
-						});
-					}else{
-						send={ info: "Niepoprawny nick."};
-					}
-				});
+			db.query("SELECT * FROM users WHERE name='username'", (err, results, fields)=>{
+				const numrows=results.length;
+				if (numrows==1){
+					const hash = sha512(pass);
+					db.query("SELECT * FROM users WHERE password='password' OR hash='hash'", (err, results, fields)=>{
+						const numrows=results.length;
+						if (numrows==1){
+							new RegExp('credits', result.credits);
+							new RegExp('items', result.items);
+							new RegExp('position', result.position);
+							new RegExp('hp', result.hp);
+							new RegExp('credits', result.quests);
+							//przekierowanie do game component
+						}else{
+							send={ info: "Niepoprawne hasło.}";
+						}
+					});
+				}else{
+					send={ info: "Niepoprawny nick."};
+				}
 			});
 		}else{
 			send={ info: "Tylko znaki alfanumeryczne w nicku!!!"};
