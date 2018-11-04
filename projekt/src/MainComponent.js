@@ -12,7 +12,7 @@ class Main extends Component {
       <div>
         <Switch>
           <Route path='/login' component={() => <Login/>} />
-	        <Route path='/register' component={() => <Register/>} />
+	      <Route path='/register' component={() => <Register/>} />
           <Route path='/game' component={() => <Game/>} />
           <Route path='/redirect' component={() => <RegRedirect/>} />
           <Route path='/confirm' component={() => <RegConfirm/>} />
