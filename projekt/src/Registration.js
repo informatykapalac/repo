@@ -40,11 +40,9 @@ class Example extends React.Component {
 		<div className="Rejestracja">
 			<Container className="RejestrContainer" fluid>
 				<Row>
-					<Col xs="12" md={{size:6, offset:3}} xl={{size:4, offset:4}} className="LoginCol">
+					<Col xs="12" md={{size:8, offset:2}} xl={{size:4, offset:4}} className="LoginCol">
 						<Jumbotron color="primary">
-							<Row>
-							<Col xs="12" md={{ size: 'auto' }}><h1 className="display-8">Zarejestruj się</h1></Col>
-							</Row>
+							<h1 className="display-8"><div className="text-center">Zarejestruj się</div></h1>
 								<Form onSubmit={this.handleReg}>
 								    <FormGroup>
 										<Input type="email" name="email" id="exampleEmail" placeholder="Wpisz e-mail" value={this.state.email} onChange={this.handleChange} />
@@ -58,10 +56,10 @@ class Example extends React.Component {
 									<FormGroup>
 										<Input type="password" name="2pass" id="example2Pass" placeholder="Powtórz hasło" />
 									</FormGroup>
-									<Row>
-										<Col xs="12" sm={{ size: 4, offset: 2 }} ><Button id="zarejestruj" type="submit">Zarejestruj się!</Button>{' '}</Col>
-										<Col xs="12" sm={{ size: 4, offset: 0 }} ><Link to="/login"><Button id="mamjuzkonto">Mam już konto</Button></Link>{' '}</Col>
-									</Row>
+									<FormGroup>
+									<Button id="zarejestruj" type="submit" color="warning" block>Zarejestruj się!</Button>{' '}
+									</FormGroup>
+									<Link to="/login"><Button id="mamjuzkonto" color="secondary" block>Mam już konto</Button></Link>{' '}
 								</Form>
 						</Jumbotron>
 					</Col>
