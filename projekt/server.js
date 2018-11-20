@@ -6,19 +6,16 @@ const uuidv4 = require('uuid/v4');
 const sha512 = require('js-sha512');
 const algo = require('./src/Algorithm');
 const app = express();
-import axios from 'axios';
 app.use(express.static(path.join(__dirname, 'build')));
 //app.use('/php', express.static(path.join(__dirname, 'public/PHP')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-  const user = data.name;
-  const pass = data.pass;
-  const email = data.email;
-
 app.post('/register', function(req, res) {
-  const data = req.body.data;
-
+    const data = req.body.data;
+	const user = data.name;
+	const pass = data.pass;
+	const email = data.email;
   // Sprawdzić ponownie kompatybilność nazwy użytkownika oraz hasła.
 
   // Stworzyć token do rejestracji
@@ -76,7 +73,6 @@ app.post('/register', function(req, res) {
 });
 
 app.post('/login', function(req, res) {
-	const send;
 	const data = req.body.data;
 	const user = data.name;
 	const pass = data.pass;
@@ -103,29 +99,24 @@ app.post('/login', function(req, res) {
 					db.query("SELECT * FROM users WHERE password='password' OR hash='hash'", (err, results, fields)=>{
 						const numrows=results.length;
 						if (numrows==1){
-							new RegExp('credits', result.credits);
-							new RegExp('items', result.items);
-							new RegExp('position', result.position);
-							new RegExp('hp', result.hp);
-							new RegExp('credits', result.quests);
-							//przekierowanie do game component
+							//bla bla trolololo
 						}else{
-							send={ info: "Niepoprawne hasło.}";
+							const send={info: "Niepoprawne hasło."};
 						}
 					});
 				}else{
-					send={ info: "Niepoprawny nick."};
+					const send={info: "Niepoprawny nick."};
 				}
 			});
 		}else{
-			send={ info: "Tylko znaki alfanumeryczne w nicku!!!"};
+			const send={info: "Tylko znaki alfanumeryczne w nicku!!!"};
 		}
 	}else{
-		send={ info: "Tylko znaki alfanumeryczne w haśle!!!"};
+		const send={info: "Tylko znaki alfanumeryczne w haśle!!!"};
 	}
-	if (send != ""){
-	window.sessionStorage.setItem ('error', send);
-	}
+	/*if (send != ""){
+	window.sessionStorage.setItem('error', send);
+	}*/
 	db.end();
 });
 

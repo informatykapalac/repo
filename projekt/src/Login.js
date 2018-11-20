@@ -68,11 +68,11 @@ class Login extends React.Component {
 				this.setCookie("userToRem", this.state.username, 365);
 			}
 			const loginData = {
-				name: this.state.name,
+				name: this.state.username,
 				pass: this.state.password
 			};
-			axios.post('/server',{loginData}).then(result =>{
-				console.log(result.data);
+			axios.post('/login',{ loginData }).then(result =>{
+				console.log("DONE");
 			});
 		}
 		else{
