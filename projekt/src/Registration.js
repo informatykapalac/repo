@@ -17,12 +17,13 @@ class Example extends React.Component {
 	this.handleReg = this.handleReg.bind(this);
 	this.handleChange = this.handleChange.bind(this);
   }
-  checkData(user, pass){
+  checkData(user, pass, pass2){
 		const userRegex = new RegExp(/^[\w]{1,20}$/);
 		const passRegex = new RegExp(/^[\w]{8,30}$/);
 		const bigRegex = new RegExp(/[A-Z]/)
         if(userRegex.test(user)){
             if(passRegex.test(pass) && bigRegex.test(pass)){
+				
                 return true;
 			}
 			else{
@@ -38,7 +39,7 @@ class Example extends React.Component {
   handleReg(event) {
 
     event.preventDefault();
-	if(this.checkData(this.state.username, this.state.password)){
+	if(this.checkData(this.state.nick, this.state.pass)){
     const data = {
       name: this.state.nick,
       email: this.state.email,
