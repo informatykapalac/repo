@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mysql = require('mysql');
+const nodemailer = require('nodemailer');
 const uuidv4 = require('uuid/v4');
 const sha512 = require('js-sha512');
 const algo = require('./src/Algorithm');
@@ -12,7 +13,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/register', function(req, res) {
-    const data = req.body.data;
+  const data = req.body.data;
+
 	const user = data.name;
 	const pass = data.pass;
 	const email = data.email;
@@ -27,7 +29,7 @@ app.post('/register', function(req, res) {
 
   const hash = sha512(pass);
 
-  // auth_token w wersji demo (nie do użytku oficjalnego !!!)
+  // auth_token w wersji alpha
 
   const auth_token = algo.auth(hash, token);
 
@@ -70,21 +72,28 @@ app.post('/register', function(req, res) {
   });*/
 
   db.end();
+
+  // Maile będą wysyłane przez Nodemailer
+
 });
 
 app.post('/login', function(req, res) {
 	const data = req.body.data;
+
 	const user = data.name;
 	const pass = data.pass;
-	const reg=/^[a-zA-Z0-9]{1,}$/;
-	const db = mysql.createConnection({
+
+  const reg=/^[a-zA-Z0-9]{1,}$/;
+
+  const db = mysql.createConnection({
 		host: '85.10.205.173',
 		port: 3306,
 		user: 'admin_41487',
 		password: '1q2w3e4r',
 		database: 'game_data'
 	});
-	window.sessionStorage.removeItem('error');
+
+  window.sessionStorage.removeItem('error');
 	db.connect(err => {
 		if(err){
 			send={ info: "Problemy z połączeniem."};
@@ -123,6 +132,6 @@ app.post('/login', function(req, res) {
 app.post('/game-data', function(req, res) {
   const data = req.body.data;
   console.log("DATA");
-});	
+});
 
 app.listen(process.env.PORT || 8080);

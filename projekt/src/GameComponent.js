@@ -1,9 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import axios from 'axios';
 import Konva from 'konva';
-import { Layer, Stage } from 'react-konva';
+import { Stage } from 'react-konva';
 import Layer1 from './Layer1Component';
+import { test } from './Redux/reduxActions';
 
-class Game extends Component {
+const mapStateToProps = state => {
+  return {
+    userID: state.userID,
+    token: state.token
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    test: value => dispatch(test(value))
+  };
+};
+
+class _Game extends Component {
 	constructor() {
 		super();
 		this.state = {
@@ -20,6 +36,19 @@ class Game extends Component {
 			height: window.innerHeight
 		});
 	}
+
+	loadData() {
+
+    const data = {
+      userID: this.props.userID,
+      token: this.props.token
+    }
+
+    axios.post('/game-data', { data }).then(res => {
+      console.log("DONE");
+    });
+
+  }
 
 	componentDidMount() {
 		this.handleResize();
@@ -38,5 +67,7 @@ class Game extends Component {
 		);
 	}
 }
+
+const Game = connect(mapStateToProps, mapDispatchToProps)(_Game);
 
 export default Game;

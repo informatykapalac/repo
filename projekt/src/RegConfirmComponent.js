@@ -1,13 +1,12 @@
 import React from 'react';
-import axios from 'axios';
-import { Container, Jumbotron, Col, Row, Button, Form, FormGroup, Input } from 'reactstrap';
+import { Container, Jumbotron, Col, Row, Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 class RegConfirm extends React.Component {
 	constructor() {
 		super();
 	}
-	
+
 	render() {
 		return(
 			<div className="Rejestracja">

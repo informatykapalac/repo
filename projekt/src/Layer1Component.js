@@ -4,32 +4,13 @@ import Konva from 'konva';
 import axios from 'axios';
 import { Layer } from 'react-konva';
 
-const mapStateToProps = state => {
-  return {
-    userID: state.userID,
-    token: state.token
-  };
-};
-
-class Layer_1 extends Component {
+class Layer1 extends Component {
   constructor() {
     super();
 
     this.loadData = this.loadData.bind(this);
     this.createMap = this.createMap.bind(this);
 
-  }
-
-  loadData() {
-
-    const data = {
-      userID: this.props.userID,
-      token: this.props.token
-    }
-
-    axios.post('/game-data', { data }).then(res => {
-      console.log("DONE");
-    });
   }
 
   createMap() {
@@ -44,7 +25,5 @@ class Layer_1 extends Component {
     );
   }
 }
-
-const Layer1 = connect(mapStateToProps)(Layer_1);
 
 export default Layer1;
