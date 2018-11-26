@@ -62,7 +62,7 @@ class _Game extends Component {
 	render() {
 		return(
 			<Stage width={this.state.width} height={this.state.height}>
-				<Layer1 />
+				<Layer1 width={this.state.width} height={this.state.height}/>
 			</Stage>
 		);
 	}
