@@ -23,7 +23,7 @@ class Example extends React.Component {
 		const bigRegex = new RegExp(/[A-Z]/)
         if(userRegex.test(user)){
             if(passRegex.test(pass) && bigRegex.test(pass)){
-				
+
                 return true;
 			}
 			else{
@@ -48,7 +48,13 @@ class Example extends React.Component {
 
     axios.post('/register', { data }).then(res => {
       console.log("DONE");
-    })
+    }).catch((error) => {
+      if(error.response) {
+        this.setState({
+          error: error.response.status + " " + error.response.data
+        });
+      }
+    });
 	}
 	else {
 		console.log(this.state.error);

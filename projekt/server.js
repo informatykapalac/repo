@@ -18,6 +18,7 @@ app.post('/register', function(req, res) {
 	const user = data.name;
 	const pass = data.pass;
 	const email = data.email;
+  let userID = -1;
   // Sprawdzić ponownie kompatybilność nazwy użytkownika oraz hasła.
 
   // Stworzyć token do rejestracji
@@ -40,36 +41,40 @@ app.post('/register', function(req, res) {
     password: '1q2w3e4r',
     database: 'game_data'
   });
-// ZAPYTANIA INSERT MAJĄ POZOSTAĆ W KOMENTARZACH !!!
 
   db.connect();
 
-  db.query('SELECT `name` FROM `users` WHERE `name` = "' + user + '"' , function(err, res, info) {
-    console.log(err);
-    console.log(res);
-    console.log(info);
+  db.query('SELECT `name` FROM `users` WHERE `name` = "' + user + '"' , function(err, resp, info) {
+    if(err) {
+      res.status(500).send("Sprawdź połączenie");
+    }
+    if(resp[0]) { // konflikt nazw użytkowników
+      res.status(409).send("Nazwa użytkownika jest już zajęta");
+      return;
+    }
+
+    db.query('INSERT INTO `users` (`email`, `name`, `hash`, `token`) VALUES ("' + email + '","' + user + '","' + hash + '","' + auth_token + '")', function(err, resp, info) {
+      if(err) {
+        res.status(500).send("Sprawdź połączenie");
+      }
+    });
+
+    db.query('SELECT `id` FROM `users` WHERE `name` = "' + user + '" AND `hash` = "' + hash + '"', function(err, resp, info) {
+      if(err) {
+        res.status(500).send("Sprawdź połączenie");
+      }
+      userID = resp[0].id; // ID użytkownika z bazy danych
+    });
+
+    let time = new Date().getTime() / 1000;
+    time = parseInt(time) + 3600; // czas rejestracji
+
+    /*db.query('INSERT INTO `register` (`user_id`, `token`, `expires`) VALUES ("' + userID + '","' + token + '","' + time + '")', function(err, resp, info) {
+      if(err) {
+        res.status(500).send("Sprawdź połączenie");
+      }
+    });*/
   });
-
-  /*db.query('INSERT INTO `users` (`email`, `name`, `password`, `hash`) VALUES ("' + email + '","' + user + '","' + pass + '","' + hash + '")', function(err, res, info) {
-    console.log(err);
-    console.log(res);
-    console.log(info);
-  });*/
-
-  db.query('SELECT `id` FROM `users` WHERE `name` = "' + user + '" AND `password` = "' + pass + '"', function(err, res, info) {
-    console.log(err);
-    console.log(res);
-    console.log(info);
-  });
-
-  let time = new Date().getTime() / 1000;
-  time = parseInt(time) + 3600;
-
-  /*db.query('INSERT INTO `register` (`user_id`, `token`, `expires`) VALUES ( ,"' + token + '","' + time + '")', function(err, res, info) {
-    console.log(err);
-    console.log(res);
-    console.log(info);
-  });*/
 
   db.end();
 
