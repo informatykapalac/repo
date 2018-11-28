@@ -74,11 +74,33 @@ app.post('/register', function(req, res) {
         res.status(500).send("Sprawdź połączenie");
       }
     });*/
+
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'sorrowoftomorrow.register@gmail.com',
+        pass: '97fc3ab1ac9787d8c9'
+      }
+    });
+
+    let mailOptions = {
+      from: 'Game Dev <sorrowoftomorrow.register@gmail.com>',
+      to: email,
+      subject: 'Rejestracja konta',
+      text: 'Aby odczytać tą wiadomość twój klient poczty musi obsługiwać HTML',
+      html: '<p>TBD</p>'
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if(error) {
+        res.status(500).send("Sprawdź połączenie");
+      }
+      console.log(info);
+    });
+
+    db.end();
+
   });
-
-  db.end();
-
-  // Maile będą wysyłane przez Nodemailer
 
 });
 
