@@ -42,7 +42,6 @@ class Layer_1 extends Component {
       GraphicsList [i] = x;
     }
 
-<<<<<<< HEAD
 return GraphicsList.map((Graphic)=>{
   return(
   <Image
@@ -52,7 +51,7 @@ return GraphicsList.map((Graphic)=>{
   />
 );
 });
-=======
+
     return GraphicsList.map((Graphic) => {
       return(
         <Image
@@ -62,7 +61,7 @@ return GraphicsList.map((Graphic)=>{
         />
       );
     });
->>>>>>> 40e6a69b658654d91770ae3474088a6527498abf
+
 
   }
 
