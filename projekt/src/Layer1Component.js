@@ -55,7 +55,7 @@ return GraphicsList.map((Graphic)=>{
     return GraphicsList.map((Graphic) => {
       return(
         <Image
-        image = {Grphic}
+        image = {Graphic}
        width={320 * ZoomX}
        height={320 * ZoomY}
         />
