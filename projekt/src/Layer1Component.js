@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Konva from 'konva';
 import axios from 'axios';
-import { Layer } from 'react-konva';
+import { Layer, Image} from 'react-konva';
 
 const mapStateToProps = state => {
   return {
@@ -35,7 +35,7 @@ class Layer_1 extends Component {
   createMap() {
 let GraphicsList = [];
 let ZoomX = this.state.props.width/1280;
-let ZoomY = this.state.props.width/720;
+let ZoomY = this.state.props.height/720;
 for (let i=0; i<48; i++)
 {
   const x = new window.Image();
@@ -44,7 +44,7 @@ for (let i=0; i<48; i++)
 }
 
 
-GraphicsList.map((Graphic)=>{
+return GraphicsList.map((Graphic)=>{
   return(
   <Image
   image = {Graphic}
