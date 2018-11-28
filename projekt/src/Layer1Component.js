@@ -33,26 +33,24 @@ class Layer_1 extends Component {
   }
 
   createMap() {
-let GraphicsList = [];
-let ZoomX = this.state.props.width/1280;
-let ZoomY = this.state.props.height/720;
-for (let i=0; i<48; i++)
-{
-  const x = new window.Image();
-  x.src = './graphics/coblestone_center.bmp';
-  GraphicsList [i] = x;
-}
+    let GraphicsList = [];
+    let ZoomX = this.state.props.width/1280;
+    let ZoomY = this.state.props.height/720;
+    for (let i=0; i<48; i++) {
+      const x = new window.Image();
+      x.src = './graphics/coblestone_center.bmp';
+      GraphicsList [i] = x;
+    }
 
-
-return GraphicsList.map((Graphic)=>{
-  return(
-  <Image
-  image = {Graphic}
-  x={320 * ZoomX}
-  y={320 * ZoomY}
-  />
-);
-});
+    return GraphicsList.map((Graphic) => {
+      return(
+        <Image
+        image = {Graphic}
+        x={320 * ZoomX}
+        y={320 * ZoomY}
+        />
+      );
+    });
 
   }
 
