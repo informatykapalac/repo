@@ -48,8 +48,8 @@ return GraphicsList.map((Graphic)=>{
   return(
   <Image
   image = {Graphic}
-  x={320 * ZoomX}
-  y={320 * ZoomY}
+  width={320 * ZoomX}
+  height={320 * ZoomY}
   />
 );
 });
