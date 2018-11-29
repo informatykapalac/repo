@@ -43,7 +43,7 @@ textarea {
 	height: 100vh;
 }
 
-.LoginRememberGroup{
+.CheckGroup{
   margin-left: 20px;
 }
 
@@ -61,6 +61,13 @@ textarea {
 }
 #ErrorAlert{
 	visibility: hidden;
+}
+#NieMamKonta{
+  float: right;
+  padding: 3px 3px !important;
+}
+#remLabel{
+  padding: 3px 0;
 }
 
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import {Container, Col, Row, Jumbotron, Form, FormGroup, Button, Input,Label, Alert} from 'reactstrap';
+import {Container, Col, Row, Jumbotron, Form, FormGroup, Button, Input,Label, ButtonGroup} from 'reactstrap';
 import ErrBox from "./ErrBox";
+import { Link } from 'react-router-dom';
 import { get } from 'https';
 
 class Login extends React.Component {
@@ -98,13 +99,19 @@ class Login extends React.Component {
 										</Input>
 									</FormGroup>
 									<ErrBox error={this.state.error}/>
-									<FormGroup className="LoginRememberGroup">
-									<Label>
-										<Input className="LoginRememberInput" name="remember" id="rememberInput" type="checkbox"/>
-										- Zapamiętaj mnie
-									</Label>
+									<FormGroup className="CheckGroup">
+									<Row>
+										<Col>
+											<Label id="remLabel">
+												<Input className="LoginRememberInput" name="remember" id="rememberInput" type="checkbox"/>
+												- Zapamiętaj mnie
+											</Label>
+										</Col>
+										<Col>
+											<Link to="/register"><Button id="NieMamKonta" color="link">Nie mam konta</Button></Link>
+									    </Col>
+									</Row>
 									</FormGroup>
-									
 									<Button type="submit" className="LoginButton" color="warning" block>
 										Zaloguj się!
 									</Button>
