@@ -1,3 +1,4 @@
+const createStore = requie('redux');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -8,7 +9,6 @@ const sha512 = require('js-sha512');
 const algo = require('./src/Algorithm');
 const app = express();
 app.use(express.static(path.join(__dirname, 'build')));
-//app.use('/php', express.static(path.join(__dirname, 'public/PHP')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -114,53 +114,94 @@ app.post('/login', function(req, res) {
   const emailRegex = new RegExp(/^[-\w\.]+@([-\w]+\.)+[a-z]+$ /);
   const passRegex = new RegExp(/^[\w]{8,30}$/);
 
-  const db = mysql.createConnection({
+	const db = mysql.createConnection({
 		host: '85.10.205.173',
 		port: 3306,
 		user: 'admin_41487',
 		password: '1q2w3e4r',
 		database: 'game_data'
 	});
-
-  window.sessionStorage.removeItem('error');
 	db.connect(err => {
 		if(err){
-			send={ info: "Problemy z połączeniem. Przepraszamy."};
+			res.status(500).send("Sprawdź połączenie");
 		}
 	});
 	if (userRegex.test(user) || emailRegex.test(user)){
 		if (passRegex.test(pass)){
-			db.query("SELECT * FROM users WHERE name='username'", (err, results, fields)=>{
+			db.query('SELECT `*` FROM `users` WHERE `name`="'+username+'"', (err, results, fields)=>{
+        if(err) {
+					res.status(500).send("Sprawdź połączenie");
+				}
 				const numrows=results.length;
 				if (numrows==1){
 					const hash = sha512(pass);
-					db.query("SELECT * FROM users WHERE password='password' OR hash='hash'", (err, results, fields)=>{
-						const numrows=results.length;
-						if (numrows==1){
-							//bla bla trolololo
+					db.query('SELECT `*` FROM `users` WHERE `password`="'+password+'" OR `hash`="'+hash+'"', (err, results, fields)=>{
+						if(err) {
+							res.status(500).send("Sprawdź połączenie");
+						}
+						const numrows2=results.length;
+						if (numrows2==1){
+							//zgrywanie id i name do store redux							
+							//przekierowanie do gameComponent
 						}else{
-							const send={info: "Niepoprawne hasło."};
+							res.status(409).send("Hasło nie jest poprawne.");
 						}
 					});
 				}else{
-					const send={info: "Niepoprawny nick."};
+					res.status(409).send("Nazwa użytkownika nie jest poprawna.");
 				}
 			});
 		}else{
-			const send={info: "Tylko znaki alfanumeryczne w nicku!"};
+			res.status(409).send("Hasło nie jest poprawne.");
 		}
 	}else{
-		const send={info: "Tylko znaki alfanumeryczne w haśle!"};
+		res.status(409).send("Nazwa użytkownika nie jest poprawna.");
 	}
-	/*if (send != ""){
-	window.sessionStorage.setItem('error', send);
-	}*/
 	db.end();
 });
 
 app.post('/game-data', function(req, res) {
-  const data = req.body.data;
-  console.log("DATA");
+	const data = req.body.data;
+	const id=data.userID;
+	const db = mysql.createConnection({
+		host: '85.10.205.173',
+		port: 3306,
+		user: 'admin_41487',
+		password: '1q2w3e4r',
+		database: 'game_data'
+	});
+	db.connect(err => {
+		if(err) {
+			res.status(500).send("Sprawdź połączenie");
+		}
+	});
+	db.query('SELECT `*` FROM `Dane_userow` WHERE `id`="'+id+'"', (err, results, fields)=>{
+		const x=results.position[0];
+		const y=results.position[1];
+		const map=results.position[2];
+		//pobieranie danych gracza itemki itp.
+	});
+	saveing();
 });
+function saveing(){
+	const id=4; //to sie zmieni za pare dni
+	for(;;){
+		/*db.query('UPDATE `users-data` SET  WHERE `id`="'+id+'"', (err, results, fields)=>{
+			if(err) {
+				res.status(500).send("Połączenie zostało zerwane.");
+			}
+		});*/      //zapisywanie danych gracza  itemki itp. co 30s.
+		sleep(30000);
+	}
+}
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 
 app.listen(process.env.PORT || 8080);

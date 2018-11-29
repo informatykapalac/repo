@@ -17,14 +17,19 @@ class Example extends React.Component {
 	this.handleReg = this.handleReg.bind(this);
 	this.handleChange = this.handleChange.bind(this);
   }
-  checkData(user, pass, pass2){
+  checkData(email, user, pass, pass2){
 		const userRegex = new RegExp(/^[\w]{1,20}$/);
+		const emailRegex = new RegExp(/^[-\w\.]+@([-\w]+\.)+[a-z]+$/);
 		const passRegex = new RegExp(/^[\w]{8,30}$/);
 		const bigRegex = new RegExp(/[A-Z]/)
+		  if(emailRegex.test(email)){
         if(userRegex.test(user)){
             if(passRegex.test(pass) && bigRegex.test(pass)){
-
-                return true;
+							if(pass === pass2){
+								return true;
+							}
+							this.setState({error: "Hasła nie są takie same, może literówka?"});
+              return false;
 						}
 						else{
 							this.setState({error: "Hasło musi mieć od 8 do 30 znaków i dużą literę."});
@@ -34,12 +39,16 @@ class Example extends React.Component {
 					this.setState({error: "Nazwa użytkownika musi mieć od 1 do 20 znaków."});
 					return false;
 				}
+			}else{
+				this.setState({error: "Wiesz jak wygląda poprawny adres email?"});
+				return false;
+			}
 	}
 
   handleReg(event) {
 
     event.preventDefault();
-	if(this.checkData(this.state.nick, this.state.pass)){
+	if(this.checkData(this.state.email, this.state.nick, this.state.pass, this.state.pass2)){
     const data = {
       name: this.state.nick,
       email: this.state.email,
@@ -89,7 +98,7 @@ class Example extends React.Component {
 											<Input type="password" name="pass" id="examplePass" placeholder="Wpisz hasło" value={this.state.pass} onChange={this.handleChange} />
 										</FormGroup>
 										<FormGroup>
-											<Input type="password" name="2pass" id="example2Pass" placeholder="Powtórz hasło" />
+											<Input type="password" name="pass2" id="example2Pass" placeholder="Powtórz hasło" value={this.state.pass2} onChange={this.handleChange} />
 										</FormGroup>
 									</FormGroup>
 									<ErrBox error={this.state.error}/>
