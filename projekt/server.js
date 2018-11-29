@@ -1,3 +1,4 @@
+const createStore = requie('redux');
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -8,7 +9,6 @@ const sha512 = require('js-sha512');
 const algo = require('./src/Algorithm');
 const app = express();
 app.use(express.static(path.join(__dirname, 'build')));
-//app.use('/php', express.static(path.join(__dirname, 'public/PHP')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -18,6 +18,7 @@ app.post('/register', function(req, res) {
 	const user = data.name;
 	const pass = data.pass;
 	const email = data.email;
+  let userID = -1;
   // Sprawdzić ponownie kompatybilność nazwy użytkownika oraz hasła.
 
   // Stworzyć token do rejestracji
@@ -40,40 +41,66 @@ app.post('/register', function(req, res) {
     password: '1q2w3e4r',
     database: 'game_data'
   });
-// ZAPYTANIA INSERT MAJĄ POZOSTAĆ W KOMENTARZACH !!!
 
   db.connect();
 
-  db.query('SELECT `name` FROM `users` WHERE `name` = "' + user + '"' , function(err, res, info) {
-    console.log(err);
-    console.log(res);
-    console.log(info);
+  db.query('SELECT `name` FROM `users` WHERE `name` = "' + user + '"' , function(err, resp, info) {
+    if(err) {
+      res.status(500).send("Sprawdź połączenie");
+    }
+    if(resp[0]) { // konflikt nazw użytkowników
+      res.status(409).send("Nazwa użytkownika jest już zajęta");
+      return;
+    }
+
+    db.query('INSERT INTO `users` (`email`, `name`, `hash`, `token`) VALUES ("' + email + '","' + user + '","' + hash + '","' + auth_token + '")', function(err, resp, info) {
+      if(err) {
+        res.status(500).send("Sprawdź połączenie");
+      }
+    });
+
+    db.query('SELECT `id` FROM `users` WHERE `name` = "' + user + '" AND `hash` = "' + hash + '"', function(err, resp, info) {
+      if(err) {
+        res.status(500).send("Sprawdź połączenie");
+      }
+      userID = resp[0].id; // ID użytkownika z bazy danych
+    });
+
+    let time = new Date().getTime() / 1000;
+    time = parseInt(time) + 3600; // czas rejestracji
+
+    /*db.query('INSERT INTO `register` (`user_id`, `token`, `expires`) VALUES ("' + userID + '","' + token + '","' + time + '")', function(err, resp, info) {
+      if(err) {
+        res.status(500).send("Sprawdź połączenie");
+      }
+    });*/
+
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'sorrowoftomorrow.register@gmail.com',
+        pass: '97fc3ab1ac9787d8c9'
+      }
+    });
+
+    let mailOptions = {
+      from: 'Game Dev <sorrowoftomorrow.register@gmail.com>',
+      to: email,
+      subject: 'Rejestracja konta',
+      text: 'Aby odczytać tą wiadomość twój klient poczty musi obsługiwać HTML',
+      html: '<p>TBD</p>'
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if(error) {
+        res.status(500).send("Sprawdź połączenie");
+      }
+      console.log(info);
+    });
+
+    db.end();
+
   });
-
-  /*db.query('INSERT INTO `users` (`email`, `name`, `password`, `hash`) VALUES ("' + email + '","' + user + '","' + pass + '","' + hash + '")', function(err, res, info) {
-    console.log(err);
-    console.log(res);
-    console.log(info);
-  });*/
-
-  db.query('SELECT `id` FROM `users` WHERE `name` = "' + user + '" AND `password` = "' + pass + '"', function(err, res, info) {
-    console.log(err);
-    console.log(res);
-    console.log(info);
-  });
-
-  let time = new Date().getTime() / 1000;
-  time = parseInt(time) + 3600;
-
-  /*db.query('INSERT INTO `register` (`user_id`, `token`, `expires`) VALUES ( ,"' + token + '","' + time + '")', function(err, res, info) {
-    console.log(err);
-    console.log(res);
-    console.log(info);
-  });*/
-
-  db.end();
-
-  // Maile będą wysyłane przez Nodemailer
 
 });
 
@@ -83,55 +110,98 @@ app.post('/login', function(req, res) {
 	const user = data.name;
 	const pass = data.pass;
 
-  const reg=/^[a-zA-Z0-9]{1,}$/;
+  const userRegex = new RegExp(/^[\w]{2,20}$/);
+  const emailRegex = new RegExp(/^[-\w\.]+@([-\w]+\.)+[a-z]+$ /);
+  const passRegex = new RegExp(/^[\w]{8,30}$/);
 
-  const db = mysql.createConnection({
+	const db = mysql.createConnection({
 		host: '85.10.205.173',
 		port: 3306,
 		user: 'admin_41487',
 		password: '1q2w3e4r',
 		database: 'game_data'
 	});
-
-  window.sessionStorage.removeItem('error');
 	db.connect(err => {
 		if(err){
-			send={ info: "Problemy z połączeniem."};
+			res.status(500).send("Sprawdź połączenie");
 		}
 	});
-	if (reg.test(user)){
-		if (reg.test(pass)){
-			db.query("SELECT * FROM users WHERE name='username'", (err, results, fields)=>{
+	if (userRegex.test(user) || emailRegex.test(user)){
+		if (passRegex.test(pass)){
+			db.query('SELECT `*` FROM `users` WHERE `name`="'+username+'"', (err, results, fields)=>{
+        if(err) {
+					res.status(500).send("Sprawdź połączenie");
+				}
 				const numrows=results.length;
 				if (numrows==1){
 					const hash = sha512(pass);
-					db.query("SELECT * FROM users WHERE password='password' OR hash='hash'", (err, results, fields)=>{
-						const numrows=results.length;
-						if (numrows==1){
-							//bla bla trolololo
+					db.query('SELECT `*` FROM `users` WHERE `password`="'+password+'" OR `hash`="'+hash+'"', (err, results, fields)=>{
+						if(err) {
+							res.status(500).send("Sprawdź połączenie");
+						}
+						const numrows2=results.length;
+						if (numrows2==1){
+							//zgrywanie id i name do store redux							
+							//przekierowanie do gameComponent
 						}else{
-							const send={info: "Niepoprawne hasło."};
+							res.status(409).send("Hasło nie jest poprawne.");
 						}
 					});
 				}else{
-					const send={info: "Niepoprawny nick."};
+					res.status(409).send("Nazwa użytkownika nie jest poprawna.");
 				}
 			});
 		}else{
-			const send={info: "Tylko znaki alfanumeryczne w nicku!!!"};
+			res.status(409).send("Hasło nie jest poprawne.");
 		}
 	}else{
-		const send={info: "Tylko znaki alfanumeryczne w haśle!!!"};
+		res.status(409).send("Nazwa użytkownika nie jest poprawna.");
 	}
-	/*if (send != ""){
-	window.sessionStorage.setItem('error', send);
-	}*/
 	db.end();
 });
 
 app.post('/game-data', function(req, res) {
-  const data = req.body.data;
-  console.log("DATA");
+	const data = req.body.data;
+	const id=data.userID;
+	const db = mysql.createConnection({
+		host: '85.10.205.173',
+		port: 3306,
+		user: 'admin_41487',
+		password: '1q2w3e4r',
+		database: 'game_data'
+	});
+	db.connect(err => {
+		if(err) {
+			res.status(500).send("Sprawdź połączenie");
+		}
+	});
+	db.query('SELECT `*` FROM `Dane_userow` WHERE `id`="'+id+'"', (err, results, fields)=>{
+		const x=results.position[0];
+		const y=results.position[1];
+		const map=results.position[2];
+		//pobieranie danych gracza itemki itp.
+	});
+	saveing();
 });
+function saveing(){
+	const id=4; //to sie zmieni za pare dni
+	for(;;){
+		/*db.query('UPDATE `users-data` SET  WHERE `id`="'+id+'"', (err, results, fields)=>{
+			if(err) {
+				res.status(500).send("Połączenie zostało zerwane.");
+			}
+		});*/      //zapisywanie danych gracza  itemki itp. co 30s.
+		sleep(30000);
+	}
+}
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 
 app.listen(process.env.PORT || 8080);

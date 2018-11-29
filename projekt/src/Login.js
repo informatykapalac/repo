@@ -44,20 +44,21 @@ class Login extends React.Component {
 		return "";
 	}
 	checkData(user, pass){
-		const userRegex = new RegExp(/^[\w]{1,20}$/);
+		const userRegex = new RegExp(/^[\w]{2,20}$/);
+		const emailRegex = new RegExp(/^[-\w\.]+@([-\w]+\.)+[a-z]+$ /);
 		const passRegex = new RegExp(/^[\w]{8,30}$/);
 		const bigRegex = new RegExp(/[A-Z]/)
-        if(userRegex.test(user)){
+        if(userRegex.test(user) || emailRegex.test(user)){
             if(passRegex.test(pass) && bigRegex.test(pass)){
                 return true;
 			}
 			else{
-				this.setState({error: "Hasło musi mieć od 8 do 30 znaków i dużą literę."});
+				this.setState({error: "Wszystko ok? Hasła mają od 8 do 30 znaków i dużą literę!"});
 				return false;
 			}
 		}else{
-			this.setState({error: "Nazwa użytkownika musi mieć od 1 do 20 znaków."});
-			return false;
+				this.setState({error: "Ej! Nazwy użytkowników mają od 2 do 20 znaków, a adres email chyba wiesz jak wygląda."});
+				return false;
 		}
 	}
 	
