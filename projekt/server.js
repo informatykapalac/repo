@@ -110,7 +110,9 @@ app.post('/login', function(req, res) {
 	const user = data.name;
 	const pass = data.pass;
 
-  const reg=/^[a-zA-Z0-9]{1,}$/;
+  const userRegex = new RegExp(/^[\w]{2,20}$/);
+  const emailRegex = new RegExp(/^[-\w\.]+@([-\w]+\.)+[a-z]+$ /);
+  const passRegex = new RegExp(/^[\w]{8,30}$/);
 
   const db = mysql.createConnection({
 		host: '85.10.205.173',
@@ -123,11 +125,11 @@ app.post('/login', function(req, res) {
   window.sessionStorage.removeItem('error');
 	db.connect(err => {
 		if(err){
-			send={ info: "Problemy z połączeniem."};
+			send={ info: "Problemy z połączeniem. Przepraszamy."};
 		}
 	});
-	if (reg.test(user)){
-		if (reg.test(pass)){
+	if (userRegex.test(user) || emailRegex.test(user)){
+		if (passRegex.test(pass)){
 			db.query("SELECT * FROM users WHERE name='username'", (err, results, fields)=>{
 				const numrows=results.length;
 				if (numrows==1){
@@ -145,10 +147,10 @@ app.post('/login', function(req, res) {
 				}
 			});
 		}else{
-			const send={info: "Tylko znaki alfanumeryczne w nicku!!!"};
+			const send={info: "Tylko znaki alfanumeryczne w nicku!"};
 		}
 	}else{
-		const send={info: "Tylko znaki alfanumeryczne w haśle!!!"};
+		const send={info: "Tylko znaki alfanumeryczne w haśle!"};
 	}
 	/*if (send != ""){
 	window.sessionStorage.setItem('error', send);

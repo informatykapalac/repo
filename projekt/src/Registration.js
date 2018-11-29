@@ -25,15 +25,15 @@ class Example extends React.Component {
             if(passRegex.test(pass) && bigRegex.test(pass)){
 
                 return true;
-			}
-			else{
-				this.setState({error: "Hasło musi mieć od 8 do 30 znaków i dużą literę."});
-				return false;
-			}
-		}else{
-			this.setState({error: "Nazwa użytkownika musi mieć od 1 do 20 znaków."});
-			return false;
-		}
+						}
+						else{
+							this.setState({error: "Hasło musi mieć od 8 do 30 znaków i dużą literę."});
+							return false;
+						}
+				}else{
+					this.setState({error: "Nazwa użytkownika musi mieć od 1 do 20 znaków."});
+					return false;
+				}
 	}
 
   handleReg(event) {
