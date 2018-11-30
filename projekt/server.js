@@ -28,7 +28,11 @@ app.post('/register', function(req, res) {
 
   // Stworzyć hash do autentyfikacji użytkownika w aplikacji
 
-  const hash = sha512(pass);
+	const hash = sha512(pass);
+	
+	const userRegex = new RegExp(/^[\w]{2,20}$/);
+	const emailRegex = new RegExp(/^[-\w\.]+@([-\w]+\.)+[a-z]+$ /);
+	const passRegex = new RegExp(/^[\w]{8,30}$/);
 
   // auth_token w wersji alpha
 
@@ -42,65 +46,77 @@ app.post('/register', function(req, res) {
     database: 'game_data'
   });
 
-  db.connect();
+	db.connect();
+	
+	if(emailRegex.test(email)){
+		if(userRegex.test(user)){
+			if(passRegex.test(pass)){
+        db.query('SELECT `name` FROM `users` WHERE `name` = "' + user + '"' , function(err, resp, info) {
+					if(err) {
+						res.status(500).send("Sprawdź połączenie");
+					}
+					if(resp[0]) { // konflikt nazw użytkowników
+						res.status(409).send("Nazwa użytkownika jest już zajęta");
+						return;
+					}
+			
+					db.query('INSERT INTO `users` (`email`, `name`, `hash`, `token`) VALUES ("' + email + '","' + user + '","' + hash + '","' + auth_token + '")', function(err, resp, info) {
+						if(err) {
+							res.status(500).send("Sprawdź połączenie");
+						}
+					});
+			
+					db.query('SELECT `id` FROM `users` WHERE `name` = "' + user + '" AND `hash` = "' + hash + '"', function(err, resp, info) {
+						if(err) {
+							res.status(500).send("Sprawdź połączenie");
+						}
+						userID = resp[0].id; // ID użytkownika z bazy danych
+					});
+			
+					let time = new Date().getTime() / 1000;
+					time = parseInt(time) + 3600; // czas rejestracji
+			
+					/*db.query('INSERT INTO `register` (`user_id`, `token`, `expires`) VALUES ("' + userID + '","' + token + '","' + time + '")', function(err, resp, info) {
+						if(err) {
+							res.status(500).send("Sprawdź połączenie");
+						}
+					});*/
+			
+					let transporter = nodemailer.createTransport({
+						service: 'gmail',
+						auth: {
+							user: 'sorrowoftomorrow.register@gmail.com',
+							pass: '97fc3ab1ac9787d8c9'
+						}
+					});
+			
+					let mailOptions = {
+						from: 'Game Dev <sorrowoftomorrow.register@gmail.com>',
+						to: email,
+						subject: 'Rejestracja konta',
+						text: 'Aby odczytać tą wiadomość twój klient poczty musi obsługiwać HTML',
+						html: '<p>TBD</p>'
+					};
+			
+					transporter.sendMail(mailOptions, (error, info) => {
+						if(error) {
+							res.status(500).send("Sprawdź połączenie");
+						}
+						console.log(info);
+					});
+			
+				});
+			}else{
+        res.status(409).send("Hasło nie jest poprawne.");
+			}
+		}else{
+			res.status(409).send("Nazwa użytkownika nie jest poprawna.");
+		}
+	}else{
+		res.status(409).send("Email nie jest poprawny.");
+	}
 
-  db.query('SELECT `name` FROM `users` WHERE `name` = "' + user + '"' , function(err, resp, info) {
-    if(err) {
-      res.status(500).send("Sprawdź połączenie");
-    }
-    if(resp[0]) { // konflikt nazw użytkowników
-      res.status(409).send("Nazwa użytkownika jest już zajęta");
-      return;
-    }
-
-    db.query('INSERT INTO `users` (`email`, `name`, `hash`, `token`) VALUES ("' + email + '","' + user + '","' + hash + '","' + auth_token + '")', function(err, resp, info) {
-      if(err) {
-        res.status(500).send("Sprawdź połączenie");
-      }
-    });
-
-    db.query('SELECT `id` FROM `users` WHERE `name` = "' + user + '" AND `hash` = "' + hash + '"', function(err, resp, info) {
-      if(err) {
-        res.status(500).send("Sprawdź połączenie");
-      }
-      userID = resp[0].id; // ID użytkownika z bazy danych
-    });
-
-    let time = new Date().getTime() / 1000;
-    time = parseInt(time) + 3600; // czas rejestracji
-
-    /*db.query('INSERT INTO `register` (`user_id`, `token`, `expires`) VALUES ("' + userID + '","' + token + '","' + time + '")', function(err, resp, info) {
-      if(err) {
-        res.status(500).send("Sprawdź połączenie");
-      }
-    });*/
-
-    let transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'sorrowoftomorrow.register@gmail.com',
-        pass: '97fc3ab1ac9787d8c9'
-      }
-    });
-
-    let mailOptions = {
-      from: 'Game Dev <sorrowoftomorrow.register@gmail.com>',
-      to: email,
-      subject: 'Rejestracja konta',
-      text: 'Aby odczytać tą wiadomość twój klient poczty musi obsługiwać HTML',
-      html: '<p>TBD</p>'
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-      if(error) {
-        res.status(500).send("Sprawdź połączenie");
-      }
-      console.log(info);
-    });
-
-    db.end();
-
-  });
+  db.end();
 
 });
 
