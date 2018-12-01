@@ -11,45 +11,20 @@ const mapStateToProps = state => {
   };
 };
 
-class Layer_1 extends Component {
+class Layer_2 extends Component {
   constructor() {
     super();
-
     this.loadData = this.loadData.bind(this);
     this.createMap = this.createMap.bind(this);
-
   }
 
   loadData() {
-
     const data = {
       userID: this.props.userID,
       token: this.props.token
     }
-
     axios.post('/game-data', { data }).then(res => {
       console.log("DONE");
-    });
-  }
-
-  createMap() {
-    let GraphicsList = [];
-    let ZoomX = this.state.props.width/1280;
-    let ZoomY = this.state.props.height/720;
-    for (let i=0; i<48; i++) {
-      const x = new window.Image();
-      x.src = './graphics/coblestone_center.bmp';
-      GraphicsList[i] = x;
-    }
-
-    return GraphicsList.map((Graphic)=>{
-      return(
-        <Image
-        image = {Graphic}
-        width={320 * ZoomX}
-        height={320 * ZoomY}
-        />
-      );
     });
   }
 
@@ -62,6 +37,6 @@ class Layer_1 extends Component {
   }
 }
 
-const Layer1 = connect(mapStateToProps)(Layer_1);
+const Layer2 = connect(mapStateToProps)(Layer_2);
 
-export default Layer1;
+export default Layer2;
