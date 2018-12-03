@@ -4,6 +4,9 @@ import axios from 'axios';
 import Konva from 'konva';
 import { Stage } from 'react-konva';
 import Layer1 from './Layer1Component';
+import Layer2 from './Layer2Component';
+import Layer3 from './Layer3Component';
+import Layer4 from './Layer4Component';
 import { test } from './Redux/reduxActions';
 
 const mapStateToProps = state => {
@@ -63,6 +66,9 @@ class _Game extends Component {
 		return(
 			<Stage width={this.state.width} height={this.state.height}>
 				<Layer1 width={this.state.width} height={this.state.height}/>
+				<Layer2 width={this.state.width} height={this.state.height}/>
+				<Layer3 width={this.state.width} height={this.state.height}/>
+	     	<Layer4 width={this.state.width} height={this.state.height}/>
 			</Stage>
 		);
 	}
