@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Konva from 'konva';
 import axios from 'axios';
-import { Layer, Image} from 'react-konva';
+import { Layer, Image, Rect} from 'react-konva';
 
 const mapStateToProps = state => {
   return {
@@ -56,7 +56,7 @@ class Layer_1 extends Component {
   render() {
     return(
       <Layer>
-
+      <Rect width={10} height={10} fill="red" />
       </Layer>
     );
   }
