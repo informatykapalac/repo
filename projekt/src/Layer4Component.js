@@ -11,11 +11,10 @@ const mapStateToProps = state => {
   };
 };
 
-class Layer_2 extends Component {
+class Layer_4 extends Component {
   constructor() {
     super();
     this.loadData = this.loadData.bind(this);
-    this.createMap = this.createMap.bind(this);
   }
 
   loadData() {
@@ -37,6 +36,6 @@ class Layer_2 extends Component {
   }
 }
 
-const Layer2 = connect(mapStateToProps)(Layer_2);
+const Layer4 = connect(mapStateToProps)(Layer_4);
 
-export default Layer2;
+export default Layer4;
