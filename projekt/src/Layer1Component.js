@@ -7,7 +7,7 @@ import { Layer, Image, Rect} from 'react-konva';
 const mapStateToProps = state => {
   return {
     userID: state.userID,
-    token: state.token
+    token: state.token,
   };
 };
 
