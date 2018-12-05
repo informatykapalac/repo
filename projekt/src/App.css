@@ -1,111 +1,9 @@
+#root{
+	height: 100vh;
+	background-color: grey;
+}
 .App {
   text-align: center;
-}
-
-.RejWeb {
-	height: 100%;
-	width: 100%;
-	background-color: #4abdac;
-	position: fixed;
-}
-
-.RegiContent {
-	position: absolute;
-	width: 400px;
-	height: 300px;
-	left: 50%;
-	margin-left: -200px;
-	top: 50%;
-	margin-top: -150px;
-}
-
-.RegiTytul {
-	font-size: 40px;
-	text-align: center;
-	width: 400px;
-	margin-bottom: 40px;
-	color: #ffffff;
-}
-
-.RegiInputs {
-	height: 300px;
-	width: 400px;
-	border-radius: 25px;
-}
-
-#exampleEmail {
-	border: 2px solid #ffffff;
-	border-radius: 10px;
-	height: 60px;
-	width: 230px;
-	height: 25px;
-	width: 80%;
-	margin-top: 10px;
-	margin-left: 10%;
-	margin-right: 10%;
-}
-
-#exampleNick {
-	border: 2px solid #ffffff;
-	border-radius: 10px;
-	height: 60px;
-	width: 230px;
-	height: 25px;
-	width: 80%;
-	margin-top: 10px;
-	margin-left: 10%;
-	margin-right: 10%;
-}
-
-#examplePass {
-	border: 2px solid #ffffff;
-	border-radius: 10px;
-	height: 60px;
-	width: 230px;
-	height: 25px;
-	width: 80%;
-	margin-top: 10px;
-	margin-left: 10%;
-	margin-right: 10%;
-}
-
-#example2Pass {
-	border: 2px solid #ffffff;
-	border-radius: 10px;
-	height: 60px;
-	width: 230px;
-	height: 25px;
-	width: 80%;
-	margin-top: 10px;
-	margin-left: 10%;
-	margin-right: 10%;
-}
-
-.przyciski {
-	margin-top: 20px;
-	position: absolute;
-	width: 310px;
-	height: 40px;
-	left: 50%;
-	margin-left: -155px;
-}
-
-#zarejestruj {
-	height: 40px;
-	width: 150px;
-	border: 2px solid #fc4a1a;
-	background-color: #fc4a1a;
-	float: left;
-	color: white;
-}
-
-#mamjuzkonto {
-	height: 40px;
-	width: 150px;
-	border: 2px solid #f7b733;
-	background-color: #f7b733;
-	float: right;
-	color: white;
 }
 
 .App-logo {
@@ -113,11 +11,71 @@
   height: 40vmin;
 }
 
-.rejestrMain {
-	position: absolute;
-	left: 35%;
-	top: 25%;
-	height: 50%;
-	width: 30%;
-	background: #333333;
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+textarea {
+	resize: none;
+	width: 200px;
+	height: 25px;
+}
+
+.Title{
+	text-align:center;
+	margin-bottom:35px;
+}
+
+.Rejestracja,
+.Login {
+	display: flex;
+	height: 100vh;
+}
+
+.CheckGroup{
+  margin-left: 20px;
+}
+
+.RejestrContainer,
+.LoginContainer,
+.LoginJumbotron{
+	padding: 0px;
+	margin: 0px !important;
+	align-self: center;
+}
+
+.RejestrJumbotron,
+.LoginJumbotron{
+	padding: 2rem !important;
+}
+#ErrorAlert{
+	visibility: hidden;
+}
+#NieMamKonta{
+  float: right;
+  padding: 3px 3px !important;
+}
+#remLabel{
+  padding: 3px 0;
+}
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
