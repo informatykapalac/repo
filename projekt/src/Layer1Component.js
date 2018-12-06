@@ -16,7 +16,9 @@ class Layer_1 extends Component {
     super();
 
     this.state = {
-      tempor: 0
+      GraphicsList: [],
+      ZoomX: 0,
+      ZoomY: 0,
     };
 
     this.loadData = this.loadData.bind(this);
@@ -37,16 +39,20 @@ class Layer_1 extends Component {
   }
 
   createMap() {
-    let GraphicsList = [];
-    let ZoomX = this.state.props.width/1280;
-    let ZoomY = this.state.props.height/720;
+    const lGraphicsList = [];
+    let ZoomX = this.props.width/1280;
+    let ZoomY = this.props.height/720;
     for (let i=0; i<48; i++) {
-      const x = new window.Image();
-      x.src = '/maps/Chessboard.bmp';
-      GraphicsList[i] = x;
+      const img = new window.Image();
+      img.src = '/maps/Chessboard.bmp';
+      if(i === 47){
+        img.onload = () =>{
+          this.setState({GraphicsList: lGraphicsList});
+        }
+      }
+      lGraphicsList[i] = img;
     }
-
-    return GraphicsList.map((Graphic)=>{
+    return lGraphicsList.map((Graphic)=>{
       return(
         <Image
         image = {Graphic}
@@ -57,7 +63,7 @@ class Layer_1 extends Component {
     });
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
 
     let tempor1 = new window.Image();
     tempor1.src = '/maps/Chessboard.bmp';
@@ -68,17 +74,14 @@ class Layer_1 extends Component {
       });
     };
 
-  }
+  }*/
 
   render() {
-
-    //const tempor = new window.Image();
-    //tempor.src = '/maps/Chessboard.bmp';
-
     return(
       <Layer>
       <Rect width={100} height={100} fill="red" x={0} y={0}/>
-      <Image image={this.state.tempor} width={320} height={320} x={200} y={200}/>
+      {this.createMap()}
+      
       </Layer>
     );
   }
