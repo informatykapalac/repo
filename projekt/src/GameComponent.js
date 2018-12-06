@@ -34,10 +34,8 @@ class _Game extends Component {
 	}
 
 	handleResize() {
-		this.setState({
-			width: window.innerWidth,
-			height: window.innerHeight
-		});
+		this.setState({width: window.innerWidth});
+		this.setState({height: window.innerHeight});
 	}
 
 	loadData() {

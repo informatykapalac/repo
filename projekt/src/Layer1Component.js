@@ -38,7 +38,7 @@ class Layer_1 extends Component {
     let ZoomY = this.state.props.height/720;
     for (let i=0; i<48; i++) {
       const x = new window.Image();
-      x.src = './graphics/coblestone_center.bmp';
+      x.src = '/maps/Chessboard.bmp';
       GraphicsList[i] = x;
     }
 
