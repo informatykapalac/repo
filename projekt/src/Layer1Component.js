@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Konva from 'konva';
 import axios from 'axios';
-import { Layer, Image, Rect} from 'react-konva';
+import uuidv4 from 'uuid/v4';
+import { Layer, Image, Rect } from 'react-konva';
 
 const mapStateToProps = state => {
   return {
@@ -22,7 +23,6 @@ class Layer_1 extends Component {
     };
 
     this.loadData = this.loadData.bind(this);
-    this.createMap = this.createMap.bind(this);
 
   }
 
@@ -38,50 +38,39 @@ class Layer_1 extends Component {
     });
   }
 
-  createMap() {
+  componentDidMount() {
     const lGraphicsList = [];
-    let ZoomX = this.props.width/1280;
-    let ZoomY = this.props.height/720;
+    const ZoomX = this.props.width/1280;
+    const ZoomY = this.props.height/720; // DANE O WYS. I SZER. DO STATE !!!
+    const wh = 320; // LICZBY MUSZĄ BYĆ STAŁE (OBLICZENIA NIEMOŻLIWE)
+    const ht = 320;
     for (let i=0; i<48; i++) {
-      const img = new window.Image();
+      const img = new window.Image(wh, ht);
       img.src = '/maps/Chessboard.bmp';
+      lGraphicsList[i] = img;
       if(i === 47){
         img.onload = () =>{
           this.setState({GraphicsList: lGraphicsList});
+          // NIE USUWAĆ -> console.log(this.state.GraphicsList);
         }
       }
-      lGraphicsList[i] = img;
     }
-    return lGraphicsList.map((Graphic)=>{
-      return(
-        <Image
-        image = {Graphic}
-        width={320 * ZoomX}
-        height={320 * ZoomY}
-        />
-      );
-    });
   }
-
-  /*componentDidMount() {
-
-    let tempor1 = new window.Image();
-    tempor1.src = '/maps/Chessboard.bmp';
-
-    tempor1.onload = () => {
-      this.setState({
-        tempor: tempor1
-      });
-    };
-
-  }*/
 
   render() {
     return(
       <Layer>
-      <Rect width={100} height={100} fill="red" x={0} y={0}/>
-      {this.createMap()}
-      
+        <Rect width={100} height={100} fill="red" x={0} y={0}/>
+        {
+          this.state.GraphicsList.map((Graphic)=>{
+            return(
+              <Image
+              key = {uuidv4()}
+              image = {Graphic}
+              />
+            );
+          })
+        }
       </Layer>
     );
   }
