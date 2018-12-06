@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import Konva from 'konva';
 import axios from 'axios';
 import { Layer, Image, Rect} from 'react-konva';
-import mapConfig from './maps/mapConfig';
 
 const mapStateToProps = state => {
   return {
@@ -15,12 +14,9 @@ const mapStateToProps = state => {
 class Layer_1 extends Component {
   constructor() {
     super();
+
     this.loadData = this.loadData.bind(this);
     this.createMap = this.createMap.bind(this);
-
-    this.state = {
-      GraphicsList: [],
-    }
 
   }
 
@@ -37,18 +33,13 @@ class Layer_1 extends Component {
   }
 
   createMap() {
-
-    let ZoomX = this.props.width/1280;
-    let ZoomY = this.props.height/720;
+    let GraphicsList = [];
+    let ZoomX = this.state.props.width/1280;
+    let ZoomY = this.state.props.height/720;
     for (let i=0; i<48; i++) {
-      console.log(mapConfig[i]);
-      const img = new window.Image();
-      img.src = "maps/che"//'./maps/' + mapConfig[i];
-      img.onload = () => {
-        this.setState({GraphicsList: GraphicsList})
-        console.log("Załadowany! Fire!")
-      }
-      GraphicsList[i] = img;
+      const x = new window.Image();
+      x.src = './graphics/coblestone_center.bmp';
+      GraphicsList[i] = x;
     }
 
     return GraphicsList.map((Graphic)=>{
@@ -57,18 +48,20 @@ class Layer_1 extends Component {
         image = {Graphic}
         width={320 * ZoomX}
         height={320 * ZoomY}
-        x={0}
-        y={0}
         />
       );
     });
   }
 
   render() {
+
+    const tempor = new window.Image();
+    tempor.src = '/maps/Chessboard.bmp';
+
     return(
       <Layer>
       <Rect width={100} height={100} fill="red" x={0} y={0}/>
-      {this.createMap()}
+      <Image image={tempor} width={320} height={320} x={800} y={200}/>
       </Layer>
     );
   }
