@@ -37,13 +37,13 @@ class Layer_1 extends Component {
   }
 
   createMap() {
-    
+
     let ZoomX = this.props.width/1280;
     let ZoomY = this.props.height/720;
     for (let i=0; i<48; i++) {
       console.log(mapConfig[i]);
       const img = new window.Image();
-      img.src = "https://d1u5p3l4wpay3k.cloudfront.net/minecraft_pl_gamepedia/a/a2/Bruk.png"//'./maps/' + mapConfig[i];
+      img.src = "maps/che"//'./maps/' + mapConfig[i];
       img.onload = () => {
         this.setState({GraphicsList: GraphicsList})
         console.log("Załadowany! Fire!")
