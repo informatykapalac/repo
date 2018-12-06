@@ -7,7 +7,7 @@ import Layer1 from './Layer1Component';
 import Layer2 from './Layer2Component';
 import Layer3 from './Layer3Component';
 import Layer4 from './Layer4Component';
-import { test } from './Redux/reduxActions';
+import { test, setHeight, setWidth } from './Redux/reduxActions';
 
 const mapStateToProps = state => {
   return {
@@ -18,7 +18,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    test: value => dispatch(test(value))
+		test: value => dispatch(test(value)),
+		setWidth: value => dispatch(setWidth(value)),
+		setHeight: value => dispatch(setHeight(value))
   };
 };
 
@@ -36,6 +38,8 @@ class _Game extends Component {
 	handleResize() {
 		this.setState({width: window.innerWidth});
 		this.setState({height: window.innerHeight});
+		this.props.setWidth(this.state.width);
+		this.props.setHeight(this.state.height);
 	}
 
 	loadData() {

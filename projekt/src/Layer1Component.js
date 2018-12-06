@@ -8,6 +8,8 @@ const mapStateToProps = state => {
   return {
     userID: state.userID,
     token: state.token,
+    width: state.width,
+    height: state.height
   };
 };
 
@@ -39,42 +41,34 @@ class Layer_1 extends Component {
   }
 
   createMap() {
-    const lGraphicsList = [];
-    let ZoomX = this.props.width/1280;
-    let ZoomY = this.props.height/720;
+    const locGraphicsList = [];
     for (let i=0; i<48; i++) {
       const img = new window.Image();
       img.src = '/maps/Chessboard.bmp';
       if(i === 47){
         img.onload = () =>{
-          this.setState({GraphicsList: lGraphicsList});
+          this.setState({GraphicsList: locGraphicsList});
         }
       }
-      lGraphicsList[i] = img;
+      locGraphicsList[i] = img;
     }
-    return lGraphicsList.map((Graphic)=>{
+    return locGraphicsList.map((Graphic)=>{
       return(
         <Image
         image = {Graphic}
-        width={320 * ZoomX}
-        height={320 * ZoomY}
+        width={320 * this.state.ZoomX}
+        height={320 * this.state.ZoomY}
         />
       );
     });
   }
 
-  /*componentDidMount() {
+  componentDidMount() {
 
-    let tempor1 = new window.Image();
-    tempor1.src = '/maps/Chessboard.bmp';
+    this.setState({ZoomX: this.props.width/1280});
+    this.setState({ZoomY: this.props.height/720});
 
-    tempor1.onload = () => {
-      this.setState({
-        tempor: tempor1
-      });
-    };
-
-  }*/
+  }
 
   render() {
     return(
