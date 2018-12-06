@@ -7,7 +7,7 @@ import { Layer, Image, Rect} from 'react-konva';
 const mapStateToProps = state => {
   return {
     userID: state.userID,
-    token: state.token
+    token: state.token,
   };
 };
 
@@ -56,7 +56,7 @@ class Layer_1 extends Component {
   render() {
     return(
       <Layer>
-      <Rect width={10} height={10} fill="red" />
+      <Rect width={100} height={100} fill="red" x={0} y={0}/>
       </Layer>
     );
   }

@@ -30,7 +30,7 @@ class Layer_2 extends Component {
   render() {
     return(
       <Layer>
-<Rect width={10} height={10} fill="yellow" />
+<Rect width={100} height={100} fill="yellow" x={30} y={30}/>
       </Layer>
     );
   }
