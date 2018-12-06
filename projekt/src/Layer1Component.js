@@ -15,6 +15,10 @@ class Layer_1 extends Component {
   constructor() {
     super();
 
+    this.state = {
+      tempor: 0
+    };
+
     this.loadData = this.loadData.bind(this);
     this.createMap = this.createMap.bind(this);
 
@@ -53,15 +57,28 @@ class Layer_1 extends Component {
     });
   }
 
+  componentDidMount() {
+
+    let tempor1 = new window.Image();
+    tempor1.src = '/maps/Chessboard.bmp';
+
+    tempor1.onload = () => {
+      this.setState({
+        tempor: tempor1
+      });
+    };
+
+  }
+
   render() {
 
-    const tempor = new window.Image();
-    tempor.src = '/maps/Chessboard.bmp';
+    //const tempor = new window.Image();
+    //tempor.src = '/maps/Chessboard.bmp';
 
     return(
       <Layer>
       <Rect width={100} height={100} fill="red" x={0} y={0}/>
-      <Image image={tempor} width={320} height={320} x={200} y={200}/>
+      <Image image={this.state.tempor} width={320} height={320} x={200} y={200}/>
       </Layer>
     );
   }
