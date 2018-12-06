@@ -61,7 +61,7 @@ class Layer_1 extends Component {
     return(
       <Layer>
       <Rect width={100} height={100} fill="red" x={0} y={0}/>
-      <Image image={tempor} width={320} height={320} x={800} y={200}/>
+      <Image image={tempor} width={320} height={320} x={200} y={200}/>
       </Layer>
     );
   }
