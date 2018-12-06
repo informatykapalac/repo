@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Konva from 'konva';
 import axios from 'axios';
 import { Layer, Image, Rect} from 'react-konva';
+import mapConfig from './maps/mapConfig';
 
 const mapStateToProps = state => {
   return {
@@ -14,9 +15,12 @@ const mapStateToProps = state => {
 class Layer_1 extends Component {
   constructor() {
     super();
-
     this.loadData = this.loadData.bind(this);
     this.createMap = this.createMap.bind(this);
+
+    this.state = {
+      GraphicsList: [],
+    }
 
   }
 
@@ -33,13 +37,18 @@ class Layer_1 extends Component {
   }
 
   createMap() {
-    let GraphicsList = [];
-    let ZoomX = this.state.props.width/1280;
-    let ZoomY = this.state.props.height/720;
+    
+    let ZoomX = this.props.width/1280;
+    let ZoomY = this.props.height/720;
     for (let i=0; i<48; i++) {
-      const x = new window.Image();
-      x.src = './graphics/coblestone_center.bmp';
-      GraphicsList[i] = x;
+      console.log(mapConfig[i]);
+      const img = new window.Image();
+      img.src = "https://d1u5p3l4wpay3k.cloudfront.net/minecraft_pl_gamepedia/a/a2/Bruk.png"//'./maps/' + mapConfig[i];
+      img.onload = () => {
+        this.setState({GraphicsList: GraphicsList})
+        console.log("Załadowany! Fire!")
+      }
+      GraphicsList[i] = img;
     }
 
     return GraphicsList.map((Graphic)=>{
@@ -48,6 +57,8 @@ class Layer_1 extends Component {
         image = {Graphic}
         width={320 * ZoomX}
         height={320 * ZoomY}
+        x={0}
+        y={0}
         />
       );
     });
@@ -57,6 +68,7 @@ class Layer_1 extends Component {
     return(
       <Layer>
       <Rect width={100} height={100} fill="red" x={0} y={0}/>
+      {this.createMap()}
       </Layer>
     );
   }

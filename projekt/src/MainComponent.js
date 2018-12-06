@@ -22,7 +22,7 @@ class Main extends Component {
           <Route path='/check/:name/:token' component={RegCheck} />
           <Route path='/confirm' component={() => <RegConfirm/>} />
           <Route path='/fail' component={() => <RegFail/>} />
-          <Redirect to='/register' />
+          <Redirect to='/game' />
         </Switch>
       </div>
     );
