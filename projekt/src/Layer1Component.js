@@ -25,22 +25,7 @@ class Layer_1 extends Component {
       GraphicsList: [],
       imgSize: 320,
     };
-
-    //this.loadData = this.loadData.bind(this);
-
   }
-
-  /*loadData() {
-
-    const data = {
-      userID: this.props.userID,
-      token: this.props.token
-    }
-
-    axios.post('/game-data', { data }).then(res => {
-      console.log("DONE");
-    });
-  }*/
 
   componentDidMount() {
     const lGraphicsList = [];
@@ -53,11 +38,6 @@ class Layer_1 extends Component {
       if(i === 47){
         img.onload = () =>{
           this.setState({GraphicsList: lGraphicsList});
-          /*setInterval(()=>{
-            this.setState({
-              imgSize: 320 * this.props.avgZoom
-            })
-          }, 5000)*/
           // NIE USUWAĆ -> console.log(this.state.GraphicsList);
         }
       }
