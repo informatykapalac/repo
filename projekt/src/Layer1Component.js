@@ -26,11 +26,11 @@ class Layer_1 extends Component {
       imgSize: 320,
     };
 
-    this.loadData = this.loadData.bind(this);
+    //this.loadData = this.loadData.bind(this);
 
   }
 
-  loadData() {
+  /*loadData() {
 
     const data = {
       userID: this.props.userID,
@@ -40,7 +40,7 @@ class Layer_1 extends Component {
     axios.post('/game-data', { data }).then(res => {
       console.log("DONE");
     });
-  }
+  }*/
 
   componentDidMount() {
     const lGraphicsList = [];
@@ -53,20 +53,30 @@ class Layer_1 extends Component {
       if(i === 47){
         img.onload = () =>{
           this.setState({GraphicsList: lGraphicsList});
-          setInterval(()=>{
+          /*setInterval(()=>{
             this.setState({
               imgSize: 320 * this.props.avgZoom
             })
-          }, 5000)
+          }, 5000)*/
           // NIE USUWAĆ -> console.log(this.state.GraphicsList);
         }
       }
     }
   }
+
+  componentWillReceiveProps(props) {
+    const temp = props.avgZoom * 320;
+    //console.log(temp);
+    if(temp != this.state.imgSize) {
+      this.setState({
+        imgSize: temp
+      });
+    }
+  }
+
   render() {
     return(
       <Layer>
-        <Rect width={100} height={100} fill="red" x={0} y={0}/>
         {
           this.state.GraphicsList.map((Graphic, i)=>{
             const posX = this.props.mapPos.x + this.state.imgSize * (i % 8);
