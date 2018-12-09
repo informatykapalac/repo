@@ -50,12 +50,12 @@ class Layer_2 extends Component {
       if (i==1) {
         img.onload = () =>{
           this.setState({GraphicsList: LgraphicList});
+          setInterval(()=>{
+           this.setState({
+              imgSize: 320 * this.state.avgZoom
+            })
+          }, 1000)
         }
-        setInterval(()=>{
-          this.setState({
-            imgSize: 320 * this.state.avgZoom
-          })
-        }, 1000)
       }
     }
   } 
