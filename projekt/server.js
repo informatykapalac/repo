@@ -88,7 +88,7 @@ app.post('/register', function(req, res) {
         						}
         					});
 
-                  const address = "localhost:3000/check/" + user + "/" + auth_token; // ADRES TYMCZASOWY
+                  const address = "http://localhost:3000/check/" + user + "/" + auth_token; // ADRES TYMCZASOWY
                   const address2 = "#";
 
         					let mailOptions = {
