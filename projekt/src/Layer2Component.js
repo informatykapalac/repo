@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Konva from 'konva';
 import axios from 'axios';
 import uuidv4 from 'uuid/v4';
-import { Layer, Image, Rect} from 'react-konva';
+import { Layer, Image, Rect } from 'react-konva';
 import Layer2_config from './layer2_config';
 
 const mapStateToProps = state => {
@@ -23,7 +23,7 @@ class Layer_2 extends Component {
       GraphicPos:{
         x:0,
         y:0
-      } 
+      }
     }
     this.loadData = this.loadData.bind(this);
   }
@@ -48,14 +48,18 @@ class Layer_2 extends Component {
       console.log(Layer2_config[i]);
       img.onload = () =>{
         this.setState({GraphicsList: LgraphicList});
-        setInterval(()=>{
-          this.setState({
-            imgSize: 320 * this.props.avgZoom
-          })
-        }, 5000)
       }
     }
-  } 
+  }
+  componentWillReceiveProps(props) {
+    const temp = props.avgZoom * 320;
+    //console.log(temp);
+    if(temp != this.state.imgSize) {
+      this.setState({
+        imgSize: temp
+      });
+    }
+  }
 
 
   render() {
@@ -74,7 +78,7 @@ class Layer_2 extends Component {
               y={this.state.GraphicPos.y}
               />
             );
-           
+
           })
         }
       </Layer>

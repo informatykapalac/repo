@@ -44,7 +44,7 @@ class _Game extends Component {
 		const avgZoom = (zoomX + zoomY) / 2;
 		const mapX = -((2560*zoomX - this.state.width)/2);
 		const mapY = -((1920*zoomY - this.state.height)/2);
-		console.log('x0:' + mapX + "y0" + mapY)
+		// KONTROLNE -> console.log('x0: ' + mapX + "y0: " + mapY)
 		this.props.setScreenSize(this.state.width, this.state.height);
 		this.props.setZoom(avgZoom);
 		this.props.setMapPos(mapX,mapY)
@@ -71,7 +71,7 @@ class _Game extends Component {
 	componentWillUnmount() {
 		window.removeEventListener('resize', this.handleResize);
 	}
-
+				// <Layer2> usunięty tymczasowo z powodu wielu błędów zwalniających aplikacje oraz zmniejszających komfort pracy
 	render() {
 		return(
 			<Stage width={this.state.width} height={this.state.height}>
