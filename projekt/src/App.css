@@ -1,6 +1,8 @@
 #root{
 	height: 100vh;
-	background-color: grey;
+}
+body{
+  background-color: grey;
 }
 .App {
   text-align: center;
