@@ -71,12 +71,12 @@ class _Game extends Component {
 	componentWillUnmount() {
 		window.removeEventListener('resize', this.handleResize);
 	}
-
+				// <Layer2> usunięty tymczasowo z powodu wielu błędów zwalniających aplikacje oraz zmniejszającyhc komfort pracy 
 	render() {
 		return(
 			<Stage width={this.state.width} height={this.state.height}>
 		    <Layer1/>
-				<Layer2/>
+
 				<Layer3/>
 		    <Layer4/>
 			</Stage>
