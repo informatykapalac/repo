@@ -7,7 +7,7 @@ import Layer1 from './Layer1Component';
 import Layer2 from './Layer2Component';
 import Layer3 from './Layer3Component';
 import Layer4 from './Layer4Component';
-import { test, setHeight, setWidth } from './Redux/reduxActions';
+import { test, setZoom, setScreenSize, setMapPos } from './Redux/reduxActions';
 
 const mapStateToProps = state => {
   return {
@@ -19,8 +19,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
 		test: value => dispatch(test(value)),
-		setWidth: value => dispatch(setWidth(value)),
-		setHeight: value => dispatch(setHeight(value))
+		setScreenSize: (width, height) => dispatch(setScreenSize(width, height)),
+		setMapPos: (x, y) => dispatch(setMapPos(x, y)),
+		setZoom: value => dispatch(setZoom(value))
   };
 };
 
@@ -38,8 +39,15 @@ class _Game extends Component {
 	handleResize() {
 		this.setState({width: window.innerWidth});
 		this.setState({height: window.innerHeight});
-		this.props.setWidth(this.state.width);
-		this.props.setHeight(this.state.height);
+		const zoomX = this.state.width / 1280;
+		const zoomY = this.state.height / 720;
+		const avgZoom = (zoomX + zoomY) / 2;
+		const mapX = -((2560*zoomX - this.state.width)/2);
+		const mapY = -((1920*zoomY - this.state.height)/2);
+		console.log('x0:' + mapX + "y0" + mapY)
+		this.props.setScreenSize(this.state.width, this.state.height);
+		this.props.setZoom(avgZoom);
+		this.props.setMapPos(mapX,mapY)
 	}
 
 	loadData() {

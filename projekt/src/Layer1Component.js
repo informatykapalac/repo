@@ -5,13 +5,15 @@ import axios from 'axios';
 import uuidv4 from 'uuid/v4';
 import { Layer, Image, Rect } from 'react-konva';
 import mapConfig from './mapConfig';
+import { setMapPos } from './Redux/reduxActions';
 
 const mapStateToProps = state => {
   return {
     userID: state.userID,
     token: state.token,
-    width: state.width,
-    height: state.height
+    screenSize: state.screenSize,
+    mapPos: state.mapPos,
+    avgZoom: state.avgZoom
   };
 };
 
@@ -21,12 +23,6 @@ class Layer_1 extends Component {
 
     this.state = {
       GraphicsList: [],
-      mapPos: {
-        x: 0,
-        y: 0,
-      },
-      ZoomX: 1,
-      ZoomY: 1,
       imgSize: 320,
     };
 
@@ -59,14 +55,9 @@ class Layer_1 extends Component {
           this.setState({GraphicsList: lGraphicsList});
           setInterval(()=>{
             this.setState({
-              ZoomX: this.props.width/1280,
-              ZoomY: this.props.height/720,
+              imgSize: 320 * this.props.avgZoom
             })
-            const avgZoom = (this.state.ZoomX + this.state.ZoomY) / 2;
-            this.setState({
-              imgSize: 320 * avgZoom
-            })
-          }, 1000)
+          }, 5000)
           // NIE USUWAĆ -> console.log(this.state.GraphicsList);
         }
       }
@@ -78,8 +69,8 @@ class Layer_1 extends Component {
         <Rect width={100} height={100} fill="red" x={0} y={0}/>
         {
           this.state.GraphicsList.map((Graphic, i)=>{
-            const posX = this.state.mapPos.x + this.state.imgSize * (i % 8);
-            const posY = this.state.mapPos.y + this.state.imgSize * (Math.floor(i/8));
+            const posX = this.props.mapPos.x + this.state.imgSize * (i % 8);
+            const posY = this.props.mapPos.y + this.state.imgSize * (Math.floor(i/8));
             return(
               <Image
               key = {uuidv4()}

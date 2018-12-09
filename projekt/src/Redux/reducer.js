@@ -12,13 +12,17 @@ export const Reducer = (state = initialState, action) => {
       return {
         ...state, temp: [...state.temp, action.data]
       };
-      case "SET_WIDTH":
+      case "SET_SCREEN_SIZE":
       return {
-        ...state, width: action.data
+        ...state, screenSize: action.data
       };
-      case "SET_HEIGHT":
+      case "SET_ZOOM":
       return {
-        ...state, height: action.data
+        ...state, avgZoom: action.data
+      };
+      case "SET_MAP_POS":
+      return {
+        ...state, mapPos: action.data
       };
     default:
       return state;
