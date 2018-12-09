@@ -16,7 +16,6 @@ class RegCheck extends React.Component {
     };
 
     axios.post('/activate', { data }).then(res => {
-      console.log("DONE");
       // redirect to RegConfirm
       this.props.history.push('/confirm');
     }).catch((error) => {
