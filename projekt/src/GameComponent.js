@@ -16,7 +16,14 @@ const mapStateToProps = state => {
   };
 };
 
-vf
+const mapDispatchToProps = dispatch => {
+  return {
+		test: value => dispatch(test(value)),
+		setScreenSize: (width, height) => dispatch(setScreenSize(width, height)),
+		setMapPos: (x, y) => dispatch(setMapPos(x, y)),
+		setZoom: value => dispatch(setZoom(value))
+  };
+};
 
 class _Game extends Component {
 	constructor() {
@@ -69,7 +76,7 @@ class _Game extends Component {
 		return(
 			<Stage width={this.state.width} height={this.state.height}>
 		    <Layer1/>
-				<Layer2/>
+			<Layer2/>
 				<Layer3/>
 		    <Layer4/>
 			</Stage>
