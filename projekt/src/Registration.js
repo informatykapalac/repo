@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Container, Jumbotron, Col, Row, Button, Form, FormGroup, Input } from 'reactstrap';
+import { Container, Jumbotron, Col, Row, Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import ErrBox from "./ErrBox";
 
@@ -80,8 +80,8 @@ class Example extends React.Component {
 			<Container className="RejestrContainer" fluid>
 				<Row>
 					<Col xs="12" md={{size:8, offset:2}} xl={{size:4, offset:4}} className="LoginCol">
-						<Jumbotron color="primary">
-							<h1 className="display-8">
+						<Jumbotron className="RejestrJumbotron" color="primary">
+							<h1 className="display-8 Title">
 								<div className="text-center">
 									Zarejestruj się
 								</div>
@@ -100,12 +100,24 @@ class Example extends React.Component {
 										<FormGroup>
 											<Input type="password" name="pass2" id="example2Pass" placeholder="Powtórz hasło" value={this.state.pass2} onChange={this.handleChange} />
 										</FormGroup>
+										<FormGroup className="CheckGroup">
+										<Row>
+										<Col>
+											<Label id="remLabel">
+												<Input className="LoginRememberInput" name="remember" id="rememberInput" type="checkbox"/>
+												- Akceptuję regulamin
+											</Label>
+										</Col>
+										<Col>
+											<Link to="/login"><Button id="NieMamKonta" color="link">Mam już konto</Button></Link>
+									    </Col>
+									</Row>
+									</FormGroup>
 									</FormGroup>
 									<ErrBox error={this.state.error}/>
 									<FormGroup>
 										<Button id="zarejestruj" type="submit" color="warning" block>Zarejestruj się!</Button>{' '}
 									</FormGroup>
-									<Link to="/login"><Button id="mamjuzkonto" color="secondary" block>Mam już konto</Button></Link>{' '}
 								</Form>
 						</Jumbotron>
 					</Col>
