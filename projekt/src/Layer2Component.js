@@ -19,11 +19,18 @@ class Layer_2 extends Component {
     super();
     this.state = {
       GraphicsList: [],
-      imgSize: 320,
-      GraphicPos:{
-        x:0,
-        y:0
-      }
+      GraphicPos: [
+        {
+          img_pos: 0,
+          imgX:20,
+          imgY:20
+        },
+        {
+          img_pos: 1,
+          imgX:40,
+          imgY:40
+        }
+      ]
     }
     this.loadData = this.loadData.bind(this);
   }
@@ -41,25 +48,17 @@ class Layer_2 extends Component {
 
   componentDidMount() {
     const LgraphicList = [];
-    for (let i=0; i<2;i++) {
-      const img = new window.Image;
-      img.src = '/layer2/' + Layer2_config[i];
-      LgraphicList[i] = img;
-      console.log(Layer2_config[i]);
+    Layer2_config.map((img_props, i)=>{
+        const img = new window.Image;
+        img.src = '/layer2/' + img_props.img_src;
+        LgraphicList[i] = img;
+        LgraphicList[i].size = img_props.img_size;
       img.onload = () =>{
         this.setState({GraphicsList: LgraphicList});
       }
-    }
+    })
   }
-  componentWillReceiveProps(props) {
-    const temp = props.avgZoom * 320;
-    //console.log(temp);
-    if(temp != this.state.imgSize) {
-      this.setState({
-        imgSize: temp
-      });
-    }
-  }
+  
 
 
   render() {
@@ -67,18 +66,19 @@ class Layer_2 extends Component {
       <Layer>
         <Rect width={100} height={100} fill="yellow" x={30} y={30}/>
         {
-          this.state.GraphicsList.map((Graphic,i)=>{
+          this.state.GraphicPos.map(()=>{
+            this.state.GraphicsList.map((Graphic)=>{
               return(
               <Image
               image = {Graphic}
               key = {uuidv4()}
-              width={this.state.imgSize}
-              height={this.state.imgSize}
-              x={this.state.GraphicPos.x}
-              y={this.state.GraphicPos.y}
+              width={Graphic.size * this.props.avgZoom}
+              height={Graphic.size * this.props.avgZoom}
+              x={0}
+              y={0}
               />
-            );
-
+              );
+            })
           })
         }
       </Layer>
