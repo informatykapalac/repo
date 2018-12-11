@@ -14,17 +14,6 @@ const mapStateToProps = state => {
 class Layer_3 extends Component {
   constructor() {
     super();
-    this.loadData = this.loadData.bind(this);
-  }
-
-  loadData() {
-    const data = {
-      userID: this.props.userID,
-      token: this.props.token
-    }
-    axios.post('/game-data', { data }).then(res => {
-      console.log("DONE");
-    });
   }
 
   render() {

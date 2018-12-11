@@ -42,9 +42,9 @@ class _Game extends Component {
 		const zoomX = this.state.width / 1280;
 		const zoomY = this.state.height / 720;
 		const avgZoom = (zoomX + zoomY) / 2;
-		const mapX = -((2560*zoomX - this.state.width)/2);
-		const mapY = -((1920*zoomY - this.state.height)/2);
-		// KONTROLNE -> console.log('x0: ' + mapX + "y0: " + mapY)
+		const mapX = -((2560*avgZoom - this.state.width)/2);
+		const mapY = -((1920*avgZoom - this.state.height)/2);
+	console.log('x0: ' + mapX + "y0: " + mapY)
 		this.props.setScreenSize(this.state.width, this.state.height);
 		this.props.setZoom(avgZoom);
 		this.props.setMapPos(mapX,mapY)

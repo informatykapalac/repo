@@ -25,19 +25,7 @@ class Layer_2 extends Component {
         y:0
       }
     }
-    this.loadData = this.loadData.bind(this);
   }
-
-  loadData() {
-    const data = {
-      userID: this.props.userID,
-      token: this.props.token
-    }
-    axios.post('/game-data', { data }).then(res => {
-      console.log("DONE");
-    });
-  }
-
 
   componentDidMount() {
     const LgraphicList = [];
