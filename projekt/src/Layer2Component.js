@@ -5,6 +5,7 @@ import axios from 'axios';
 import uuidv4 from 'uuid/v4';
 import { Layer, Image, Rect } from 'react-konva';
 import Layer2_config from './layer2_config';
+import { runInThisContext } from 'vm';
 
 const mapStateToProps = state => {
   return {
@@ -21,14 +22,7 @@ class Layer_2 extends Component {
       GraphicsList: [],
       GraphicPos: [
         {
-          img_pos: 0,
-          imgX:20,
-          imgY:20
-        },
-        {
-          img_pos: 1,
-          imgX:40,
-          imgY:40
+          img_pos:0
         }
       ]
     }
@@ -57,8 +51,22 @@ class Layer_2 extends Component {
         this.setState({GraphicsList: LgraphicList});
       }
     })
+    this.Img_Selecion();
   }
   
+
+
+  Img_Selecion(){
+    console.log(this.state.GraphicsList.length)
+    for(let ia=0; ia<this.state.GraphicPos.length;ia++) {
+      console.log(this.state.GraphicsList.length)
+      for(let i=0; i<this.state.GraphicsList.length;i++) {
+        
+      }
+    }
+  }
+
+
 
 
   render() {
@@ -66,25 +74,23 @@ class Layer_2 extends Component {
       <Layer>
         <Rect width={100} height={100} fill="yellow" x={30} y={30}/>
         {
-          this.state.GraphicPos.map(()=>{
-            this.state.GraphicsList.map((Graphic)=>{
-              return(
+          this.state.GraphicsList.map((Graphic)=>{
+            return(
               <Image
-              image = {Graphic}
-              key = {uuidv4()}
-              width={Graphic.size * this.props.avgZoom}
-              height={Graphic.size * this.props.avgZoom}
-              x={0}
-              y={0}
-              />
-              );
-            })
+                image = {Graphic}
+                key = {uuidv4()}
+                width={Graphic.size * this.props.avgZoom}
+                height={Graphic.size * this.props.avgZoom}
+                x={0}
+                y={0}
+            />
+            );
           })
         }
       </Layer>
     );
-  }
-}
+  };
+};
 
 const Layer2 = connect(mapStateToProps)(Layer_2);
 
