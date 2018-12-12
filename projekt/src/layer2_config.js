@@ -1,7 +1,7 @@
 const Layer2_config = [
     {
         img_src: "fire.bmp",
-        img_size: 64
+        img_size: 32
     },
     {
         img_src: "ice.bmp",
