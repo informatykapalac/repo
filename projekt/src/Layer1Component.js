@@ -34,6 +34,32 @@ class Layer_1 extends Component {
 
   createMap() {
 
+    let tilesonmap = [];
+    let zoomx = 0;
+    let zoomy = 0;
+    let x = 0;
+    let y = 0;
+
+    zoomx = this.state.props.width/1280;
+    zoomy = this.state.props.height/720;
+    tilesonmap.x = 320*zoomx;
+    tilesonmap.y = 320*zoomy;
+
+for(let i=0; i,<48; i++)
+{
+
+  let x = new window.createImageBitmap();
+  x.src = './graphics/coblestone_lower-right.bmp';
+  tilesonmap[i] = x;
+
+}
+tilesonmap.map((tilesonmap)=>{
+
+<Image
+image = {tilesonmap}
+>
+
+});
   }
 
   render() {
