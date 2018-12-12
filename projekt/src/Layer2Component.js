@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Konva from 'konva';
-import axios from 'axios';
 import uuidv4 from 'uuid/v4';
 import { Layer, Image, Rect } from 'react-konva';
 import Layer2_config from './layer2_config';

@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Konva from 'konva';
-import axios from 'axios';
 import uuidv4 from 'uuid/v4';
 import { Layer, Image, Rect } from 'react-konva';
 import mapConfig from './mapConfig';
-import { setMapPos } from './Redux/reduxActions';
 
 const mapStateToProps = state => {
   return {
