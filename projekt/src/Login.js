@@ -75,6 +75,14 @@ class Login extends React.Component {
 			};
 			axios.post('/login',{ loginData }).then(result =>{
 				console.log("DONE");
+			}).catch((error) => {
+			  if(error.response.status==200) {
+				  this.props.history.push('/game');
+			  }else{
+				this.setState({
+				  error: error.response.status + " " + error.response.data
+				});
+			  }
 			});
 		}
 		else{

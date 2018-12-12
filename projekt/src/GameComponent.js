@@ -7,12 +7,13 @@ import Layer1 from './Layer1Component';
 import Layer2 from './Layer2Component';
 import Layer3 from './Layer3Component';
 import Layer4 from './Layer4Component';
-import { test, setZoom, setScreenSize, setMapPos } from './Redux/reduxActions';
+import { test, setZoom, setScreenSize, setMapPos, setPlayerPos } from './Redux/reduxActions';
 
 const mapStateToProps = state => {
   return {
     userID: state.userID,
-    token: state.token
+		token: state.token,
+		mapPos: state.mapPos,
   };
 };
 
@@ -21,6 +22,7 @@ const mapDispatchToProps = dispatch => {
 		test: value => dispatch(test(value)),
 		setScreenSize: (width, height) => dispatch(setScreenSize(width, height)),
 		setMapPos: (x, y) => dispatch(setMapPos(x, y)),
+		setPlayerPos: (x,y) => dispatch(setPlayerPos(x,y)),
 		setZoom: value => dispatch(setZoom(value))
   };
 };
@@ -34,6 +36,7 @@ class _Game extends Component {
 		};
 
 		this.handleResize = this.handleResize.bind(this);
+		this.movePlayer = this.movePlayer.bind(this);
 	}
 
 	handleResize() {
@@ -48,6 +51,27 @@ class _Game extends Component {
 		this.props.setScreenSize(this.state.width, this.state.height);
 		this.props.setZoom(avgZoom);
 		this.props.setMapPos(mapX,mapY)
+		this.props.setPlayerPos(this.state.width/2, this.state.height/2)
+	}
+	movePlayer(e){
+		console.log(e.keyCode)
+		let mapX = this.props.mapPos.x
+		let mapY = this.props.mapPos.y;
+     switch(e.keyCode){
+				case 37:
+						mapX += 10
+						break
+				case 38:
+				 		mapY += 10
+				 	break
+				case 39:
+				 		mapX -= 10
+					 break
+				case 40:
+						mapY -= 10
+		 }
+		 this.props.setPlayerPos(this.state.width/2, this.state.height/2)
+		 this.props.setMapPos(mapX,mapY)
 	}
 
 	loadData() {
@@ -66,6 +90,7 @@ class _Game extends Component {
 	componentDidMount() {
 		this.handleResize();
 		window.addEventListener('resize', this.handleResize);
+		window.addEventListener('keydown', this.movePlayer);
 	}
 
 	componentWillUnmount() {

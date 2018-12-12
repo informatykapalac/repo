@@ -162,14 +162,12 @@ app.post('/activate', function(req, res) {
 });
 
 app.post('/login', function(req, res) {
-	const data = req.body.data;
-
+	const data = req.body.loginData;
 	const user = data.name;
 	const pass = data.pass;
-
-  const userRegex = new RegExp(/^[\w]{2,20}$/);
-  const emailRegex = new RegExp(/^[-\w\.]+@([-\w]+\.)+[a-z]+$ /);
-  const passRegex = new RegExp(/^[\w]{8,30}$/);
+    const userRegex = new RegExp(/^[\w]{2,20}$/);
+    const emailRegex = new RegExp(/^[-\w\.]+@([-\w]+\.)+[a-z]+$ /);
+    const passRegex = new RegExp(/^[\w]{8,30}$/);
 
 	const db = mysql.createConnection({
 		host: '85.10.205.173',
@@ -185,25 +183,28 @@ app.post('/login', function(req, res) {
 	});
 	if (userRegex.test(user) || emailRegex.test(user)){
 		if (passRegex.test(pass)){
-			db.query('SELECT `*` FROM `users` WHERE `name`="'+username+'"', (err, results, fields)=>{
-        if(err) {
+			db.query('SELECT `*` FROM `users` WHERE `name`="'+user+'" OR `email`="'+user+'"', (err, results, fields)=>{
+				if(err) {
 					res.status(500).send("Sprawdź połączenie");
 				}
 				const numrows=results.length;
 				if (numrows==1){
 					const hash = sha512(pass);
-					db.query('SELECT `*` FROM `users` WHERE `password`="'+password+'" OR `hash`="'+hash+'"', (err, results, fields)=>{
+					db.query('SELECT `*` FROM `users` WHERE `name`="'+user+'" AND `hash`="'+hash+'"', (err, results, fields)=>{
 						if(err) {
 							res.status(500).send("Sprawdź połączenie");
 						}
-						const numrows2=results.length;
-						if (numrows2==1){
-							//zgrywanie id i name do store redux
-							//przekierowanie do gameComponent
+						const numrowsa=results.length;
+						if (numrowsa==1){
+							res.status(200).send({
+								id: results.user_ID,
+								name: user
+							});
 						}else{
 							res.status(409).send("Hasło nie jest poprawne.");
 						}
 					});
+					db.end();
 				}else{
 					res.status(409).send("Nazwa użytkownika nie jest poprawna.");
 				}
@@ -214,7 +215,6 @@ app.post('/login', function(req, res) {
 	}else{
 		res.status(409).send("Nazwa użytkownika nie jest poprawna.");
 	}
-	db.end();
 });
 
 app.post('/game-data', function(req, res) {
