@@ -19,35 +19,35 @@ class Layer_2 extends Component {
     super();
     this.state = {
       GraphicsList: [],
-      imgSize: 320,
-      GraphicPos:{
-        x:0,
-        y:0
-      }
+      GraphicPos: []  
     }
   }
 
   componentDidMount() {
     const LgraphicList = [];
-    for (let i=0; i<2;i++) {
-      const img = new window.Image;
-      img.src = '/layer2/' + Layer2_config[i];
-      LgraphicList[i] = img;
-      console.log(Layer2_config[i]);
-      img.onload = () =>{
-        this.setState({GraphicsList: LgraphicList});
-      }
-    }
+    Layer2_config.map((imgProps, i)=>{
+        const size = imgProps.imgSize
+        const img = new window.Image(size, size);
+        img.src = '/layer2/' + imgProps.imgSrc;
+        LgraphicList[i] = img;
+        img.onload = () =>{
+          this.setState({GraphicsList: LgraphicList});
+          this.setState({GraphicPos: [
+            {
+              imgType: 0,
+              imgX:20,
+              imgY:20
+            },
+            {
+              imgType: 1,
+              imgX:40,
+              imgY:40
+            }
+          ]});
+        }
+    })
   }
-  componentWillReceiveProps(props) {
-    const temp = props.avgZoom * 320;
-    //console.log(temp);
-    if(temp != this.state.imgSize) {
-      this.setState({
-        imgSize: temp
-      });
-    }
-  }
+  
 
 
   render() {
@@ -55,18 +55,18 @@ class Layer_2 extends Component {
       <Layer>
         <Rect width={100} height={100} fill="yellow" x={30} y={30}/>
         {
-          this.state.GraphicsList.map((Graphic,i)=>{
-              return(
+          this.state.GraphicPos.map((element)=>{
+            const graphic = this.state.GraphicsList[element.imgType];
+            return(
               <Image
-              image = {Graphic}
+              image = {graphic}
               key = {uuidv4()}
-              width={this.state.imgSize}
-              height={this.state.imgSize}
-              x={this.state.GraphicPos.x}
-              y={this.state.GraphicPos.y}
+              width={graphic.width * this.props.avgZoom}
+              height={graphic.height * this.props.avgZoom}
+              x={element.imgX}
+              y={element.imgY}
               />
             );
-
           })
         }
       </Layer>
