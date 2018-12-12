@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Konva from 'konva';
-import axios from 'axios';
 import { Layer, Image, Rect} from 'react-konva';
 
 const mapStateToProps = state => {
@@ -14,17 +13,10 @@ const mapStateToProps = state => {
 class Layer_4 extends Component {
   constructor() {
     super();
-    this.loadData = this.loadData.bind(this);
-  }
-
-  loadData() {
-    const data = {
-      userID: this.props.userID,
-      token: this.props.token
-    }
-    axios.post('/game-data', { data }).then(res => {
-      console.log("DONE");
-    });
+<<<<<<< HEAD
+=======
+    //this.loadData = this.loadData.bind(this);
+>>>>>>> 254df956232b4638c0760535069258e39550939a
   }
 
   render() {
