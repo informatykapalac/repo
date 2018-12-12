@@ -10,14 +10,9 @@ module.exports = {
       mix = mix + char1;
       mix = mix + char2;
       if(!flag) { // szukanie flagi
-        let code1 = token1.charCodeAt(i);
         let code2 = token2.charCodeAt(i);
-        if(code2 > 50 && code2 < 58) { // pierwszeństwo dla uuidv4 (wyłączność ?)
+        if(code2 > 50 && code2 < 58) { // wyłączność dla uuid.v4
           mixNum = parseInt(char1);
-          flag = true;
-          continue;
-        } else if(code1 > 50 && code1 < 58) {
-          mixNum = parseInt(char2);
           flag = true;
         }
       }

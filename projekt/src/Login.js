@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import {Container, Col, Row, Jumbotron, Form, FormGroup, Button, Input,Label, Alert} from 'reactstrap';
+import {Container, Col, Row, Jumbotron, Form, FormGroup, Button, Input,Label, ButtonGroup} from 'reactstrap';
 import ErrBox from "./ErrBox";
+import { Link } from 'react-router-dom';
 import { get } from 'https';
 
 class Login extends React.Component {
@@ -44,20 +45,21 @@ class Login extends React.Component {
 		return "";
 	}
 	checkData(user, pass){
-		const userRegex = new RegExp(/^[\w]{1,20}$/);
+		const userRegex = new RegExp(/^[\w]{2,20}$/);
+		const emailRegex = new RegExp(/^[-\w\.]+@([-\w]+\.)+[a-z]+$ /);
 		const passRegex = new RegExp(/^[\w]{8,30}$/);
 		const bigRegex = new RegExp(/[A-Z]/)
-        if(userRegex.test(user)){
+        if(userRegex.test(user) || emailRegex.test(user)){
             if(passRegex.test(pass) && bigRegex.test(pass)){
                 return true;
 			}
 			else{
-				this.setState({error: "Hasło musi mieć od 8 do 30 znaków i dużą literę."});
+				this.setState({error: "Wszystko ok? Hasła mają od 8 do 30 znaków i dużą literę!"});
 				return false;
 			}
 		}else{
-			this.setState({error: "Nazwa użytkownika musi mieć od 1 do 20 znaków."});
-			return false;
+				this.setState({error: "Ej! Nazwy użytkowników mają od 2 do 20 znaków, a adres email chyba wiesz jak wygląda."});
+				return false;
 		}
 	}
 	
@@ -97,13 +99,19 @@ class Login extends React.Component {
 										</Input>
 									</FormGroup>
 									<ErrBox error={this.state.error}/>
-									<FormGroup className="LoginRememberGroup">
-									<Label>
-										<Input className="LoginRememberInput" name="remember" id="rememberInput" type="checkbox"/>
-										- Zapamiętaj mnie
-									</Label>
+									<FormGroup className="CheckGroup">
+									<Row>
+										<Col>
+											<Label id="remLabel">
+												<Input className="LoginRememberInput" name="remember" id="rememberInput" type="checkbox"/>
+												- Zapamiętaj mnie
+											</Label>
+										</Col>
+										<Col>
+											<Link to="/register"><Button id="NieMamKonta" color="link">Nie mam konta</Button></Link>
+									    </Col>
+									</Row>
 									</FormGroup>
-									
 									<Button type="submit" className="LoginButton" color="warning" block>
 										Zaloguj się!
 									</Button>

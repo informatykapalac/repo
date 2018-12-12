@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
+import { Container, Col, Row, Jumbotron, Button } from 'reactstrap';
 
 class RegRedirect extends Component {
   constructor() {
@@ -7,7 +7,20 @@ class RegRedirect extends Component {
   }
   render() {
     return(
-      <div></div>
+      <div className="Rejestracja">
+		 <Container className="RejestrContainer" fluid>
+			<Row>
+				<Col>
+					<Jumbotron>
+						<div className="text-center">
+							<h1 className="display-3"> Strona nie istneje </h1>
+							<Button color="primary">Strona główna</Button>
+						</div>
+					</Jumbotron>
+				</Col>
+			</Row>
+		 </Container>
+	  </div>
     );
   }
 }
