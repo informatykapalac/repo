@@ -13,6 +13,10 @@ const mapStateToProps = state => {
 class Layer_4 extends Component {
   constructor() {
     super();
+<<<<<<< HEAD
+=======
+    //this.loadData = this.loadData.bind(this);
+>>>>>>> 254df956232b4638c0760535069258e39550939a
   }
 
   render() {
