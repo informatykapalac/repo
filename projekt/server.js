@@ -162,14 +162,12 @@ app.post('/activate', function(req, res) {
 });
 
 app.post('/login', function(req, res) {
-	const data = req.body.data;
-
+	const data = req.body.loginData;
 	const user = data.name;
 	const pass = data.pass;
-
-  const userRegex = new RegExp(/^[\w]{2,20}$/);
-  const emailRegex = new RegExp(/^[-\w\.]+@([-\w]+\.)+[a-z]+$ /);
-  const passRegex = new RegExp(/^[\w]{8,30}$/);
+    const userRegex = new RegExp(/^[\w]{2,20}$/);
+    const emailRegex = new RegExp(/^[-\w\.]+@([-\w]+\.)+[a-z]+$ /);
+    const passRegex = new RegExp(/^[\w]{8,30}$/);
 
 	const db = mysql.createConnection({
 		host: '85.10.205.173',
@@ -185,21 +183,23 @@ app.post('/login', function(req, res) {
 	});
 	if (userRegex.test(user) || emailRegex.test(user)){
 		if (passRegex.test(pass)){
-			db.query('SELECT `*` FROM `users` WHERE `name`="'+username+'"', (err, results, fields)=>{
+			db.query('SELECT `*` FROM `users` WHERE `name`="'+user+'" OR `email`="'+user+'"', (err, results, fields)=>{
         if(err) {
 					res.status(500).send("Sprawdź połączenie");
 				}
 				const numrows=results.length;
 				if (numrows==1){
 					const hash = sha512(pass);
-					db.query('SELECT `*` FROM `users` WHERE `password`="'+password+'" OR `hash`="'+hash+'"', (err, results, fields)=>{
+					db.query('SELECT `*` FROM `users` WHERE `hash`="'+hash+'"', (err, results, fields)=>{
 						if(err) {
 							res.status(500).send("Sprawdź połączenie");
 						}
 						const numrows2=results.length;
 						if (numrows2==1){
-							//zgrywanie id i name do store redux
-							//przekierowanie do gameComponent
+							res.status(200).send({
+								id: results.id,
+								name: user
+							});
 						}else{
 							res.status(409).send("Hasło nie jest poprawne.");
 						}
