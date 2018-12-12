@@ -4,6 +4,10 @@ export const initialState = {
   token: "",
   width: 1280,
   height: 720,
+  playerPos: {
+    x: 640,
+    y: 360
+  }
 };
 
 export const Reducer = (state = initialState, action) => {
@@ -23,6 +27,10 @@ export const Reducer = (state = initialState, action) => {
       case "SET_MAP_POS":
       return {
         ...state, mapPos: action.data
+      };
+      case "SET_PLAYER_POS":
+      return {
+        ...state, playerPos: action.data
       };
     default:
       return state;

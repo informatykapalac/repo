@@ -17,7 +17,7 @@ export const setMapPos = (x, y) => ({
   }
 });
 export const setPlayerPos = (x, y) => ({
-  type: "SET_MAP_POS",
+  type: "SET_PLAYER_POS",
   data: {
     x: x,
     y: y
