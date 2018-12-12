@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Konva from 'konva';
-import axios from 'axios';
 import uuidv4 from 'uuid/v4';
 import { Layer, Image, Rect } from 'react-konva';
 import Layer2_config from './layer2_config';
@@ -24,6 +23,7 @@ class Layer_2 extends Component {
     }
   }
 
+
   componentDidMount() {
     const LgraphicList = [];
     Layer2_config.map((img_props, i)=>{
@@ -31,22 +31,24 @@ class Layer_2 extends Component {
         const img = new window.Image(size,size);
         img.src = '/layer2/' + img_props.img_src;
         LgraphicList[i] = img;
-      img.onload = () =>{
-        this.setState({GraphicsList: LgraphicList});
-        this.setState({GraphicPos:[
-          {
-            img_nr:0,
-            img_x:578,
-            img_y:575
-          },
-          {
-            img_nr:1,
-            img_x:578,
-            img_y:605
-          }
-         ]
-        })
+        if(i===Layer2_config.length - 1) {
+        img.onload = () =>{
+          this.setState({GraphicsList: LgraphicList});
+          this.setState({GraphicPos:[
+            {
+              img_nr:0,
+              img_x:578,
+              img_y:575
+            },
+            {
+              img_nr:1,
+              img_x:578,
+              img_y:605
+            }
+          ]
+          })
       }
+     }
     })
   }
   
@@ -56,9 +58,15 @@ class Layer_2 extends Component {
       <Layer>
         <Rect width={100} height={100} fill="yellow" x={30} y={30}/>
         {
-          this.state.GraphicPos.map((Graphic_Props)=>{
-            const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];
-            console.log(this.props.mapPos)
+          this.state.GraphicPos.map((Graphic_Props,i)=>{
+            const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];            
+            if(Graphic_Props.img_nr == 0) { // << usuwa tylko elemet który jest 0 w Layer_config.js (wiktor napraw)
+              setTimeout(() => {
+                let Grp = this.state.GraphicPos
+                  Grp.splice(i,1)
+                  this.setState({GraphicPos: Grp})
+              }, 5000);
+            }          
             return(
               <Image
                 image = {Graphic}
