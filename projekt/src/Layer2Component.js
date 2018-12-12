@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Konva from 'konva';
-import axios from 'axios';
 import uuidv4 from 'uuid/v4';
 import { Layer, Image, Rect } from 'react-konva';
 import Layer2_config from './layer2_config';
@@ -10,6 +9,7 @@ const mapStateToProps = state => {
   return {
     userID: state.userID,
     token: state.token,
+    mapPos: state.mapPos,
     avgZoom: state.avgZoom
   };
 };
@@ -19,72 +19,70 @@ class Layer_2 extends Component {
     super();
     this.state = {
       GraphicsList: [],
-      imgSize: 320,
-      GraphicPos:{
-        x:0,
-        y:0
-      }
+      GraphicPos: []
     }
-    this.loadData = this.loadData.bind(this);
-  }
-
-  loadData() {
-    const data = {
-      userID: this.props.userID,
-      token: this.props.token
-    }
-    axios.post('/game-data', { data }).then(res => {
-      console.log("DONE");
-    });
   }
 
 
   componentDidMount() {
     const LgraphicList = [];
-    for (let i=0; i<2;i++) {
-      const img = new window.Image;
-      img.src = '/layer2/' + Layer2_config[i];
-      LgraphicList[i] = img;
-      console.log(Layer2_config[i]);
-      img.onload = () =>{
-        this.setState({GraphicsList: LgraphicList});
+    Layer2_config.map((img_props, i)=>{
+        const size = img_props.img_size
+        const img = new window.Image(size,size);
+        img.src = '/layer2/' + img_props.img_src;
+        LgraphicList[i] = img;
+        if(i===Layer2_config.length - 1) {
+        img.onload = () =>{
+          this.setState({GraphicsList: LgraphicList});
+          this.setState({GraphicPos:[
+            {
+              img_nr:0,
+              img_x:578,
+              img_y:575
+            },
+            {
+              img_nr:1,
+              img_x:578,
+              img_y:605
+            }
+          ]
+          })
       }
-    }
+     }
+    })
   }
-  componentWillReceiveProps(props) {
-    const temp = props.avgZoom * 320;
-    //console.log(temp);
-    if(temp != this.state.imgSize) {
-      this.setState({
-        imgSize: temp
-      });
-    }
-  }
-
+  
 
   render() {
     return(
       <Layer>
         <Rect width={100} height={100} fill="yellow" x={30} y={30}/>
         {
-          this.state.GraphicsList.map((Graphic,i)=>{
-              return(
+          this.state.GraphicPos.map((Graphic_Props,i)=>{
+            const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];            
+            if(Graphic_Props.img_nr == 0) { // << usuwa tylko elemet który jest 0 w Layer_config.js (wiktor napraw)
+              setTimeout(() => {
+                let Grp = this.state.GraphicPos
+                  Grp.splice(i,1)
+                  this.setState({GraphicPos: Grp})
+              }, 5000);
+            }          
+            return(
               <Image
-              image = {Graphic}
-              key = {uuidv4()}
-              width={this.state.imgSize}
-              height={this.state.imgSize}
-              x={this.state.GraphicPos.x}
-              y={this.state.GraphicPos.y}
-              />
+                image = {Graphic}
+                key = {uuidv4()}
+                width={Graphic.width * this.props.avgZoom}
+                height={Graphic.height * this.props.avgZoom}
+                x={Graphic_Props.img_x + this.props.mapPos.x}
+                y={Graphic_Props.img_y + this.props.mapPos.y}
+            />
             );
-
           })
         }
       </Layer>
     );
-  }
-}
+  };
+};
 
 const Layer2 = connect(mapStateToProps)(Layer_2);
 
