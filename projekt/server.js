@@ -32,7 +32,7 @@ app.post('/register', function(req, res) {
   // Sprawdzić ponownie kompatybilność nazwy użytkownika oraz hasła.
 
 	const userRegex = new RegExp(/^[\w]{2,20}$/);
-	const emailRegex = new RegExp(/^[-\w\.]+@([-\w]+\.)+[a-z]+$ /);
+	const emailRegex = new RegExp(/^[-\w\.]+@([-\w])+\.\w{2,5}$/);
 	const passRegex = new RegExp(/^[\w]{8,30}$/);
 
   // auth_token w wersji alpha
@@ -49,7 +49,7 @@ app.post('/register', function(req, res) {
 
 	db.connect();
 
-	//if(emailRegex.test(email)){
+	if(emailRegex.test(email)){
 		if(userRegex.test(user)){
 			if(passRegex.test(pass)){
         db.query('SELECT `name` FROM `users` WHERE `name` = "' + user + '"' , function(err, resp, info) {
@@ -123,9 +123,9 @@ app.post('/register', function(req, res) {
 		}else{
 			res.status(409).send("Nazwa użytkownika nie jest poprawna.");
 		}
-	//}else{
-	//	res.status(409).send("Email nie jest poprawny.");
-//	}
+	}else{
+		res.status(409).send("Email nie jest poprawny.");
+	}
 
 });
 
