@@ -186,28 +186,29 @@ app.post('/login', function(req, res) {
 			db.query('SELECT `*` FROM `users` WHERE `name`="'+user+'" OR `email`="'+user+'"', (err, results, fields)=>{
 				if(err) {
 					res.status(500).send("Sprawdź połączenie");
-				}
-				const numrows=results.length;
-				if (numrows==1){
-					const hash = sha512(pass);
-					db.query('SELECT `*` FROM `users` WHERE `name`="'+user+'" AND `hash`="'+hash+'"', (err, results, fields)=>{
-						if(err) {
-							res.status(500).send("Sprawdź połączenie");
-						}
-						const numrowsa=results.length;
-						if (numrowsa==1){
-							res.status(200).send({
-								id: results.user_ID,
-								name: user
-							});
-						}else{
-							res.status(409).send("Hasło nie jest poprawne.");
-						}
-					});
-					db.end();
 				}else{
-					res.status(409).send("Nazwa użytkownika nie jest poprawna.");
-				}
+					const numrows=results.length;
+					if (numrows==1){
+						const hash = sha512(pass);
+						db.query('SELECT `*` FROM `users` WHERE `name`="'+user+'" AND `hash`="'+hash+'"', (err, results, fields)=>{
+							if(err) {
+								res.status(500).send("Sprawdź połączenie");
+							}
+							const numrowsa=results.length;
+							if (numrowsa==1){
+								res.status(200).send({
+									id: results.user_ID,
+									name: user
+								});
+							}else{
+								res.status(409).send("Hasło nie jest poprawne.");
+							}
+						});
+						db.end();
+					}else{
+						res.status(409).send("Nazwa użytkownika nie jest poprawna.");
+					}
+				}	
 			});
 		}else{
 			res.status(409).send("Hasło nie jest poprawne.");

@@ -45,9 +45,7 @@ class Example extends React.Component {
 			}
 	}
 
-  handleReg(event) {
-
-    event.preventDefault();
+  handleReg(event) { 
 	if(this.checkData(this.state.email, this.state.nick, this.state.pass, this.state.pass2)){
     const data = {
       name: this.state.nick,
