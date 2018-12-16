@@ -97,12 +97,18 @@ class _Login extends React.Component {
 				name: this.state.username,
 				pass: this.state.password
 			};
+<<<<<<< HEAD
+			axios.post('/login', { loginData }).then(result =>{
+				console.log("DONE");
+				this.setState({
+=======
 			axios.post('/login',{ loginData }).then(result =>{
 				if(result.status==200) {
 				  this.setState({user_ID: result.data.id});
 				  this.setState({name: result.data.name});
 				  console.log("DONE");
 				  this.setState({
+>>>>>>> 146298d2ed850f2f3d8fdcbd26b31a64a0136343
 					redirect: true
 				  });
 				}  
