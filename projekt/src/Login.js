@@ -77,7 +77,7 @@ class Login extends React.Component {
 				name: this.state.username,
 				pass: this.state.password
 			};
-			axios.post('/login',{ loginData }).then(result =>{
+			axios.post('/login', { loginData }).then(result =>{
 				console.log("DONE");
 				this.setState({
 					redirect: true
