@@ -7,7 +7,7 @@ import Layer1 from './Layer1Component';
 import Layer2 from './Layer2Component';
 import Layer3 from './Layer3Component';
 import Layer4 from './Layer4Component';
-import { test, setZoom, setScreenSize, setMapPos, setPlayerPos } from './Redux/reduxActions';
+import { saveItems, setZoom, setScreenSize, setMapPos, setPlayerPos } from './Redux/reduxActions';
 
 const mapStateToProps = state => {
   return {
@@ -19,7 +19,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-		test: value => dispatch(test(value)),
+		saveItems: (lvl, lp, dp, credits, mana, items, questsw, questso, x, y, map) => dispatch(saveItems(lvl, lp, dp, credits, mana, items, questsw, questso, x, y, map)),
 		setScreenSize: (width, height) => dispatch(setScreenSize(width, height)),
 		setMapPos: (x, y) => dispatch(setMapPos(x, y)),
 		setPlayerPos: (x,y) => dispatch(setPlayerPos(x,y)),
@@ -32,7 +32,18 @@ class _Game extends Component {
 		super();
 		this.state = {
 			width: window.innerWidth,
-			height: window.innerHeight
+			height: window.innerHeight,
+			lvl: 1,
+			lp: 1,
+			dp: 1,
+			credits: 1,
+			mana: 1,
+			items: {},
+			questsw: {},
+			questso: {},
+			x: 0,
+			y: 0,
+			map: 1
 		};
 
 		this.handleResize = this.handleResize.bind(this);
@@ -82,7 +93,18 @@ class _Game extends Component {
     }
 
     axios.post('/game-data', { data }).then(res => {
-      console.log("DONE");
+      setState({lvl: res.lvl});
+	  setState({lp: res.lp});
+	  setState({dp: res.dp});
+	  setState({credits: res.credits});
+	  setState({mana: res.mana});
+	  setState({items: res.items});
+	  setState({questsw: res.questsw});
+	  setState({questso: res.questso});
+	  setState({x: res.x});
+	  setState({y: res.y});
+	  setState({map: res.map});
+	  console.log("Udało się.");
     });
 
   }

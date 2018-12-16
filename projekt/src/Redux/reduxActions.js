@@ -1,7 +1,3 @@
-export const test = value => ({
-  type: "TEST",
-  data: value
-});
 export const setScreenSize = (width, height) => ({
   type: "SET_SCREEN_SIZE",
   data: {
@@ -31,7 +27,9 @@ export const saveName = value => ({
   type: "SAVE_NAME",
   data: value
 });
-export const saveData = value => ({
+export const saveItems = value => ({
   type: "SAVE_DATA",
-  data: value
+  data: {
+	  lvl: lvl, lp: lp, dp: dp, credits: credits, mana: mana, items: items, questsw: questsw, questso:questso, x: x, y: y, map: map
+  }
 });
