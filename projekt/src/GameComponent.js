@@ -13,8 +13,8 @@ const mapStateToProps = state => {
   return {
     userID: state.userID,
 		token: state.token,
-		mapPos: state.mapPos,
-  };
+		mapPos: state.mapPos
+	};
 };
 
 const mapDispatchToProps = dispatch => {

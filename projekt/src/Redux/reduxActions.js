@@ -27,3 +27,11 @@ export const setZoom = value => ({
   type: "SET_ZOOM",
   data: value
 });
+export const saveName = value => ({
+  type: "SAVE_NAME",
+  data: value
+});
+export const saveData = value => ({
+  type: "SAVE_DATA",
+  data: value
+});

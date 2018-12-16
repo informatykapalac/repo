@@ -4,8 +4,23 @@ import {Container, Col, Row, Jumbotron, Form, FormGroup, Button, Input,Label, Bu
 import ErrBox from "./ErrBox";
 import { Link, Redirect } from 'react-router-dom';
 import { get } from 'https';
+import { saveName } from './Redux/reduxActions';
+import { connect } from 'react-redux';
 
-class Login extends React.Component {
+const mapStateToProps = state => {
+  return {
+    user_ID: state.user_ID,
+	name: state.name
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+		saveName: (value) => dispatch(saveName(value))
+  };
+};
+
+class _Login extends React.Component {
 	constructor(){
 		super();
 		if (window.sessionStorage.getItem ('error') != ""){
@@ -17,12 +32,15 @@ class Login extends React.Component {
 			error: "",
 			username: "",
 			password: "",
+			user_ID: 0,
+			name: "",
 			redirect: false
 		};
 		this.sendData = this.sendData.bind(this);
 		this.setCookie = this.setCookie.bind(this);
 		this.getCookie = this.getCookie.bind(this);
 		this.checkData = this.checkData.bind(this);
+		this.changeDirect = this.changeDirect.bind(this);
 	}
 
 	setCookie(name, value, expireDays){
@@ -31,7 +49,9 @@ class Login extends React.Component {
         const expires = "expires=" + d.toGMTString();
 		document.cookie = name + "=" + value + ";" + expires + ";path=/; sameSite=Strict";
 	}
-
+	changeDirect(direct){
+		this.props.history.push(direct);
+	}
 	getCookie(name) {
 		const cName = name + "=";
 		const decodedCookie = decodeURIComponent(document.cookie);
@@ -77,15 +97,23 @@ class Login extends React.Component {
 				name: this.state.username,
 				pass: this.state.password
 			};
+<<<<<<< HEAD
 			axios.post('/login', { loginData }).then(result =>{
 				console.log("DONE");
 				this.setState({
+=======
+			axios.post('/login',{ loginData }).then(result =>{
+				if(result.status==200) {
+				  this.setState({user_ID: result.data.id});
+				  this.setState({name: result.data.name});
+				  console.log("DONE");
+				  this.setState({
+>>>>>>> 146298d2ed850f2f3d8fdcbd26b31a64a0136343
 					redirect: true
-				});
+				  });
+				}  
 			}).catch((error) => {
-			  if(error.response.status==200) {
-					// DO USUNIĘCIA -> DANE ŁADUJ PRZED PRZEKIEROWANIEM DO REDIRECT
-			  }else{
+			  if(error.response) {
 				this.setState({
 				  error: error.response.status + " " + error.response.data
 				});
@@ -141,9 +169,12 @@ class Login extends React.Component {
 							</Jumbotron>
 						</Col>
 					</Row>
-				</Container>
+				</Container>	
             </div>
         );
     }
 }
+
+const Login = connect(mapStateToProps, mapDispatchToProps)(_Login);
+
 export default Login;

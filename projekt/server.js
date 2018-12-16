@@ -163,7 +163,7 @@ app.post('/activate', function(req, res) {
 
 app.post('/login', function(req, res) {
 	const data = req.body.loginData;
-	const user = data.name;
+	let user = data.name;
 	const pass = data.pass;
     const userRegex = new RegExp(/^[\w]{2,20}$/);
     const emailRegex = new RegExp(/^[-\w\.]+@([-\w]+\.)+[a-z]+$ /);
