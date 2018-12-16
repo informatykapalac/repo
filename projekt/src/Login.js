@@ -40,18 +40,15 @@ class _Login extends React.Component {
 		this.setCookie = this.setCookie.bind(this);
 		this.getCookie = this.getCookie.bind(this);
 		this.checkData = this.checkData.bind(this);
-		this.changeDirect = this.changeDirect.bind(this);
 	}
 
 	setCookie(name, value, expireDays){
 		const d = new Date();
-        d.setTime(d.getTime() + (expireDays * 24 * 60 * 60 * 1000));
-        const expires = "expires=" + d.toGMTString();
+    d.setTime(d.getTime() + (expireDays * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + d.toGMTString();
 		document.cookie = name + "=" + value + ";" + expires + ";path=/; sameSite=Strict";
 	}
-	changeDirect(direct){
-		this.props.history.push(direct);
-	}
+
 	getCookie(name) {
 		const cName = name + "=";
 		const decodedCookie = decodeURIComponent(document.cookie);
@@ -73,18 +70,17 @@ class _Login extends React.Component {
 		const emailRegex = new RegExp(/^[-\w\.]+@([-\w]+\.)+[a-z]+$ /);
 		const passRegex = new RegExp(/^[\w]{8,30}$/);
 		const bigRegex = new RegExp(/[A-Z]/)
-        if(userRegex.test(user) || emailRegex.test(user)){
-            if(passRegex.test(pass) && bigRegex.test(pass)){
-                return true;
-			}
-			else{
-				this.setState({error: "Wszystko ok? Hasła mają od 8 do 30 znaków i dużą literę!"});
-				return false;
-			}
-		}else{
+      if(userRegex.test(user) || emailRegex.test(user)){
+        if(passRegex.test(pass) && bigRegex.test(pass)){
+          return true;
+				} else {
+					this.setState({error: "Wszystko ok? Hasła mają od 8 do 30 znaków i dużą literę!"});
+					return false;
+				}
+			} else {
 				this.setState({error: "Ej! Nazwy użytkowników mają od 2 do 20 znaków, a adres email chyba wiesz jak wygląda."});
 				return false;
-		}
+			}
 	}
 
 	sendData(event){
@@ -97,26 +93,20 @@ class _Login extends React.Component {
 				name: this.state.username,
 				pass: this.state.password
 			};
-<<<<<<< HEAD
-			axios.post('/login', { loginData }).then(result =>{
-				console.log("DONE");
-				this.setState({
-=======
 			axios.post('/login',{ loginData }).then(result =>{
 				if(result.status==200) {
 				  this.setState({user_ID: result.data.id});
 				  this.setState({name: result.data.name});
 				  console.log("DONE");
 				  this.setState({
->>>>>>> 146298d2ed850f2f3d8fdcbd26b31a64a0136343
-					redirect: true
+						redirect: true
 				  });
-				}  
+				}
 			}).catch((error) => {
 			  if(error.response) {
-				this.setState({
-				  error: error.response.status + " " + error.response.data
-				});
+					this.setState({
+				  	error: error.response.status + " " + error.response.data
+					});
 			  }
 			});
 		} else {
@@ -169,7 +159,7 @@ class _Login extends React.Component {
 							</Jumbotron>
 						</Col>
 					</Row>
-				</Container>	
+				</Container>
             </div>
         );
     }
