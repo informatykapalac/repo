@@ -4,8 +4,23 @@ import {Container, Col, Row, Jumbotron, Form, FormGroup, Button, Input,Label, Bu
 import ErrBox from "./ErrBox";
 import { Link } from 'react-router-dom';
 import { get } from 'https';
+import { saveName } from './Redux/reduxActions';
+import { connect } from 'react-redux';
 
-class Login extends React.Component {
+const mapStateToProps = state => {
+  return {
+    user_ID: state.user_ID,
+	name: state.name
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+		saveName: (value) => dispatch(saveName(value))
+  };
+};
+
+class _Login extends React.Component {
 	constructor(){
 		super();
 		if (window.sessionStorage.getItem ('error') != ""){
@@ -22,12 +37,16 @@ class Login extends React.Component {
 		this.setCookie = this.setCookie.bind(this);
 		this.getCookie = this.getCookie.bind(this);
 		this.checkData = this.checkData.bind(this);
+		this.changeDirect = this.changeDirect.bind(this);
 	}
 	setCookie(name, value, expireDays){
 		const d = new Date();
         d.setTime(d.getTime() + (expireDays * 24 * 60 * 60 * 1000));
         const expires = "expires=" + d.toGMTString();
 		document.cookie = name + "=" + value + ";" + expires + ";path=/; sameSite=Strict";
+	}
+	changeDirect(direct){
+		this.props.history.push(direct);
 	}
 	getCookie(name) {
 		const cName = name + "=";
@@ -76,8 +95,11 @@ class Login extends React.Component {
 			axios.post('/login',{ loginData }).then(result =>{
 				console.log("DONE");
 			}).catch((error) => {
-			  if(error.response.status==200) {
-				  this.props.history.push('/game');
+			  if(error.response.status==410) {
+				  this.setState({user_ID: error.response.data.id});
+				  this.setState({name: error.response.data.name});
+				  console.log("Logowanie powiodło się.");
+				  this.changeDirect("/game");
 			  }else{
 				this.setState({
 				  error: error.response.status + " " + error.response.data
@@ -127,9 +149,12 @@ class Login extends React.Component {
 							</Jumbotron>
 						</Col>
 					</Row>
-				</Container>
+				</Container>	
             </div>
         );
     }
 }
+
+const Login = connect(mapStateToProps, mapDispatchToProps)(_Login);
+
 export default Login;

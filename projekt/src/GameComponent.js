@@ -13,8 +13,8 @@ const mapStateToProps = state => {
   return {
     userID: state.userID,
 		token: state.token,
-		mapPos: state.mapPos,
-  };
+		mapPos: state.mapPos
+	};
 };
 
 const mapDispatchToProps = dispatch => {
@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => {
 		setScreenSize: (width, height) => dispatch(setScreenSize(width, height)),
 		setMapPos: (x, y) => dispatch(setMapPos(x, y)),
 		setPlayerPos: (x,y) => dispatch(setPlayerPos(x,y)),
-		setZoom: value => dispatch(setZoom(value))
+		save_zoom: value => dispatch(save_name(value))
   };
 };
 

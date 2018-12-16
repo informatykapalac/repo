@@ -163,7 +163,7 @@ app.post('/activate', function(req, res) {
 
 app.post('/login', function(req, res) {
 	const data = req.body.loginData;
-	const user = data.name;
+	let user = data.name;
 	const pass = data.pass;
     const userRegex = new RegExp(/^[\w]{2,20}$/);
     const emailRegex = new RegExp(/^[-\w\.]+@([-\w]+\.)+[a-z]+$ /);
@@ -188,6 +188,7 @@ app.post('/login', function(req, res) {
 					res.status(500).send("Sprawdź połączenie");
 				}else{
 					const numrows=results.length;
+					//user=results.name;
 					if (numrows==1){
 						const hash = sha512(pass);
 						db.query('SELECT `*` FROM `users` WHERE `name`="'+user+'" AND `hash`="'+hash+'"', (err, results, fields)=>{
@@ -196,7 +197,7 @@ app.post('/login', function(req, res) {
 							}
 							const numrowsa=results.length;
 							if (numrowsa==1){
-								res.status(200).send({
+								res.status(410).send({
 									id: results.user_ID,
 									name: user
 								});
