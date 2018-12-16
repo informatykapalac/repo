@@ -36,19 +36,19 @@ class Layer_2 extends Component {
           this.setState({GraphicsList: LgraphicList});
           this.setState({GraphicPos:[
             {
-              id: "identyfikator0",
+              id: "0",
               img_nr:0,
               img_x:1000,
               img_y:1000
             },
             {
-              id: "identyfikator1",
+              id: "1",
               img_nr:0,
               img_x:1100,
               img_y:1000
             },
             {
-              id: "identyfikator2",
+              id: "2",
               img_nr:9,
               img_x:1050,
               img_y:1000
@@ -70,7 +70,7 @@ class Layer_2 extends Component {
             const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];
             console.log(Graphic_Props)
 
-            if(Graphic_Props.img_nr == 0) {
+            if(Graphic_Props.img_nr == 0 || Graphic_Props.img_nr == 1 || Graphic_Props.img_nr == 2 || Graphic_Props.img_nr == 3 || Graphic_Props.img_nr == 4 || Graphic_Props.img_nr == 5) {
               const id = Graphic_Props.id;
               setTimeout(() => {
                 this.state.GraphicPos.map((Graph, i)=>{
