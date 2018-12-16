@@ -16,6 +16,13 @@ export const setMapPos = (x, y) => ({
     y: y
   }
 });
+export const setPlayerPos = (x, y) => ({
+  type: "SET_PLAYER_POS",
+  data: {
+    x: x,
+    y: y
+  }
+});
 export const setZoom = value => ({
   type: "SET_ZOOM",
   data: value

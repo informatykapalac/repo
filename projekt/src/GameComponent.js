@@ -7,12 +7,16 @@ import Layer1 from './Layer1Component';
 import Layer2 from './Layer2Component';
 import Layer3 from './Layer3Component';
 import Layer4 from './Layer4Component';
-import { test, setZoom, setScreenSize, setMapPos } from './Redux/reduxActions';
+import { test, setZoom, setScreenSize, setMapPos, setPlayerPos } from './Redux/reduxActions';
 
 const mapStateToProps = state => {
   return {
     userID: state.userID,
-    token: state.token
+		token: state.token,
+		mapPos: state.mapPos,
+		screenSize: state.screenSize,
+		avgZoom: state.avgZoom,
+		playerPos: state.playerPos
   };
 };
 
@@ -21,6 +25,7 @@ const mapDispatchToProps = dispatch => {
 		test: value => dispatch(test(value)),
 		setScreenSize: (width, height) => dispatch(setScreenSize(width, height)),
 		setMapPos: (x, y) => dispatch(setMapPos(x, y)),
+		setPlayerPos: (x,y) => dispatch(setPlayerPos(x,y)),
 		setZoom: value => dispatch(setZoom(value))
   };
 };
@@ -34,6 +39,7 @@ class _Game extends Component {
 		};
 
 		this.handleResize = this.handleResize.bind(this);
+		this.movePlayer = this.movePlayer.bind(this);
 	}
 
 	handleResize() {
@@ -48,6 +54,56 @@ class _Game extends Component {
 		this.props.setScreenSize(this.state.width, this.state.height);
 		this.props.setZoom(avgZoom);
 		this.props.setMapPos(mapX,mapY)
+		this.props.setPlayerPos(this.state.width/2, this.state.height/2)
+	}
+	movePlayer(e){
+		console.log(e.keyCode)
+		const key = e.keyCode;
+		const scrW = this.props.screenSize.w;
+		const scrH = this.props.screenSize.h;
+		const playerR = 40;
+		const playerSp = 15;
+		let mapX = this.props.mapPos.x
+		let mapY = this.props.mapPos.y;
+		let playerX = this.props.playerPos.x;
+		let playerY = this.props.playerPos.y;
+		if(key === 37 || key === 65){
+			if(mapX < 0  && playerX === scrW /2){
+				mapX += playerSp
+			}else if (playerX > playerR){
+				playerX -= playerSp
+			}
+			console.log(playerX)
+		}
+		else if(key === 39 || key === 68){
+			if(mapX > -(2560*this.props.avgZoom - scrW) && playerX === scrW /2){
+				mapX -= playerSp
+			}
+			else if (playerX < (scrW - playerR)){
+				playerX += playerSp
+			}
+			console.log(playerX)
+		}
+		if(key === 38 || key === 87){
+			if(mapY < 0 && playerY === scrH /2){
+				mapY += playerSp
+			}
+			else if (playerY > playerR){
+				playerY -= playerSp
+			}
+			console.log(playerY)
+		}
+		else if(key === 40 || key === 83){
+			if(mapY > -((1920 * this.props.avgZoom) - scrH) && playerY === scrH /2){
+				mapY -= playerSp
+			}
+			else if (playerY < (scrH - playerR)){
+				playerY += playerSp
+			}
+			console.log(playerY)
+		}
+		 this.props.setPlayerPos(playerX, playerY)
+		 this.props.setMapPos(mapX,mapY)
 	}
 
 	loadData() {
@@ -66,6 +122,7 @@ class _Game extends Component {
 	componentDidMount() {
 		this.handleResize();
 		window.addEventListener('resize', this.handleResize);
+		window.addEventListener('keydown', this.movePlayer);
 	}
 
 	componentWillUnmount() {
