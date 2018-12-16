@@ -1,12 +1,23 @@
 export const initialState = {
   user_ID: 0,
   name: "",
+  lvl: 1,
+  lp: 1,
+  dp: 1,
+  credits: 0,
+  mana: 0,
+  items: {},
+  questsw: {},
+  questso: {},
+  x: 0,
+  y: 0,
+  map: 1,
   width: 1280,
   height: 720,
-  map: 1,
   playerPos: {
     x: 640,
-    y: 360
+    y: 360,
+	map: 1
   }
 };
 
@@ -16,6 +27,10 @@ export const Reducer = (state = initialState, action) => {
 	  return {
         ...state, user_ID: action.data.user_ID, name: action.data.name
       };
+	case "SAVE_DATA":
+	  return {
+        ...state, lvl: action.data.lvl, lp: action.data.lp, dp: action.data.dp, credits: action.data.credits, mana: action.data.mana, items: action.data.items, questsw: action.data.questsw, questso: action.data.questso, x: action.data.x, y: action.data.y, map: action.data.map
+      };  
     case "SET_SCREEN_SIZE":
       return {
         ...state, screenSize: action.data

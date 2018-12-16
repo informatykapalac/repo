@@ -233,13 +233,25 @@ app.post('/game-data', function(req, res) {
 			res.status(500).send("Sprawdź połączenie");
 		}
 	});
-	db.query('SELECT `*` FROM `Dane_userow` WHERE `id`="'+id+'"', (err, results, fields)=>{
-		const x=results.position[0];
-		const y=results.position[1];
-		const map=results.position[2];
-		//pobieranie danych gracza itemki itp.
+	db.query('SELECT `*` FROM `Dane_userow` WHERE `id`="'+user_ID+'"', (err, results, fields)=>{
+		const x=results.position.x;
+		const y=results.position.y;
+		const map=results.position.map;
+		res.status(200).send({
+			lvl: results.lvl,
+			lp: results.lp,
+			dp: results.dp,
+			credits: results.credits,
+			mana: results.mana,
+			items: results.items,
+			questsw: results.questsw,
+			questso: results.questso,
+			x: x,
+			y: y,
+			map: map
+		});		
 	});
-	saveing();
+	db.end();
 });
 function saveing(){ // FUNKCJA ZAPISYWANIA DANYCH ODDZIELNIE (poza game-data)
 	const id=4; //to sie zmieni za pare dni
