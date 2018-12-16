@@ -36,14 +36,22 @@ class Layer_2 extends Component {
           this.setState({GraphicsList: LgraphicList});
           this.setState({GraphicPos:[
             {
+              id: "identyfikator0",
               img_nr:0,
-              img_x:578,
-              img_y:575
+              img_x:1000,
+              img_y:1000
             },
             {
-              img_nr:1,
-              img_x:578,
-              img_y:605
+              id: "identyfikator1",
+              img_nr:0,
+              img_x:1100,
+              img_y:1000
+            },
+            {
+              id: "identyfikator2",
+              img_nr:9,
+              img_x:1050,
+              img_y:1000
             }
           ]
           })
@@ -51,22 +59,31 @@ class Layer_2 extends Component {
      }
     })
   }
-  
+
 
   render() {
     return(
       <Layer>
         <Rect width={100} height={100} fill="yellow" x={30} y={30}/>
         {
-          this.state.GraphicPos.map((Graphic_Props,i)=>{
-            const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];            
-            if(Graphic_Props.img_nr == 0) { // << usuwa tylko elemet który jest 0 w Layer_config.js (wiktor napraw)
+          this.state.GraphicPos.map((Graphic_Props)=>{
+            const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];
+            console.log(Graphic_Props)
+
+            if(Graphic_Props.img_nr == 0) {
+              const id = Graphic_Props.id;
               setTimeout(() => {
-                let Grp = this.state.GraphicPos
-                  Grp.splice(i,1)
-                  this.setState({GraphicPos: Grp})
-              }, 5000);
-            }          
+                this.state.GraphicPos.map((Graph, i)=>{
+                  if(Graph.id == id){
+                    let Grp = this.state.GraphicPos
+                    Grp.splice(i,1)
+                    this.setState({GraphicPos: Grp})
+                    return;
+                  }
+                })
+              }, 700);
+            }
+
             return(
               <Image
                 image = {Graphic}

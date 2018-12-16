@@ -59,7 +59,7 @@ class Layer_3 extends Component {
         {
           this.state.GraphicPos.map((Graphic_Props)=>{
             const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];
-            console.log(this.props.mapPos)
+           // console.log(this.props.mapPos)
             return(
               <Image
                 image = {Graphic}
