@@ -27,7 +27,7 @@ export const saveName = value => ({
   type: "SAVE_NAME",
   data: value
 });
-export const saveItems = value => ({
+export const saveItems = (lvl, lp, dp, credits, mana, items, questsw, questso, x, y, map) => ({
   type: "SAVE_DATA",
   data: {
 	  lvl: lvl, lp: lp, dp: dp, credits: credits, mana: mana, items: items, questsw: questsw, questso:questso, x: x, y: y, map: map

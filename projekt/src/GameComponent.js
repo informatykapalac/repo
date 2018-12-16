@@ -93,17 +93,17 @@ class _Game extends Component {
     }
 
     axios.post('/game-data', { data }).then(res => {
-      setState({lvl: res.lvl});
-	  setState({lp: res.lp});
-	  setState({dp: res.dp});
-	  setState({credits: res.credits});
-	  setState({mana: res.mana});
-	  setState({items: res.items});
-	  setState({questsw: res.questsw});
-	  setState({questso: res.questso});
-	  setState({x: res.x});
-	  setState({y: res.y});
-	  setState({map: res.map});
+      this.setState({lvl: res.lvl});
+	  this.setState({lp: res.lp});
+	  this.setState({dp: res.dp});
+	  this.setState({credits: res.credits});
+	  this.setState({mana: res.mana});
+	  this.setState({items: res.items});
+	  this.setState({questsw: res.questsw});
+	  this.setState({questso: res.questso});
+	  this.setState({x: res.x});
+	  this.setState({y: res.y});
+	  this.setState({map: res.map});
 	  console.log("Udało się.");
     });
 
