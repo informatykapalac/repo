@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {Container, Col, Row, Jumbotron, Form, FormGroup, Button, Input,Label, ButtonGroup} from 'reactstrap';
 import ErrBox from "./ErrBox";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { get } from 'https';
 
 class Login extends React.Component {
@@ -17,18 +17,21 @@ class Login extends React.Component {
 			error: "",
 			username: "",
 			password: "",
+			redirect: false
 		};
 		this.sendData = this.sendData.bind(this);
 		this.setCookie = this.setCookie.bind(this);
 		this.getCookie = this.getCookie.bind(this);
 		this.checkData = this.checkData.bind(this);
 	}
+
 	setCookie(name, value, expireDays){
 		const d = new Date();
         d.setTime(d.getTime() + (expireDays * 24 * 60 * 60 * 1000));
         const expires = "expires=" + d.toGMTString();
 		document.cookie = name + "=" + value + ";" + expires + ";path=/; sameSite=Strict";
 	}
+
 	getCookie(name) {
 		const cName = name + "=";
 		const decodedCookie = decodeURIComponent(document.cookie);
@@ -44,6 +47,7 @@ class Login extends React.Component {
 		}
 		return "";
 	}
+
 	checkData(user, pass){
 		const userRegex = new RegExp(/^[\w]{2,20}$/);
 		const emailRegex = new RegExp(/^[-\w\.]+@([-\w]+\.)+[a-z]+$ /);
@@ -62,7 +66,7 @@ class Login extends React.Component {
 				return false;
 		}
 	}
-	
+
 	sendData(event){
 		event.preventDefault();
 		if(this.checkData(this.state.username, this.state.password)){
@@ -75,23 +79,33 @@ class Login extends React.Component {
 			};
 			axios.post('/login',{ loginData }).then(result =>{
 				console.log("DONE");
+				this.setState({
+					redirect: true
+				});
 			}).catch((error) => {
 			  if(error.response.status==200) {
-				  this.props.history.push('/game');
+					// DO USUNIĘCIA -> DANE ŁADUJ PRZED PRZEKIEROWANIEM DO REDIRECT
 			  }else{
 				this.setState({
 				  error: error.response.status + " " + error.response.data
 				});
 			  }
 			});
-		}
-		else{
+		} else {
 			console.log(this.state.error);
 		}
 	}
-    render() {
-        return (
-            <div className="Login">
+
+	isRedirected() {
+		if(this.state.redirect) {
+			return <Redirect to="/game"/>
+		}
+	}
+
+  render() {
+  	return (
+      <div className="Login">
+			{this.isRedirected()}
 				<Container className="LoginContainer" fluid>
 					<Row>
 						<Col xs="12" md={{size:6, offset:3}} xl={{size:4, offset:4}} className="LoginCol">
