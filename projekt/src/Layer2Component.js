@@ -37,12 +37,17 @@ class Layer_2 extends Component {
           this.setState({GraphicPos:[
             {
               img_nr:0,
-              img_x:578,
-              img_y:575
+              img_x:550,
+              img_y:605
             },
             {
-              img_nr:1,
-              img_x:578,
+              img_nr:0,
+              img_x:570,
+              img_y:605
+            },
+            {
+              img_nr:9,
+              img_x:590,
               img_y:605
             }
           ]
@@ -59,14 +64,17 @@ class Layer_2 extends Component {
         <Rect width={100} height={100} fill="yellow" x={30} y={30}/>
         {
           this.state.GraphicPos.map((Graphic_Props,i)=>{
-            const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];            
-            if(Graphic_Props.img_nr == 0) { // << usuwa tylko elemet który jest 0 w Layer_config.js (wiktor napraw)
+            const Graphic = this.state.GraphicsList[Graphic_Props.img_nr]; 
+            
+            if(Graphic_Props.img_nr == 0) {
               setTimeout(() => {
                 let Grp = this.state.GraphicPos
+                console.log(Grp)
                   Grp.splice(i,1)
                   this.setState({GraphicPos: Grp})
-              }, 5000);
-            }          
+              }, 700);
+            }
+            
             return(
               <Image
                 image = {Graphic}
