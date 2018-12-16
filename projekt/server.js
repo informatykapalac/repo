@@ -188,7 +188,6 @@ app.post('/login', function(req, res) {
 					res.status(500).send("Sprawdź połączenie");
 				}else{
 					const numrows=results.length;
-					//user=results.name;
 					if (numrows==1){
 						const hash = sha512(pass);
 						db.query('SELECT `*` FROM `users` WHERE `name`="'+user+'" AND `hash`="'+hash+'"', (err, results, fields)=>{
@@ -197,7 +196,7 @@ app.post('/login', function(req, res) {
 							}
 							const numrowsa=results.length;
 							if (numrowsa==1){
-								res.status(410).send({
+								res.status(200).send({
 									id: results.user_ID,
 									name: user
 								});
@@ -209,7 +208,7 @@ app.post('/login', function(req, res) {
 					}else{
 						res.status(409).send("Nazwa użytkownika nie jest poprawna.");
 					}
-				}	
+				}
 			});
 		}else{
 			res.status(409).send("Hasło nie jest poprawne.");
@@ -221,7 +220,7 @@ app.post('/login', function(req, res) {
 
 app.post('/game-data', function(req, res) {
 	const data = req.body.data;
-	const id=data.userID;
+	const id = data.userID;
 	const db = mysql.createConnection({
 		host: '85.10.205.173',
 		port: 3306,
@@ -242,7 +241,7 @@ app.post('/game-data', function(req, res) {
 	});
 	saveing();
 });
-function saveing(){
+function saveing(){ // FUNKCJA ZAPISYWANIA DANYCH ODDZIELNIE (poza game-data)
 	const id=4; //to sie zmieni za pare dni
 	for(;;){
 		/*db.query('UPDATE `users-data` SET  WHERE `id`="'+id+'"', (err, results, fields)=>{

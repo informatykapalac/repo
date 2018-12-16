@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => {
 		setScreenSize: (width, height) => dispatch(setScreenSize(width, height)),
 		setMapPos: (x, y) => dispatch(setMapPos(x, y)),
 		setPlayerPos: (x,y) => dispatch(setPlayerPos(x,y)),
-		save_zoom: value => dispatch(save_name(value))
+		setZoom: value => dispatch(setZoom(value))
   };
 };
 

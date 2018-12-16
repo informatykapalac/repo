@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {Container, Col, Row, Jumbotron, Form, FormGroup, Button, Input,Label, ButtonGroup} from 'reactstrap';
 import ErrBox from "./ErrBox";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { get } from 'https';
 import { saveName } from './Redux/reduxActions';
 import { connect } from 'react-redux';
@@ -32,6 +32,9 @@ class _Login extends React.Component {
 			error: "",
 			username: "",
 			password: "",
+			user_ID: 0,
+			name: "",
+			redirect: false
 		};
 		this.sendData = this.sendData.bind(this);
 		this.setCookie = this.setCookie.bind(this);
@@ -39,6 +42,7 @@ class _Login extends React.Component {
 		this.checkData = this.checkData.bind(this);
 		this.changeDirect = this.changeDirect.bind(this);
 	}
+
 	setCookie(name, value, expireDays){
 		const d = new Date();
         d.setTime(d.getTime() + (expireDays * 24 * 60 * 60 * 1000));
@@ -63,6 +67,7 @@ class _Login extends React.Component {
 		}
 		return "";
 	}
+
 	checkData(user, pass){
 		const userRegex = new RegExp(/^[\w]{2,20}$/);
 		const emailRegex = new RegExp(/^[-\w\.]+@([-\w]+\.)+[a-z]+$ /);
@@ -81,7 +86,7 @@ class _Login extends React.Component {
 				return false;
 		}
 	}
-	
+
 	sendData(event){
 		event.preventDefault();
 		if(this.checkData(this.state.username, this.state.password)){
@@ -93,27 +98,36 @@ class _Login extends React.Component {
 				pass: this.state.password
 			};
 			axios.post('/login',{ loginData }).then(result =>{
-				console.log("DONE");
+				if(result.status==200) {
+				  this.setState({user_ID: result.data.id});
+				  this.setState({name: result.data.name});
+				  console.log("DONE");
+				  this.setState({
+					redirect: true
+				  });
+				}  
 			}).catch((error) => {
-			  if(error.response.status==410) {
-				  this.setState({user_ID: error.response.data.id});
-				  this.setState({name: error.response.data.name});
-				  console.log("Logowanie powiodło się.");
-				  this.changeDirect("/game");
-			  }else{
+			  if(error.response) {
 				this.setState({
 				  error: error.response.status + " " + error.response.data
 				});
 			  }
 			});
-		}
-		else{
+		} else {
 			console.log(this.state.error);
 		}
 	}
-    render() {
-        return (
-            <div className="Login">
+
+	isRedirected() {
+		if(this.state.redirect) {
+			return <Redirect to="/game"/>
+		}
+	}
+
+  render() {
+  	return (
+      <div className="Login">
+			{this.isRedirected()}
 				<Container className="LoginContainer" fluid>
 					<Row>
 						<Col xs="12" md={{size:6, offset:3}} xl={{size:4, offset:4}} className="LoginCol">
