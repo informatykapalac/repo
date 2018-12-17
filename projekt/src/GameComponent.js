@@ -65,7 +65,7 @@ class _Game extends Component {
 		this.props.setScreenSize(this.state.width, this.state.height);
 		this.props.setZoom(avgZoom);
 		this.props.setMapPos(mapX,mapY)
-		this.props.setPlayerPos(this.state.width/2, this.state.height/2)
+
 	}
 	movePlayer(e){
 		console.log(e.keyCode)
