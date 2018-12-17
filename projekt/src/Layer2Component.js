@@ -90,8 +90,8 @@ class Layer_2 extends Component {
                 key = {uuidv4()}
                 width={Graphic.width * this.props.avgZoom}
                 height={Graphic.height * this.props.avgZoom}
-                x={Graphic_Props.img_x + this.props.mapPos.x}
-                y={Graphic_Props.img_y + this.props.mapPos.y}
+                x={(Graphic_Props.img_x + this.props.mapPos.x) * this.props.avgZoom}
+                y={(Graphic_Props.img_y + this.props.mapPos.y) * this.props.avgZoom}
             />
             );
           })
