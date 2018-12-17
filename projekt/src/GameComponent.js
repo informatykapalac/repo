@@ -156,7 +156,7 @@ class _Game extends Component {
 			<Stage width={this.state.width} height={this.state.height}>
 		    <Layer1/>
 			<Layer2/>
-				<Layer3/>
+			<Layer3/>
 		    <Layer4/>
 			</Stage>
 		);

@@ -55,7 +55,6 @@ class Layer_3 extends Component {
   render() {
     return(
       <Layer>
-        <Rect width={100} height={100} fill="green" x={this.props.playerPos.x} y={this.props.playerPos.y}/>
         {
           this.state.GraphicPos.map((Graphic_Props)=>{
             const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];
