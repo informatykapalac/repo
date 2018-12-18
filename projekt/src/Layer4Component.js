@@ -61,6 +61,7 @@ class Layer_4 extends Component {
   render() {
     return(
       <Layer>
+<<<<<<< HEAD
 	  {
 			this.state.GraphicPos.map((Graphic_Props)=>{
 			const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];
@@ -76,6 +77,10 @@ class Layer_4 extends Component {
 	  );
 	})
 	  }
+=======
+
+        
+>>>>>>> 4028cb0c7e68a3d8fd0b0d543c0c9be71b55b074
       </Layer>
     );
   }

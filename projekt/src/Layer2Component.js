@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Konva from 'konva';
-import uuidv4 from 'uuid/v4';
+import uuidv4 from 'uuid/v4';          
 import { Layer, Image, Rect } from 'react-konva';
 import Layer2_config from './layer2_config';
 
@@ -63,7 +63,6 @@ class Layer_2 extends Component {
   render() {
     return(
       <Layer>
-        <Rect width={100} height={100} fill="yellow" x={30} y={30}/>
         {
           this.state.GraphicPos.map((Graphic_Props)=>{
             const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];
