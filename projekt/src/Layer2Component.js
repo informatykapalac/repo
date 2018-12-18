@@ -66,8 +66,8 @@ class Layer_2 extends Component {
         {
           this.state.GraphicPos.map((Graphic_Props)=>{
             const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];
-            // DO ZMIANY
-            if(Graphic_Props.img_nr == 0 || Graphic_Props.img_nr == 1 || Graphic_Props.img_nr == 2 || Graphic_Props.img_nr == 3 || Graphic_Props.img_nr == 4 || Graphic_Props.img_nr == 5) {
+
+            if(Graphic_Props.img_nr < 6) {
               const id = Graphic_Props.id;
               setTimeout(() => {
                 this.state.GraphicPos.map((Graph, i)=>{

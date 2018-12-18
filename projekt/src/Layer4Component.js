@@ -35,20 +35,14 @@ class Layer_4 extends Component {
           this.setState({GraphicPos:[
             {
               id: "0",
-              img_nr:0,
+              img_nr:6,
               img_x:1200,
               img_y:1000
             },
             {
               id: "1",
-              img_nr:1,
+              img_nr:7,
               img_x:1300,
-              img_y:1000
-            },
-            {
-              id: "2",
-              img_nr:2,
-              img_x:1350,
               img_y:1000
             }
           ]
@@ -64,6 +58,21 @@ class Layer_4 extends Component {
       {
       this.state.GraphicPos.map((Graphic_Props)=>{
         const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];
+
+        if(Graphic_Props.img_nr < 6) {
+          const id = Graphic_Props.id;
+          setTimeout(() => {
+            this.state.GraphicPos.map((Graph, i)=>{
+              if(Graph.id == id){
+                let Grp = this.state.GraphicPos
+                Grp.splice(i,1)
+                this.setState({GraphicPos: Grp})
+                return;
+              }
+            })
+          }, 700);
+        }
+
 		      return(
 		          <Image
                 image = {Graphic}
