@@ -9,15 +9,27 @@ export const initialState = {
   items: {},
   questsw: {},
   questso: {},
-  x: 0,
-  y: 0,
   map: 1, // ta sama wartość co niżej (duplikat ?) -> lepiej zostawić tą
-  width: 1280,
-  height: 720,
+  width: 1280, // EOL -> nie używać
+  height: 720, // EOL -> nie używać
+  screenSize: {
+    w: 1280, // szerokość ekranu
+    h: 720 // wysokość ekranu
+  },
+  mapPos: {
+    x: 0,
+    y: 0
+  },
   playerPos: {
     x: 640,
     y: 360,
-    map: 1 // usunąć ? -> łatwiejsza opcja 
+	  map: 1 // EOL -> nie używać
+  },
+  graphics: {
+    layer1: [],
+    layer2: [],
+	  layer3: [],
+	  layer4: []
   }
 };
 

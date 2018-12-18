@@ -9,7 +9,7 @@ const mapStateToProps = state => {
   return {
     userID: state.userID,
     token: state.token,
-	mapPos: state.mapPos,
+    mapPos: state.mapPos,
     avgZoom: state.avgZoom
   };
 };
@@ -17,10 +17,10 @@ const mapStateToProps = state => {
 class Layer_4 extends Component {
   constructor() {
     super();
-	this.state = {
-		GraphicsList: [],
-		GraphicPos: []
-	}
+    this.state = {
+      GraphicsList: [],
+		  GraphicPos: []
+    }
   }
 
   componentDidMount() {
@@ -61,21 +61,21 @@ class Layer_4 extends Component {
   render() {
     return(
       <Layer>
-	  {
-			this.state.GraphicPos.map((Graphic_Props)=>{
-			const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];
-		return(
-		<Image
+      {
+      this.state.GraphicPos.map((Graphic_Props)=>{
+        const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];
+		      return(
+		          <Image
                 image = {Graphic}
                 key = {uuidv4()}
                 width={32 * this.props.avgZoom}
                 height={32 * this.props.avgZoom}
                 x={(Graphic_Props.img_x + this.props.mapPos.x) * this.props.avgZoom}
                 y={(Graphic_Props.img_y + this.props.mapPos.y) * this.props.avgZoom}
-            />
-	  );
-	})
-	  }
+              />
+          );
+	      })
+	    }
       </Layer>
     );
   }
