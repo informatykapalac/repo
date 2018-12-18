@@ -7,6 +7,7 @@ import Layer1 from './Layer1Component';
 import Layer2 from './Layer2Component';
 import Layer3 from './Layer3Component';
 import Layer4 from './Layer4Component';
+import Layer5 from './Layer5Component';
 import { saveItems, setZoom, setScreenSize, setMapPos, setPlayerPos } from './Redux/reduxActions';
 
 const mapStateToProps = state => {
@@ -65,10 +66,10 @@ class _Game extends Component {
 		this.props.setScreenSize(this.state.width, this.state.height);
 		this.props.setZoom(avgZoom);
 		this.props.setMapPos(mapX,mapY)
-
+		this.props.setPlayerPos(this.state.width/2, this.state.height/2)
 	}
 	movePlayer(e){
-		console.log(e.keyCode)
+		//console.log(e.keyCode)
 		const key = e.keyCode;
 		const scrW = this.props.screenSize.w;
 		const scrH = this.props.screenSize.h;
@@ -84,7 +85,7 @@ class _Game extends Component {
 			}else if (playerX > playerR){
 				playerX -= playerSp
 			}
-			console.log(playerX)
+			//console.log(playerX)
 		}
 		else if(key === 39 || key === 68){
 			if(mapX > -(2560*this.props.avgZoom - scrW) && playerX === scrW /2){
@@ -93,7 +94,7 @@ class _Game extends Component {
 			else if (playerX < (scrW - playerR)){
 				playerX += playerSp
 			}
-			console.log(playerX)
+			//console.log(playerX)
 		}
 		if(key === 38 || key === 87){
 			if(mapY < 0 && playerY === scrH /2){
@@ -102,7 +103,7 @@ class _Game extends Component {
 			else if (playerY > playerR){
 				playerY -= playerSp
 			}
-			console.log(playerY)
+			//console.log(playerY)
 		}
 		else if(key === 40 || key === 83){
 			if(mapY > -((1920 * this.props.avgZoom) - scrH) && playerY === scrH /2){
@@ -111,7 +112,7 @@ class _Game extends Component {
 			else if (playerY < (scrH - playerR)){
 				playerY += playerSp
 			}
-			console.log(playerY)
+			//console.log(playerY)
 		}
 		 this.props.setPlayerPos(playerX, playerY)
 		 this.props.setMapPos(mapX,mapY)
@@ -158,6 +159,7 @@ class _Game extends Component {
 			<Layer2/>
 			<Layer3/>
 		    <Layer4/>
+			<Layer5/>
 			</Stage>
 		);
 	}
