@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Konva from 'konva';
-import uuidv4 from 'uuid/v4';          
+import uuidv4 from 'uuid/v4';
 import { Layer, Image, Rect } from 'react-konva';
 import Layer2_config from './layer2_config';
 
@@ -67,7 +67,7 @@ class Layer_2 extends Component {
         {
           this.state.GraphicPos.map((Graphic_Props)=>{
             const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];
-
+            // DO ZMIANY
             if(Graphic_Props.img_nr == 0 || Graphic_Props.img_nr == 1 || Graphic_Props.img_nr == 2 || Graphic_Props.img_nr == 3 || Graphic_Props.img_nr == 4 || Graphic_Props.img_nr == 5) {
               const id = Graphic_Props.id;
               setTimeout(() => {

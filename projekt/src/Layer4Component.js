@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Konva from 'konva';
-import { Layer, Image, Rect} from 'react-konva';
+import { Layer, Image, Rect } from 'react-konva';
 
 const mapStateToProps = state => {
   return {

@@ -1,6 +1,7 @@
 export const initialState = {
   user_ID: 0,
   name: "",
+  token: "",
   lvl: 1,
   lp: 1,
   dp: 1,
@@ -17,7 +18,7 @@ export const initialState = {
   playerPos: {
     x: 640,
     y: 360,
-    map: 1 // usunąć ? -> łatwiejsza opcja 
+    map: 1 // usunąć ? -> łatwiejsza opcja
   }
 };
 
