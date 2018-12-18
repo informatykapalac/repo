@@ -24,7 +24,6 @@ class Layer_5 extends Component {
 		}
 	}
 	componentDidMount() {
-		console.log("mleko")
 		const LgraphicList = [];
     	Layer5_config.map((img_props, i)=>{
         const img = new window.Image();
@@ -32,7 +31,7 @@ class Layer_5 extends Component {
 		LgraphicList[i] = img;
         if(i==Layer5_config.length - 1) {
         img.onload = () =>{
-          this.setState({GraphicsList: LgraphicList});
+           this.setState({GraphicsList: LgraphicList});
           	this.setState({GraphicPos:[
 				{
 					id: "0",
@@ -40,7 +39,8 @@ class Layer_5 extends Component {
 					img_x:0,
 					img_y:0
 				  },
-          ]
+		  ]
+		  
 		})
       }
      }
@@ -54,6 +54,7 @@ class Layer_5 extends Component {
 			{
             this.state.GraphicPos.map((Graphic_Props)=>{
 			const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];
+			console.log("2")
 			if(Graphic_Props.img_nr == 0) { 
 				 this.state.wi = 1280 * (this.props.screenSize.w / 1280)
 				 this.state.hi = 720 * (this.props.screenSize.h / 720)
