@@ -27,7 +27,7 @@ const mapConfig = {
     "25":"bic_sand.bmp",
     "26":"bic_sand.bmp",
     "27":"bic_sand.bmp",
-    "28":"bic_sand.bmp",
+    "28":"grass.bmp",
     "29":"bic_sand.bmp",
     "30":"bic_sand.bmp",
     "31":"bic_sand.bmp",

@@ -163,7 +163,7 @@ app.post('/activate', function(req, res) {
 
 app.post('/login', function(req, res) {
 	const data = req.body.loginData;
-	const user = data.name;
+	let user = data.name;
 	const pass = data.pass;
     const userRegex = new RegExp(/^[\w]{2,20}$/);
     const emailRegex = new RegExp(/^[-\w\.]+@([-\w]+\.)+[a-z]+$ /);
@@ -186,27 +186,28 @@ app.post('/login', function(req, res) {
 			db.query('SELECT `*` FROM `users` WHERE `name`="'+user+'" OR `email`="'+user+'"', (err, results, fields)=>{
 				if(err) {
 					res.status(500).send("Sprawdź połączenie");
-				}
-				const numrows=results.length;
-				if (numrows==1){
-					const hash = sha512(pass);
-					db.query('SELECT `*` FROM `users` WHERE `name`="'+user+'" AND `hash`="'+hash+'"', (err, results, fields)=>{
-						if(err) {
-							res.status(500).send("Sprawdź połączenie");
-						}
-						const numrowsa=results.length;
-						if (numrowsa==1){
-							res.status(200).send({
-								id: results.user_ID,
-								name: user
-							});
-						}else{
-							res.status(409).send("Hasło nie jest poprawne.");
-						}
-					});
-					db.end();
 				}else{
-					res.status(409).send("Nazwa użytkownika nie jest poprawna.");
+					const numrows=results.length;
+					if (numrows==1){
+						const hash = sha512(pass);
+						db.query('SELECT `*` FROM `users` WHERE `name`="'+user+'" AND `hash`="'+hash+'"', (err, results, fields)=>{
+							if(err) {
+								res.status(500).send("Sprawdź połączenie");
+							}
+							const numrowsa=results.length;
+							if (numrowsa==1){
+								res.status(200).send({
+									id: results.user_ID,
+									name: user
+								});
+							}else{
+								res.status(409).send("Hasło nie jest poprawne.");
+							}
+						});
+						db.end();
+					}else{
+						res.status(409).send("Nazwa użytkownika nie jest poprawna.");
+					}
 				}
 			});
 		}else{
@@ -219,7 +220,7 @@ app.post('/login', function(req, res) {
 
 app.post('/game-data', function(req, res) {
 	const data = req.body.data;
-	const id=data.userID;
+	const id = data.userID;
 	const db = mysql.createConnection({
 		host: '85.10.205.173',
 		port: 3306,
@@ -232,15 +233,27 @@ app.post('/game-data', function(req, res) {
 			res.status(500).send("Sprawdź połączenie");
 		}
 	});
-	db.query('SELECT `*` FROM `Dane_userow` WHERE `id`="'+id+'"', (err, results, fields)=>{
-		const x=results.position[0];
-		const y=results.position[1];
-		const map=results.position[2];
-		//pobieranie danych gracza itemki itp.
+	db.query('SELECT `*` FROM `Dane_userow` WHERE `id`="'+user_ID+'"', (err, results, fields)=>{
+		const x=results.position.x;
+		const y=results.position.y;
+		const map=results.position.map;
+		res.status(200).send({
+			lvl: results.lvl,
+			lp: results.lp,
+			dp: results.dp,
+			credits: results.credits,
+			mana: results.mana,
+			items: results.items,
+			questsw: results.questsw,
+			questso: results.questso,
+			x: x,
+			y: y,
+			map: map
+		});		
 	});
-	saveing();
+	db.end();
 });
-function saveing(){
+function saveing(){ // FUNKCJA ZAPISYWANIA DANYCH ODDZIELNIE (poza game-data)
 	const id=4; //to sie zmieni za pare dni
 	for(;;){
 		/*db.query('UPDATE `users-data` SET  WHERE `id`="'+id+'"', (err, results, fields)=>{

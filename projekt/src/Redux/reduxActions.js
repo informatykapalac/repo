@@ -1,7 +1,3 @@
-export const test = value => ({
-  type: "TEST",
-  data: value
-});
 export const setScreenSize = (width, height) => ({
   type: "SET_SCREEN_SIZE",
   data: {
@@ -26,4 +22,14 @@ export const setPlayerPos = (x, y) => ({
 export const setZoom = value => ({
   type: "SET_ZOOM",
   data: value
+});
+export const saveName = value => ({
+  type: "SAVE_NAME",
+  data: value
+});
+export const saveItems = (lvl, lp, dp, credits, mana, items, questsw, questso, x, y, map) => ({
+  type: "SAVE_DATA",
+  data: {
+	  lvl: lvl, lp: lp, dp: dp, credits: credits, mana: mana, items: items, questsw: questsw, questso:questso, x: x, y: y, map: map
+  }
 });
