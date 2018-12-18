@@ -24,7 +24,6 @@ export const initialState = {
 	layer2: [],
 	layer3: [],
 	layer4: []
-    map: 1 // usunąć ? -> łatwiejsza opcja 
   }
 };
 
