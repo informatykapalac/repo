@@ -67,7 +67,7 @@ class Layer_3 extends Component {
                 height={Graphic.height * this.props.avgZoom}
                 x={this.props.playerPos.x - Graphic.width/2}
                 y={this.props.playerPos.y - Graphic.height/2}
-            />
+              />
             );
           })
         }
