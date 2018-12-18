@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Konva from 'konva';
 import uuidv4 from 'uuid/v4';
-import { Layer, Image, } from 'react-konva';
+import { Layer, Image } from 'react-konva';
 import Layer5_config from './layer5_config';
 
 const mapStateToProps = state => {
@@ -54,7 +54,7 @@ class Layer_5 extends Component {
             this.state.GraphicPos.map((Graphic_Props)=>{
 			const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];
 			console.log("2")
-			if(Graphic_Props.img_nr == 0) { 
+			if(Graphic_Props.img_nr == 0) {
 				 this.state.wi = 1280 * (this.props.screenSize.w / 1280)
 				 this.state.hi = 720 * (this.props.screenSize.h / 720)
 			}	else {
