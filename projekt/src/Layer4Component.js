@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Konva from 'konva';
-<<<<<<< HEAD
 import { Layer, Image, Rect } from 'react-konva';
-=======
-import { Layer, Image, Rect} from 'react-konva';
 import Layer4_config from './layer4_config';
 import uuidv4 from 'uuid/v4';
->>>>>>> 59e21d3b78ec2e62dbdc365f0a42b7d2b82480b3
 
 const mapStateToProps = state => {
   return {
@@ -26,7 +22,7 @@ class Layer_4 extends Component {
 		GraphicPos: []
 	}
   }
-  
+
   componentDidMount() {
     const LgraphicList = [];
     Layer4_config.map((img_props, i)=>{

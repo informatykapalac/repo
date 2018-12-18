@@ -18,17 +18,13 @@ export const initialState = {
   playerPos: {
     x: 640,
     y: 360,
-<<<<<<< HEAD
-    map: 1 // usunąć ? -> łatwiejsza opcja
-=======
-	map: 1
+	  map: 1
   },
   graphics: {
-	layer1: [],
-	layer2: [],
-	layer3: [],
-	layer4: []
->>>>>>> 59e21d3b78ec2e62dbdc365f0a42b7d2b82480b3
+    layer1: [],
+    layer2: [],
+	  layer3: [],
+	  layer4: []
   }
 };
 
