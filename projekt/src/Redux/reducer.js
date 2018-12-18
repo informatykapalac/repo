@@ -1,6 +1,7 @@
 export const initialState = {
   user_ID: 0,
   name: "",
+  token: "", // ZOSTAWIĆ !!!
   lvl: 1,
   lp: 1,
   dp: 1,
