@@ -18,8 +18,8 @@ class Layer_2 extends Component {
   constructor() {
     super();
     this.state = {
-      GraphicsList: [],
-      GraphicPos: []
+		GraphicsList: [],
+		GraphicPos: []
     }
   }
 

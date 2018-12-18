@@ -18,6 +18,12 @@ export const initialState = {
     x: 640,
     y: 360,
 	map: 1
+  },
+  graphics: {
+	layer1: [],
+	layer2: [],
+	layer3: [],
+	layer4: []
   }
 };
 
