@@ -12,7 +12,7 @@ class RegConfirm extends React.Component {
 			<div className="Rejestracja">
 			<Container className="RejestrContainer" fluid>
 				<Row>
-					<Col xs="12" md={{size:8, offset:2}} xl={{size:4, offset:4}} className="LoginCol">
+					<Col xs="12" md={{size:8, offset:2}} xl={{size:6, offset:3}} className="LoginCol">
 						<Jumbotron color="primary">
 								<div className="text-center">
 									<h1 className="display-8">Rejestracja powiodła się</h1>
