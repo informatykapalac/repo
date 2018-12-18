@@ -29,7 +29,7 @@ class Layer_5 extends Component {
         const img = new window.Image();
         img.src = '/layer5/' + img_props.img_src;
 				LgraphicList[i] = img;
-        if(i==Layer5_config.length - 1) {
+        if(i==Layer5_config.length - 1 || i==0) {
         	img.onload = () => {
           	this.setState({ GraphicsList: LgraphicList });
           	this.setState({ GraphicPos: [
