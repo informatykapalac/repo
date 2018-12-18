@@ -14,10 +14,12 @@ const mapStateToProps = state => {
   return {
     userID: state.userID,
 		token: state.token,
-		mapPos: state.mapPos,
+		mapPos: state.mapPos, // mapPos nie istnieje -> obecnie x, y
 		screenSize: state.screenSize,
 		avgZoom: state.avgZoom,
-		playerPos: state.playerPos
+		playerPos: state.playerPos,
+    mapPosX: state.x,
+    mapPosY: state.y
   };
 };
 
@@ -70,10 +72,11 @@ class _Game extends Component {
 	}
 	movePlayer(e){
 		//console.log(e.keyCode)
+    console.log(this.props.x, " ", this.props.y); // zły zapis w Redux
 		const key = e.keyCode;
 		const scrW = this.props.screenSize.w;
 		const scrH = this.props.screenSize.h;
-		const playerR = 40;
+		const playerR = 40; // komentarz ?
 		const playerSp = 15;
 		let mapX = this.props.mapPos.x
 		let mapY = this.props.mapPos.y;
@@ -151,7 +154,7 @@ class _Game extends Component {
 	componentWillUnmount() {
 		window.removeEventListener('resize', this.handleResize);
 	}
-				
+
 	render() {
 		return(
 			<Stage width={this.state.width} height={this.state.height}>
