@@ -234,6 +234,9 @@ app.post('/game-data', function(req, res) {
 		}
 	});
 	db.query('SELECT `*` FROM `Dane_userow` WHERE `id`="'+user_ID+'"', (err, results, fields)=>{
+		if(err) {
+			res.status(500).send("Sprawdź połączenie");
+		} 
 		const x=results.position.x;
 		const y=results.position.y;
 		const map=results.position.map;
@@ -253,25 +256,27 @@ app.post('/game-data', function(req, res) {
 	});
 	db.end();
 });
-function saveing(){ // FUNKCJA ZAPISYWANIA DANYCH ODDZIELNIE (poza game-data)
-	const id=4; //to sie zmieni za pare dni
-	for(;;){
-		/*db.query('UPDATE `users-data` SET  WHERE `id`="'+id+'"', (err, results, fields)=>{
-			if(err) {
-				res.status(500).send("Połączenie zostało zerwane.");
-			}
-		});*/      //zapisywanie danych gracza  itemki itp. co 30s.
-		sleep(30000);
-	}
-}
-
-function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
-    }
-  }
-}
+app.post('/saveing', function(req, res) {
+	const data = req.body.data;
+	const id = data.userID;
+	const db = mysql.createConnection({
+		host: '85.10.205.173',
+		port: 3306,
+		user: 'admin_41487',
+		password: '1q2w3e4r',
+		database: 'game_data'
+	});
+	db.connect(err => {
+		if(err) {
+			res.status(500).send("Sprawdź połączenie");
+		}
+	});
+	db.query('UPDATE `Dane_userow` SET `lvl`="'+data.lvl+'" `lp`="'+data.lp+'" `dp`="'+data.dp+'" `credits`="'+data.credits+'" `mana`="'+data.mana+'" `items`="'+data.items+'" `items`="'+data.items+'" `questsw`="'+data.questsw+'" `questso`="'+data.questso+'" `position`="'+data.position+'" WHERE `user_ID`="'+id+'" ', (err, results, fields)=>{
+		if(err) {
+			res.status(500).send("Sprawdź połączenie");
+		}
+	});
+	db.end();
+});
 
 app.listen(process.env.PORT || 8080);

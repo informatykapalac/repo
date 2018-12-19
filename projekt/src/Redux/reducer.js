@@ -11,13 +11,12 @@ export const initialState = {
   questso: {},
   x: 0,
   y: 0,
-  map: 1, // ta sama wartość co niżej (duplikat ?) -> lepiej zostawić tą
+  map: 1, 
   width: 1280,
   height: 720,
   playerPos: {
     x: 640,
-    y: 360,
-    map: 1 // usunąć ? -> łatwiejsza opcja 
+    y: 360
   }
 };
 

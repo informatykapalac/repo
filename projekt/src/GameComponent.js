@@ -11,12 +11,23 @@ import { saveItems, setZoom, setScreenSize, setMapPos, setPlayerPos } from './Re
 
 const mapStateToProps = state => {
   return {
-    userID: state.userID,
-		token: state.token,
-		mapPos: state.mapPos, // mapPos nie istnieje -> obecnie x, y
-		screenSize: state.screenSize,
-		avgZoom: state.avgZoom,
-		playerPos: state.playerPos,
+    user_ID: state.user_ID,
+	name: state.name,
+	lvl: state.lvl,
+	lp: state.lp,
+	dp: state.dp,
+	credits: state.credits,
+	mana: state.mana,
+	items: state.items,
+	questsw: state.questsw,
+	questso: state.questsw,
+	x: state.x,
+	y: state.y,
+	map: state.map,
+	mapPos: state.mapPos, // mapPos nie istnieje -> obecnie x, y
+	screenSize: state.screenSize,
+	avgZoom: state.avgZoom,
+	playerPos: state.playerPos,
     mapPosX: state.x,
     mapPosY: state.y
   };
@@ -38,6 +49,8 @@ class _Game extends Component {
 		this.state = {
 			width: window.innerWidth,
 			height: window.innerHeight,
+			user_ID: 1,
+			name: "",
 			lvl: 1,
 			lp: 1,
 			dp: 1,
@@ -48,7 +61,8 @@ class _Game extends Component {
 			questso: {},
 			x: 0,
 			y: 0,
-			map: 1
+			map: 1,
+			redirect: false
 		};
 
 		this.handleResize = this.handleResize.bind(this);
@@ -123,8 +137,7 @@ class _Game extends Component {
 	loadData() {
 
     const data = {
-      userID: this.props.userID,
-      token: this.props.token
+      userID: this.state.user_ID
     }
 
     axios.post('/game-data', { data }).then(res => {
@@ -140,9 +153,51 @@ class _Game extends Component {
 	  this.setState({y: res.y});
 	  this.setState({map: res.map});
 	  console.log("Udało się.");
-    });
+    }).catch((error) => {
+	  if(error.response) {
+		this.setState({
+		  	error: error.response.status + " " + error.response.data
+		});
+	  }
+	});
 
   }
+    saveing(){
+		setInterval({
+			const position={
+				this.state.x,
+				this.state.y,
+				this.state.map
+			};
+			const Savedata={
+				userID: this.state.user_ID,
+				lvl: this.state.lvl,
+				lp: this.state.lp,
+				dp: this.state.dp,
+				credits: this.state.credits,
+				mana: this.state.mana,
+				items: this.state.items,
+				questsw: this.state.questsw,
+				questso: this.state.questso,
+				questsw: this.state.questsw,
+				position: this.state.position
+			}
+			axios.post('/saveing', { Savedata }).then(res => {
+				//tu chyba nic się nie dzieje
+			}).catch((error) => {
+			  if(error.response) {
+				this.setState({
+					error: error.response.status + " " + error.response.data
+				});
+			  }
+			});
+			if(this.state.save==true){
+				this.setState({
+					redirect: true
+				});
+			}
+		}, 900000);
+	}
 
 	componentDidMount() {
 		this.handleResize();
@@ -153,9 +208,15 @@ class _Game extends Component {
 	componentWillUnmount() {
 		window.removeEventListener('resize', this.handleResize);
 	}
+	isRedirected() {
+		if(this.state.redirect) {
+			return <Redirect to="/login"/>
+		}
+	}
 
 	render() {
 		return(
+			{this.isRedirected()}
 			<Stage width={this.state.width} height={this.state.height}>
 		    <Layer1/>
 			<Layer2/>
