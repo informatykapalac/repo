@@ -1,6 +1,7 @@
 export const initialState = {
   user_ID: 0,
   name: "",
+  token: "", // ZOSTAWIĆ !!!
   lvl: 1,
   lp: 1,
   dp: 1,
@@ -9,6 +10,7 @@ export const initialState = {
   items: {},
   questsw: {},
   questso: {},
+<<<<<<< HEAD
   x: 0,
   y: 0,
   map: 1, 
@@ -17,6 +19,29 @@ export const initialState = {
   playerPos: {
     x: 640,
     y: 360
+=======
+  map: 1, // ta sama wartość co niżej (duplikat ?) -> lepiej zostawić tą
+  width: 1280, // EOL -> nie używać
+  height: 720, // EOL -> nie używać
+  screenSize: {
+    w: 1280, // szerokość ekranu
+    h: 720 // wysokość ekranu
+  },
+  mapPos: {
+    x: 0,
+    y: 0
+  },
+  playerPos: {
+    x: 640,
+    y: 360,
+	  map: 1 // EOL -> nie używać
+  },
+  graphics: {
+    layer1: [],
+    layer2: [],
+	  layer3: [],
+	  layer4: []
+>>>>>>> 7cb3efb17aec48ed9230f2d6091f8789ccdbd438
   }
 };
 

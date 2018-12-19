@@ -1,6 +1,6 @@
 const Layer2_config = [         // nr od 0 do 5 bedą numerami "znikającymi" co oznacza że grafika w nr od 0 do 5 bedzie znikała po jakiejs minucie to zastosowanie jest do krwi itp.
     {
-        img_src: ""	//0
+        img_src: "fire.bmp"	//0
     },
     {
         img_src: ""	//1
@@ -15,7 +15,7 @@ const Layer2_config = [         // nr od 0 do 5 bedą numerami "znikającymi" co
         img_src: ""	//4
     },
 	{
-        img_src: ""	//5
+        img_src: "ice.bmp"	//5
     },
     //koniec znikającycych 
     {
