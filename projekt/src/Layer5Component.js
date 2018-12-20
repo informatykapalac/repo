@@ -38,13 +38,7 @@ class Layer_5 extends Component {
 							img_nr:0,
 							img_x:0,
 							img_y:0
-						},
-						{
-							id: "1",
-							img_nr:1,
-							img_x:1205,
-							img_y:108
-				  		},  
+						},  
           			]
 				});
       		}
@@ -59,9 +53,9 @@ class Layer_5 extends Component {
 			{
             this.state.GraphicPos.map((Graphic_Props)=>{
 			const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];
-			if(Graphic_Props.img_nr < 2) {
-				 this.state.wi = Graphic.width * (this.props.screenSize.w / 1280)
-				 this.state.hi = Graphic.height * (this.props.screenSize.h / 720)
+			if(Graphic_Props.img_nr == 0) {
+				 this.state.wi = 1280 * (this.props.screenSize.w / 1280)
+				 this.state.hi = 720 * (this.props.screenSize.h / 720)
 			}	else {
 				this.state.wi = Graphic.width * this.props.avgZoom
 				this.state.hi = Graphic.height * this.props.avgZoom
