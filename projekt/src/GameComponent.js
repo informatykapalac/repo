@@ -165,9 +165,11 @@ class _Game extends Component {
 	});
 	
   }
+
+  /*    << NIE DZIAŁA
     saveing(){
 		setInterval({
-			let position={
+			const position={
 				this.state.x,
 				this.state.y,
 				this.state.map
@@ -201,7 +203,7 @@ class _Game extends Component {
 			}
 		}, 900000);
 	}
-
+*/
 	componentDidMount() {
 		this.handleResize();
 		window.addEventListener('resize', this.handleResize);
@@ -211,15 +213,17 @@ class _Game extends Component {
 	componentWillUnmount() {
 		window.removeEventListener('resize', this.handleResize);
 	}
+
+/*		<<==== NIE DZIAŁA
 	isRedirected() {
 		if(this.state.redirect) {
 			return <Redirect to="/login"/>
 		}
 	}
-
+*/
 	render() {
 		return(
-			{this.isRedirected()}
+			// {this.isRedirected()}    <<===== to tujaj nie działa nie pytajcie sie mnie czemu (wiktor)
 			<Stage width={this.state.width} height={this.state.height}>
 		    <Layer1/>
 			<Layer2/>
