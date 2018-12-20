@@ -3,13 +3,13 @@ const Layer5_config = [
         img_src: "Interfejs_gracza_z_podpisami.bmp",     //0   
     },
     {
-        img_src: "Char-Card.bmp",     //1 
+        img_src: "plecak_c.bmp",     //1 
     },
     {
-        img_src: "Char-Card.bmp",     //2   
+        img_src: "plecak_o1.bmp",     //2   
     },
     {
-        img_src: "Char-Card.bmp",     //3   
+        img_src: "plecak_o2.bmp",     //3   
     },
     {
         img_src: "Char-Card.bmp",     //4   

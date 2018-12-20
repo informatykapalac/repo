@@ -23,7 +23,7 @@ class Layer_2 extends Component {
     }
   }
 
-
+  
   componentDidMount() {
     const LgraphicList = [];
     Layer2_config.map((img_props, i)=>{

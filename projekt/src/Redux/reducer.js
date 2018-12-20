@@ -10,16 +10,6 @@ export const initialState = {
   items: {},
   questsw: {},
   questso: {},
-<<<<<<< HEAD
-  x: 0,
-  y: 0,
-  map: 1, 
-  width: 1280,
-  height: 720,
-  playerPos: {
-    x: 640,
-    y: 360
-=======
   map: 1, // ta sama wartość co niżej (duplikat ?) -> lepiej zostawić tą
   width: 1280, // EOL -> nie używać
   height: 720, // EOL -> nie używać
@@ -41,7 +31,6 @@ export const initialState = {
     layer2: [],
 	  layer3: [],
 	  layer4: []
->>>>>>> 7cb3efb17aec48ed9230f2d6091f8789ccdbd438
   }
 };
 

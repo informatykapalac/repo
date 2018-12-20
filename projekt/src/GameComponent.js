@@ -154,18 +154,20 @@ class _Game extends Component {
 	  this.setState({y: res.y});
 	  this.setState({map: res.map});
 	  console.log("Udało się.");
-    }).catch((error) => {
+	})
+	
+	.catch((error) => {
 	  if(error.response) {
 		this.setState({
 		  	error: error.response.status + " " + error.response.data
 		});
 	  }
 	});
-
+	
   }
     saveing(){
 		setInterval({
-			const position={
+			let position={
 				this.state.x,
 				this.state.y,
 				this.state.map
