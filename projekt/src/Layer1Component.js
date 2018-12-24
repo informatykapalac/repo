@@ -61,7 +61,7 @@ class Layer_1 extends Component {
         imgSize: temp
       });
     }
-    if(props.graphics != this.state.GraphicsList) {
+    if(props.graphics != this.state.GraphicsList && props.graphics) {
       this.setState({
         GraphicsList: props.graphics
       });

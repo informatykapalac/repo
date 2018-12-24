@@ -23,10 +23,10 @@ class Layer_5 extends Component {
 		hi:0,
 		zommX:0,
 		zoomy:0,
-		// to będzie w mapStateToProps jak te wartości będą w store ---> 
+		// to będzie w mapStateToProps jak te wartości będą w store --->
 		maxLive: 100,
 		maxManna: 100,
-		
+
 		thisLive:50,
 		thisManna:50
 
@@ -47,14 +47,14 @@ class Layer_5 extends Component {
 							img_nr:0,
 							img_x:0,
 							img_y:0
-						},  
+						},
 						{
 							id: "1",
 							img_nr:1,
 							img_x:1206,
 							img_y:115
-						},  
-						
+						},
+
           			]
 				});
       		}
@@ -64,6 +64,10 @@ class Layer_5 extends Component {
 
 
 	render(){
+
+		// NIGDY NIE ZMIENIAJ STANU BEZ UŻYWANIA setState() !!!
+		// zoomX, zoomY, width, height są wartościami globalnymi
+
 		return(
 		<Layer>
 			{
@@ -73,7 +77,7 @@ class Layer_5 extends Component {
 				this.state.zommY = this.props.screenSize.h / 720
 
 			const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];
-			
+
 			//if(Graphic_Props.img_nr == 0) {
 				 this.state.wi = Graphic.width * this.state.zommX
 				 this.state.hi = Graphic.height * this.state.zommY
@@ -99,21 +103,21 @@ class Layer_5 extends Component {
 		}
 
 
-		<Rect 
+		<Rect
 			stroke={255}
-			width={((((this.state.thisLive * 100) / this.state.maxLive) * 468) / 100)* this.state.zommX} 
-			height={20 * this.state.zommY} 
-			fill="green" 
-			x={160 * this.state.zommX} 
+			width={((((this.state.thisLive * 100) / this.state.maxLive) * 468) / 100)* this.state.zommX}
+			height={20 * this.state.zommY}
+			fill="green"
+			x={160 * this.state.zommX}
 			y={660 * this.state.zommY}
 		/>
-		
-		<Rect 
+
+		<Rect
 			stroke={255}
-			width={((((this.state.thisManna * 100) / this.state.maxManna) * 468) / 100)* this.state.zommX} 
-			height={20 * this.state.zommY} 
-			fill="blue" 
-			x={160 * this.state.zommX} 
+			width={((((this.state.thisManna * 100) / this.state.maxManna) * 468) / 100)* this.state.zommX}
+			height={20 * this.state.zommY}
+			fill="blue"
+			x={160 * this.state.zommX}
 			y={680 * this.state.zommY}
 		/>
 

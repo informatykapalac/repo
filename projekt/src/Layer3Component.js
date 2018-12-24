@@ -14,7 +14,8 @@ const mapStateToProps = state => {
     screenSize: state.screenSize,
     mapPos: state.mapPos,
     avgZoom: state.avgZoom,
-    playerPos: state.playerPos
+    playerPos: state.playerPos,
+    graphics: state.graphics.layer3
   };
 };
 
@@ -26,8 +27,9 @@ class Layer_3 extends Component {
       GraphicPos: []
     }
   }
+
   componentDidMount() {
-    const LgraphicList = [];
+    /*const LgraphicList = [];
     Layer3_config.map((img_props, i)=>{
         const size = img_props.img_size
         const img = new window.Image(size,size);
@@ -41,22 +43,49 @@ class Layer_3 extends Component {
             img_x:1000,
             img_y:900
           }
-          /*{
+          {
             img_nr:1,
             img_x:578,
             img_y:605
-          }*/
+          }
          ]
         })
       }
+    })*/
+  }
+
+  componentDidUpdate() {
+    this.state.GraphicsList.map((image, i) => {
+      //if(i == this.state.GraphicsList.length - 1) {
+        image.onload = () => {
+          this.setState(this.state);
+        }
+      //}
     })
+    if(this.state.GraphicPos.length < 1) { // tymczasowo tutaj dajemy dane o pozycji
+      this.setState({
+        GraphicPos: [{
+          img_nr:0,
+          img_x:1000,
+          img_y:900
+        }]
+      });
+    }
+  }
+
+  componentWillReceiveProps(props) {
+    if(props.graphics != this.state.GraphicsList && props.graphics) {
+      this.setState({
+        GraphicsList: props.graphics
+      });
+    }
   }
 
   render() {
     return(
       <Layer>
         {
-          this.state.GraphicPos.map((Graphic_Props)=>{
+          this.state.GraphicPos.map((Graphic_Props) => {
             const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];
            // console.log(this.props.mapPos)
             return(

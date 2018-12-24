@@ -8,8 +8,13 @@ import Layer2 from './Layer2Component';
 import Layer3 from './Layer3Component';
 import Layer4 from './Layer4Component';
 import Layer5 from './Layer5Component';
-import Layer1_config1 from './maps/1/layer1/layer1_config';
+import Layer1_config1 from './maps/1/layer1_config';
+import Layer2_config1 from './maps/1/layer2_config';
+import Layer3_config1 from './maps/1/layer3_config';
+import Layer4_config1 from './maps/1/layer4_config';
 import { saveItems, setZoom, setScreenSize, setMapPos, setPlayerPos, setGraphics } from './Redux/reduxActions';
+
+//      WSZYSTKIE PLIKI CONFIG BĘDĄ POBIERANE Z PLIKU ZEWNĘTRZNEGO
 
 const mapStateToProps = state => {
   return {
@@ -146,20 +151,18 @@ class _Game extends Component {
 
     axios.post('/game-data', { data }).then(res => {
       this.setState({lvl: res.lvl});
-	  this.setState({lp: res.lp});
-	  this.setState({dp: res.dp});
-	  this.setState({credits: res.credits});
-	  this.setState({mana: res.mana});
-	  this.setState({items: res.items});
-	  this.setState({questsw: res.questsw});
-	  this.setState({questso: res.questso});
-	  this.setState({x: res.x});
-	  this.setState({y: res.y});
-	  this.setState({map: res.map});
-	  console.log("Udało się.");
-	})
-
-	.catch((error) => {
+	    this.setState({lp: res.lp});
+	    this.setState({dp: res.dp});
+	    this.setState({credits: res.credits});
+	    this.setState({mana: res.mana});
+	    this.setState({items: res.items});
+	    this.setState({questsw: res.questsw});
+	    this.setState({questso: res.questso});
+	    this.setState({x: res.x});
+	    this.setState({y: res.y});
+	    this.setState({map: res.map});
+	    console.log("Udało się.");
+	}).catch((error) => {
 	  if(error.response) {
 		this.setState({
 		  	error: error.response.status + " " + error.response.data
@@ -178,6 +181,10 @@ class _Game extends Component {
       layer4: []
     };
 
+    let path, path2, path3, path4;
+
+    // duży switch...case ?
+
     Layer1_config1.map((image, i) => {
       const wh = 320;
       const ht = 320;
@@ -186,7 +193,25 @@ class _Game extends Component {
       data.layer1[i] = img;
     });
 
-    //2, 3 i 4 do zrobienia
+    Layer2_config1.map((image, i) => {
+      const img = new window.Image();
+      img.src = '/maps/1/layer2/' + image.img_src;
+      data.layer2[i] = img;
+    });
+
+    Layer3_config1.map((image, i) => {
+      const size = image.img_size;
+      const img = new window.Image(size, size);
+      img.src = '/maps/1/layer3/' + image.img_src;
+      data.layer3[i] = img;
+      console.log(img);
+    });
+
+    Layer4_config1.map((image, i) => {
+      const img = new window.Image();
+      img.src = '/maps/1/layer4/' + image.img_src;
+      data.layer4[i] = img;
+    });
 
     this.props.setGraphics(data);
 
