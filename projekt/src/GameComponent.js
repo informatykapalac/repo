@@ -8,12 +8,13 @@ import Layer2 from './Layer2Component';
 import Layer3 from './Layer3Component';
 import Layer4 from './Layer4Component';
 import Layer5 from './Layer5Component';
-import { saveItems, setZoom, setScreenSize, setMapPos, setPlayerPos } from './Redux/reduxActions';
+import Layer1_config1 from './maps/1/layer1/layer1_config';
+import { saveItems, setZoom, setScreenSize, setMapPos, setPlayerPos, setGraphics } from './Redux/reduxActions';
 
 const mapStateToProps = state => {
   return {
     user_ID: state.user_ID,
-	name: state.name,
+	  name: state.name,
 	lvl: state.lvl,
 	lp: state.lp,
 	dp: state.dp,
@@ -25,12 +26,12 @@ const mapStateToProps = state => {
 	x: state.x,
 	y: state.y,
 	map: state.map,
-	mapPos: state.mapPos, // mapPos nie istnieje -> obecnie x, y
+	mapPos: state.mapPos,
 	screenSize: state.screenSize,
 	avgZoom: state.avgZoom,
 	playerPos: state.playerPos,
-    mapPosX: state.x,
-    mapPosY: state.y
+  mapPosX: state.x, // nie istnieje
+  mapPosY: state.y // nie istnieje
   };
 };
 
@@ -40,7 +41,8 @@ const mapDispatchToProps = dispatch => {
 		setScreenSize: (width, height) => dispatch(setScreenSize(width, height)),
 		setMapPos: (x, y) => dispatch(setMapPos(x, y)),
 		setPlayerPos: (x,y) => dispatch(setPlayerPos(x,y)),
-		setZoom: value => dispatch(setZoom(value))
+		setZoom: value => dispatch(setZoom(value)),
+    setGraphics: value => dispatch(setGraphics(value))
   };
 };
 
@@ -68,9 +70,11 @@ class _Game extends Component {
 
 		this.handleResize = this.handleResize.bind(this);
 		this.movePlayer = this.movePlayer.bind(this);
+    this.loadGraphics = this.loadGraphics.bind(this);
 	}
 
 	handleResize() {
+    this.loadGraphics();
 		this.setState({width: window.innerWidth});
 		this.setState({height: window.innerHeight});
 		const zoomX = this.state.width / 1280;
@@ -86,7 +90,6 @@ class _Game extends Component {
 	}
 	movePlayer(e){
 		//console.log(e.keyCode)
-    console.log(this.props.x, " ", this.props.y); // zły zapis w Redux
 		const key = e.keyCode;
 		const scrW = this.props.screenSize.w;
 		const scrH = this.props.screenSize.h;
@@ -155,7 +158,7 @@ class _Game extends Component {
 	  this.setState({map: res.map});
 	  console.log("Udało się.");
 	})
-	
+
 	.catch((error) => {
 	  if(error.response) {
 		this.setState({
@@ -163,7 +166,30 @@ class _Game extends Component {
 		});
 	  }
 	});
-	
+
+  }
+
+  loadGraphics() {
+
+    let data = {
+      layer1: [],
+      layer2: [],
+      layer3: [],
+      layer4: []
+    };
+
+    Layer1_config1.map((image, i) => {
+      const wh = 320;
+      const ht = 320;
+      const img = new window.Image(wh, ht);
+      img.src = '/maps/1/layer1/' + image.img_src;
+      data.layer1[i] = img;
+    });
+
+    //2, 3 i 4 do zrobienia
+
+    this.props.setGraphics(data);
+
   }
 
   /*    << NIE DZIAŁA
@@ -206,6 +232,7 @@ class _Game extends Component {
 */
 	componentDidMount() {
 		this.handleResize();
+    this.loadGraphics();
 		window.addEventListener('resize', this.handleResize);
 		window.addEventListener('keydown', this.movePlayer);
 	}
@@ -222,14 +249,15 @@ class _Game extends Component {
 	}
 */
 	render() {
+
 		return(
 			// {this.isRedirected()}    <<===== to tujaj nie działa nie pytajcie sie mnie czemu (wiktor)
 			<Stage width={this.state.width} height={this.state.height}>
-		    <Layer1/>
-			<Layer2/>
-			<Layer3/>
+        <Layer1/>
+			  <Layer2/>
+			  <Layer3/>
 		    <Layer4/>
-			<Layer5/>
+			  <Layer5/>
 			</Stage>
 		);
 	}

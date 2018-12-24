@@ -11,22 +11,24 @@ const mapStateToProps = state => {
     token: state.token,
     screenSize: state.screenSize,
     mapPos: state.mapPos,
-    avgZoom: state.avgZoom
+    avgZoom: state.avgZoom,
+    graphics: state.graphics.layer1
   };
 };
 
 class Layer_1 extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       GraphicsList: [],
-      imgSize: 320,
+      imgSize: 320
     };
   }
 
   componentDidMount() {
-    const lGraphicsList = [];
+    // NA RAZIE ZOSTAWIĆ
+    /*const lGraphicsList = [];
     const wh = 320;
     const ht = 320;
     for (let i=0; i<48; i++) {
@@ -39,15 +41,29 @@ class Layer_1 extends Component {
           // NIE USUWAĆ -> console.log(this.state.GraphicsList);
         }
       }
-    }
+    }*/
+  }
+
+  componentDidUpdate() {
+    this.state.GraphicsList.map((image, i) => {
+      if(i == this.state.GraphicsList.length - 1) {
+        image.onload = () => {
+          this.setState(this.state);
+        }
+      }
+    })
   }
 
   componentWillReceiveProps(props) {
     const temp = props.avgZoom * 320;
-    //console.log(temp);
     if(temp != this.state.imgSize) {
       this.setState({
         imgSize: temp
+      });
+    }
+    if(props.graphics != this.state.GraphicsList) {
+      this.setState({
+        GraphicsList: props.graphics
       });
     }
   }

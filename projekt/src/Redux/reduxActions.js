@@ -5,6 +5,7 @@ export const setScreenSize = (width, height) => ({
     h: height
   }
 });
+
 export const setMapPos = (x, y) => ({
   type: "SET_MAP_POS",
   data: {
@@ -12,6 +13,7 @@ export const setMapPos = (x, y) => ({
     y: y
   }
 });
+
 export const setPlayerPos = (x, y) => ({
   type: "SET_PLAYER_POS",
   data: {
@@ -19,14 +21,17 @@ export const setPlayerPos = (x, y) => ({
     y: y
   }
 });
+
 export const setZoom = value => ({
   type: "SET_ZOOM",
   data: value
 });
+
 export const saveName = value => ({
   type: "SAVE_NAME",
   data: value
 });
+
 export const saveItems = (lvl, lp, dp, credits, mana, items, questsw, questso, x, y, map) => ({
   type: "SAVE_DATA",
   data: {
@@ -42,4 +47,9 @@ export const saveItems = (lvl, lp, dp, credits, mana, items, questsw, questso, x
 	  y: y,
 	  map: map
   }
+});
+
+export const setGraphics = value => ({
+  type: "SET_GRAPHICS",
+  data: value
 });
