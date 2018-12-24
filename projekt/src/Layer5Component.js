@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Konva from 'konva';
 import uuidv4 from 'uuid/v4';
-import { Layer, Image } from 'react-konva';
+import { Layer, Image, Rect, Line } from 'react-konva';
 import Layer5_config from './layer5_config';
 
 const mapStateToProps = state => {
 	return{
 		userID: state.userID,
 		screenSize: state.screenSize,
-		avgZoom: state.avgZoom
+		//avgZoom: state.avgZoom
 	};
 };
 
@@ -22,7 +22,14 @@ class Layer_5 extends Component {
 		wi:0,
 		hi:0,
 		zommX:0,
-		zoomy:0
+		zoomy:0,
+		// to będzie w mapStateToProps jak te wartości będą w store ---> 
+		maxLive: 100,
+		maxManna: 100,
+		
+		thisLive:50,
+		thisManna:50
+
 		}
 	}
 	componentDidMount() {
@@ -89,7 +96,27 @@ class Layer_5 extends Component {
             />
 			);
           })
-        }
+		}
+
+
+		<Rect 
+			stroke={255}
+			width={((((this.state.thisLive * 100) / this.state.maxLive) * 468) / 100)* this.state.zommX} 
+			height={20 * this.state.zommY} 
+			fill="green" 
+			x={160 * this.state.zommX} 
+			y={660 * this.state.zommY}
+		/>
+		
+		<Rect 
+			stroke={255}
+			width={((((this.state.thisManna * 100) / this.state.maxManna) * 468) / 100)* this.state.zommX} 
+			height={20 * this.state.zommY} 
+			fill="blue" 
+			x={160 * this.state.zommX} 
+			y={680 * this.state.zommY}
+		/>
+
 		</Layer>
 		);
 	}

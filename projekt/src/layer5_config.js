@@ -9,7 +9,7 @@ const Layer5_config = [
         img_src: "plecak_o1.bmp",     //2   
     },
     {
-        img_src: "plecak_o4.bmp",     //3   
+        img_src: "plecak_o2.bmp",     //3   
     },
     {
         img_src: "Char-Card.bmp",     //4   
