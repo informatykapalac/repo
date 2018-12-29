@@ -68,6 +68,9 @@ class Layer_5 extends Component {
 		// NIGDY NIE ZMIENIAJ STANU BEZ UŻYWANIA setState() !!!
 		// zoomX, zoomY, width, height są wartościami globalnymi
 
+		// NIE DZIZIAŁAŁO U MNIE !!!!! /\
+		//							   ||
+
 		return(
 		<Layer>
 			{
