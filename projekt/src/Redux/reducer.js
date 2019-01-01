@@ -60,6 +60,10 @@ export const Reducer = (state = initialState, action) => {
       return {
         ...state, playerPos: action.data
       };
+    case "SET_GRAPHICS":
+      return {
+        ...state, graphics: action.data
+      }
     default:
       return state;
   }

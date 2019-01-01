@@ -10,7 +10,8 @@ const mapStateToProps = state => {
     userID: state.userID,
     token: state.token,
     mapPos: state.mapPos,
-    avgZoom: state.avgZoom
+    avgZoom: state.avgZoom,
+    graphics: state.graphics.layer2
   };
 };
 
@@ -23,9 +24,10 @@ class Layer_2 extends Component {
     }
   }
 
-  
+
   componentDidMount() {
-    const LgraphicList = [];
+    // NA RAZIE ZOSTAWIĆ
+    /*const LgraphicList = [];
     Layer2_config.map((img_props, i)=>{
         const img = new window.Image();
         img.src = '/layer2/' + img_props.img_src;
@@ -56,7 +58,47 @@ class Layer_2 extends Component {
           })
       }
      }
+   })*/
+  }
+
+  componentDidUpdate() {
+    this.state.GraphicsList.map((image, i) => {
+      //if(i == this.state.GraphicsList.length - 1) {
+        image.onload = () => {
+          this.setState(this.state);
+        }
+      //}
     })
+    if(this.state.GraphicPos.length < 1) { // tymczasowo tutaj dajemy dane o pozycji
+      this.setState({
+        GraphicPos: [{
+          id: "0",
+          img_nr:21,
+          img_x:1000,
+          img_y:1000
+        },
+        {
+          id: "1",
+          img_nr:22,
+          img_x:1100,
+          img_y:1000
+        },
+        {
+          id: "2",
+          img_nr:23,
+          img_x:1050,
+          img_y:1000
+        }]
+      });
+    }
+  }
+
+  componentWillReceiveProps(props) {
+    if(props.graphics != this.state.GraphicsList && props.graphics) {
+      this.setState({
+        GraphicsList: props.graphics
+      });
+    }
   }
 
 

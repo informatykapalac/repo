@@ -1,6 +1,6 @@
 const Layer5_config = [
     {
-        img_src: "Interfejs_gracza_z_podpisami.bmp",     //0   
+        img_src: "interface.bmp",     //0   
     },
     {
         img_src: "plecak_c.bmp",     //1 
