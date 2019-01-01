@@ -88,14 +88,24 @@ class Layer_3 extends Component {
           this.state.GraphicPos.map((Graphic_Props) => {
             const Graphic = this.state.GraphicsList[Graphic_Props.img_nr];
            // console.log(this.props.mapPos)
+
+           /* x i y zależne od nr grafiki:
+              0 -> gracz [Sprite]
+              1-10(?) -> NPC [Sprite]
+              11(?)-... -> inne [Image]
+           */
+
+           const x = this.props.playerPos.x - Graphic.width/2;
+           const y = this.props.playerPos.y - Graphic.height/2;
+
             return(
               <Image
                 image = {Graphic}
                 key = {uuidv4()}
                 width={Graphic.width * this.props.avgZoom}
                 height={Graphic.height * this.props.avgZoom}
-                x={this.props.playerPos.x - Graphic.width/2}
-                y={this.props.playerPos.y - Graphic.height/2}
+                x={x}
+                y={y}
               />
             );
           })

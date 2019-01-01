@@ -30,7 +30,12 @@ export const initialState = {
     layer1: [],
     layer2: [],
 	  layer3: [],
-	  layer4: []
+	  layer4: [],
+  },
+  graphicsPos: {
+    layer2: [],
+    layer3: [],
+    layer4: []
   }
 };
 
